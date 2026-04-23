@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Інструкція: Налаштування A/B тесту в Smartico</title>
+    <title>Налаштування Stratifications для A/B тесту</title>
     <style>
         * {
             margin: 0;
@@ -44,7 +44,7 @@
             background: white;
             border-radius: 20px;
             margin-bottom: 30px;
-            overflow: hidden;
+            position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         
@@ -197,13 +197,51 @@
                 padding: 20px;
             }
         }
+
+    .zoom-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+            border: 2px solid #0ed6b2;
+            border-radius: 8px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        /* Клас, що додається скриптом */
+        .zoom-img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(2.0);
+            z-index: 1001;
+            max-width: 90vw;
+            max-height: 90vh;
+            cursor: zoom-out;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        /* Фон підкладка під збільшену картинку */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        .overlay.show { display: block; }
     </style>
 </head>
 <body>
+    <div class="overlay" id="overlay"></div>
     <div class="container">
         <div class="header">
-            <h1>🎯 Інструкція з налаштування A/B тесту</h1>
-            <p>Smartico.ai | Для email-маркетологів</p>
+            <h1>🎯 Налаштування Stratifications для A/B тесту</h1>
         </div>
         
         <!-- РОЗДІЛ 1: СТВОРЕННЯ КАМПАНІЇ -->
@@ -214,7 +252,7 @@
             <div class="section-content">
                 <div class="step">
                     <h3>📌 Крок 1.1: Створіть нову кампанію</h3>
-                    <p>У розділі <strong>Campaigns</strong> → <strong>Create Campaign</strong> → оберіть тип <strong>Trigger Campaign</strong>.</p>
+                    <p>У розділі <strong>Realtime Campaigns/Scheduled Campaigns</strong> → <strong>Create Campaign</strong> → оберіть тип кампанії.</p>
                 </div>
                 
                 <div class="step">
@@ -231,56 +269,56 @@
                     <h3>📌 Крок 1.3: Створіть Flow з Update Property</h3>
                     <p>У конструкторі флоу додайте блок <strong>Update Property</strong>:</p>
                     <ul>
-                        <li>Виберіть <strong>Property</strong>: <code>core_tags</code> (або core_public_tags / core_external_markers)</li>
-                        <li>Оберіть дію: <strong>Add to array / Add value</strong></li>
+                        <li>В полі <strong>Property</strong> виберіть "Core: JS markers"</li>
+                        <li>В полі <strong>Value</strong> вставте назву відповідного Label tags</li>
                     </ul>
-                </div>
-                
-                <div class="step">
-                    <h3>📌 Крок 1.4: Вставте код функції</h3>
-                    <p>У полі <strong>Value</strong> вставте JavaScript код відповідної функції:</p>
+   
                     <div class="table-wrapper">
                         <table>
                             <tr>
-                                <th>Лейбл тега</th>
+                                <th>Name Label tags</th>
                                 <th>Що робить</th>
                                 <th>Куди вставляти</th>
                             </tr>
                             <tr>
-                                <td><strong>Рівень 1</strong></td>
+                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35384" target="_blank">{{label.func_strat_mark_user_first_level}}</a></strong></td>
                                 <td>Створює базовий тег (сегмент + депозит)</td>
                                 <td>Перший Update Property у флоу</td>
                             </tr>
                             <tr>
-                                <td><strong>Рівень 2</strong></td>
+                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35387" target="_blank">{{func_strat_mark_user_second_level}}</a></strong></td>
                                 <td>Створює універсальний тег (title)</td>
                                 <td>Другий Update Property у флоу</td>
                             </tr>
                             <tr>
-                                <td><strong>Рівень 3</strong></td>
+                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35701" target="_blank">{{func_strat_mark_user_third_level}}</a></strong></td>
                                 <td>Створює груповий тег (test/control)</td>
                                 <td>Третій Update Property у флоу</td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                
+                <p>Або просто склонуйте вже налаштовану кампанію для прикладу <strong><a href="https://drive-7.smartico.ai/28063#/j_audience_head/940400" target="_blank">example_setting_campaign_for_stratification</a></strong> і відредагуйте необхібні налаштування тригеру</p>
                 <div class="tip">
                     <h4>💡 Важливо:</h4>
-                    <p>Блоки Update Property мають йти <strong>послідовно</strong> один за одним. Спочатку перший рівень, потім другий, потім третій.</p>
+                    <p>Блоки Update Property мають йти <strong>послідовно</strong> один за одним. Спочатку перший рівень, потім другий, потім третій.</p><br>
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/1.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
                 </div>
+                
             </div>
         </div>
         
         <!-- РОЗДІЛ 2: НАЛАШТУВАННЯ ПАРАМЕТРІВ ФУНКЦІЙ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">⚙️</span> 2. Налаштування параметрів функцій (для копіювання)</h2>
+                <h2><span class="icon">⚙️</span> 2. Налаштування параметрів функцій (при необхідності)</h2>
             </div>
             <div class="section-content">
                 <div class="step">
-                    <h3>📌 Як змінити параметри кампанії</h3>
-                    <p>У кожній функції є блок <strong>НАЛАШТУВАННЯ</strong> на початку. Ось що потрібно змінити для нової кампанії:</p>
+                    <h3>📌 Як змінити параметри в функціях в Label tags</h3>
+                    <p>У кожній функції є блок <strong>НАЛАШТУВАННЯ</strong> на початку. Ось що можна змінити для нової/поточної кампанії:</p>
                 </div>
                 
                 <div class="step">
@@ -358,7 +396,12 @@
                 
                 <div class="warning">
                     <h4>⚠️ Увага!</h4>
-                    <p>Якщо ви змінюєте <code>VAR_PROJECT</code> — потрібно змінити його <strong>В ОДИНАКОВО</strong> у всіх трьох функціях! Інакше теги не будуть пов'язані між собою.</p>
+                    <p>Якщо ви змінюєте назву <code>VAR_PROJECT</code> — потрібно змінити його <strong>ОДИНАКОВО</strong> у всіх трьох функціях! Інакше теги не будуть пов'язані між собою.</p>
+
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/4.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
+             
                 </div>
             </div>
         </div>
@@ -366,35 +409,43 @@
         <!-- РОЗДІЛ 3: ВИДАЛЕННЯ ТЕГІВ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">🗑️</span> 3. Видалення тегів (якщо потрібно прибрати користувача з тесту)</h2>
+                <h2><span class="icon">🗑️</span> 3. Видалення тегів (якщо потрібно прибрати користувача з тесту, або почистити теги по закінченню тесту)</h2>
             </div>
             <div class="section-content">
                 <div class="step">
                     <h3>📌 Крок 3.1: Створіть окрему кампанію для видалення</h3>
-                    <p>Створіть нову Trigger Campaign з тригером, який спрацьовує для потрібних користувачів.</p>
+                    <p>Створіть нову Campaign з тригером, який спрацьовує для потрібних користувачів.</p>
                 </div>
                 
                 <div class="step">
-                    <h3>📌 Крок 3.2: Додайте блок Update Property</h3>
-                    <p>У флоу додайте блок <strong>Update Property</strong>:</p>
-                    <ul>
-                        <li><strong>Property</strong>: <code>core_tags</code></li>
-                        <li><strong>Action</strong>: <strong>Remove from array</strong></li>
-                    </ul>
+                    <h3>📌 Крок 3.2: Додайте блок Remove JS markers</h3>
+                    <p>У флоу додайте блок <strong>Remove JS markers</strong>:</p>
+
+                </div>
+                <div class="tip">
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/2.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
                 </div>
                 
                 <div class="step">
                     <h3>📌 Крок 3.3: Вкажіть теги для видалення</h3>
-                    <p>У полі <strong>Value</strong> вкажіть теги, які потрібно видалити:</p>
+                    <p>В полі <strong>Remove marks from user</strong> додайте назви тегів які потрібно видалити:</p>
                     <div class="code-block">
                         <pre>ab_test_previp_daily_bonuses_strata_iron_avg_dep_30,
 ab_test_previp_daily_bonuses_title,
 ab_test_previp_daily_bonuses_group_test</pre>
                     </div>
-                    <p class="tip">💡 Можна вказати кілька тегів через кому.</p>
+                    <div class="tip">
+                        <p>💡 Можна вказати кілька тегів через кому.</p>
+
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/3.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
                 </div>
                 
-                <div class="step">
+                <!-- <div class="step">
                     <h3>📌 Крок 3.4: Альтернативний спосіб (видалення за маскою)</h3>
                     <p>Якщо потрібно видалити всі теги кампанії, використайте функцію:</p>
                     <div class="code-block">
@@ -420,7 +471,7 @@ ab_test_previp_daily_bonuses_group_test</pre>
 })();</pre>
                     </div>
                     <p>Ця функція знайде та поверне всі теги, що містять назву кампанії, для видалення.</p>
-                </div>
+                </div> -->
                 
                 <div class="warning">
                     <h4>⚠️ Увага!</h4>
@@ -432,7 +483,7 @@ ab_test_previp_daily_bonuses_group_test</pre>
         <!-- РОЗДІЛ 4: ПОВНІ КОДИ ФУНКЦІЙ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">📄</span> 4. Повні коди функцій (копіювати в Update Property)</h2>
+                <h2><span class="icon">📄</span> 4. Що можна змінювати в коді функції, не боячись зломати логіку обчислення</h2>
             </div>
             <div class="section-content">
                 <div class="step">
@@ -440,100 +491,31 @@ ab_test_previp_daily_bonuses_group_test</pre>
                     <div class="code-block">
                         <pre>(function() {
     // ========== НАЛАШТУВАННЯ ==========
-    var VAR_PROJECT = 'previp_daily_bonuses';
-    var STATIC_PREFIX = 'ab_test';
-    var STATIC_MIDDLE = 'strata';
+    var VAR_PROJECT = 'previp_daily_bonuses';  // <--- можна змінити назву в одинарних лапках '' 
+    var STATIC_PREFIX = 'ab_test';  // <--- можна змінити назву в одинарних лапках '' 
+    var STATIC_MIDDLE = 'strata';  // <--- можна змінити назву в одинарних лапках '' 
     
     var exchangeRates = {
-        USD: 1, CAD: 0.7, AUD: 0.7, EUR: 1.1, GBP: 1.20, NOK: 0.1
+        USD: 1, CAD: 0.7, AUD: 0.7, EUR: 1.1, GBP: 1.20, NOK: 0.1  // <--- можна змінити значення курсу, також додати нову валюту, не важливо в якому місці
     };
     
     var segmentCodes = {
-        '205': 'Petrovich',
-        '228': 'Ace',
-        '762': 'Ace2',
-        '750': 'Ace3',
-        '256': 'Star',
-        '1559': 'Iron'
+        '205': 'Petrovich',  // <--- можна змінити назву, або код в одинарних лапках '', 
+        '228': 'Ace',  // також додати новий екстернал сегмент, або прибрати існуючий, 
+        '762': 'Ace2',  // тут коди екстернал сегментів повинні співпадати з кодами в сегменті який буде використаний в кампані, 
+        '750': 'Ace3',  // а також потрібно зберігати пріоритетність сегментів, 
+        '256': 'Star',  // чим нижчий сегмент тим він має більший пріоритет над іншими.
+        '1559': 'Iron'  
     };
     
     var avgDepRanges = [
-        { min: 0, max: 29.999999, suffix: 'avg_dep_30' },
-        { min: 30, max: 50, suffix: 'avg_dep_30_50' },
+        { min: 0, max: 29.999999, suffix: 'avg_dep_30' },  // <--- можна змінити значення мін макс, 
+        { min: 30, max: 50, suffix: 'avg_dep_30_50' },  // також назву суфіксу в одинаїрних лапках ''
         { min: 50.000001, max: Infinity, suffix: 'avg_dep_51+' }
     ];
     // ===================================
-    
-    var resultTag;
-    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
-    var hasCampaignTag = false;
-    
-    for (var f = 0; f < TAG_FIELDS.length; f++) {
-        if (hasCampaignTag) break;
-        var field = state[TAG_FIELDS[f]];
-        if (!field) continue;
-        var tags = Array.isArray(field) ? field : String(field).split(',');
-        for (var i = 0; i < tags.length; i++) {
-            if (tags[i].trim().toLowerCase().indexOf(VAR_PROJECT.toLowerCase()) !== -1) {
-                hasCampaignTag = true;
-                break;
-            }
-        }
-    }
-    
-    if (hasCampaignTag) return resultTag;
-    
-    var convertedAmount = 0;
-    if (state.acc_total_deposit_amount && state.acc_total_deposit_count) {
-        var totalAmount = state.acc_total_deposit_amount || 0;
-        var totalCount = state.acc_total_deposit_count || 0;
-        if (totalCount !== 0 && totalAmount !== 0) {
-            var avgRaw = totalAmount / totalCount;
-            var currency = state.core_wallet_currency || '';
-            var rate = exchangeRates[currency.toUpperCase()] || 1;
-            var avgUSD = avgRaw * rate;
-            if (!isNaN(avgUSD) && isFinite(avgUSD)) {
-                convertedAmount = Math.floor(avgUSD * 10000) / 10000;
-            }
-        }
-    }
-    
-    var segmentName;
-    var externalSegment = state.core_external_segment;
-    if (externalSegment) {
-        var codes = String(externalSegment).split(',');
-        for (var i = 0; i < codes.length; i++) codes[i] = codes[i].trim();
-        var priorityOrder = [];
-        for (var key in segmentCodes) priorityOrder.push(key);
-        for (var p = priorityOrder.length - 1; p >= 0; p--) {
-            var priorityCode = priorityOrder[p];
-            for (var c = 0; c < codes.length; c++) {
-                if (codes[c] === priorityCode) {
-                    segmentName = segmentCodes[priorityCode];
-                    break;
-                }
-            }
-            if (segmentName) break;
-        }
-    }
-    
-    var avgSuffix;
-    if (segmentName) {
-        for (var r = 0; r < avgDepRanges.length; r++) {
-            var range = avgDepRanges[r];
-            if (convertedAmount >= range.min && convertedAmount <= range.max) {
-                avgSuffix = range.suffix;
-                break;
-            }
-        }
-    }
-    
-    if (segmentName && avgSuffix) {
-        resultTag = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_MIDDLE + '_' + segmentName.toLowerCase() + '_' + avgSuffix;
-    }
-    
-    return resultTag;
-})();</pre>
+    ...
+   })();</pre>
                     </div>
                 </div>
                 
@@ -542,47 +524,13 @@ ab_test_previp_daily_bonuses_group_test</pre>
                     <div class="code-block">
                         <pre>(function() {
     // ========== НАЛАШТУВАННЯ ==========
-    var VAR_PROJECT = 'previp_daily_bonuses';
-    var STATIC_PREFIX = 'ab_test';
-    var STATIC_TITLE = 'title';
-    var UNIVERSAL_TAG = STATIC_PREFIX + '_' + STATIC_TITLE + '_' + VAR_PROJECT;
-    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
+    var VAR_PROJECT = 'previp_daily_bonuses';  // <--- можна змінити назву в одинарних лапках '' повинно бути ідентичним з Функцією 1
+    var STATIC_PREFIX = 'ab_test';  // <--- можна змінити назву в одинарних лапках '' повинно бути ідентичним з Функцією 1
+    var STATIC_TITLE = 'title';  // <--- можна змінити назву в одинарних лапках ''
+
     // ===================================
     
-    var resultTag;
-    var hasCampaignTag = false;
-    
-    for (var f = 0; f < TAG_FIELDS.length; f++) {
-        if (hasCampaignTag) break;
-        var field = state[TAG_FIELDS[f]];
-        if (!field) continue;
-        var tags = Array.isArray(field) ? field : String(field).split(',');
-        for (var i = 0; i < tags.length; i++) {
-            if (tags[i].trim().toLowerCase().indexOf(VAR_PROJECT.toLowerCase()) !== -1) {
-                hasCampaignTag = true;
-                break;
-            }
-        }
-    }
-    
-    if (hasCampaignTag) {
-        var hasUniversal = false;
-        for (var f = 0; f < TAG_FIELDS.length; f++) {
-            if (hasUniversal) break;
-            var field = state[TAG_FIELDS[f]];
-            if (!field) continue;
-            var tags = Array.isArray(field) ? field : String(field).split(',');
-            for (var i = 0; i < tags.length; i++) {
-                if (tags[i].trim().toLowerCase() === UNIVERSAL_TAG.toLowerCase()) {
-                    hasUniversal = true;
-                    break;
-                }
-            }
-        }
-        if (!hasUniversal) resultTag = UNIVERSAL_TAG;
-    }
-    
-    return resultTag;
+   ...
 })();</pre>
                     </div>
                 </div>
@@ -592,76 +540,31 @@ ab_test_previp_daily_bonuses_group_test</pre>
                     <div class="code-block">
                         <pre>(function() {
     // ========== НАЛАШТУВАННЯ ==========
-    var VAR_PROJECT = 'previp_daily_bonuses';
-    var STATIC_PREFIX = 'ab_test';
-    var STATIC_MIDDLE = 'strata';
-    var STATIC_GROUP = 'group';
-    var SUFFIX_TEST = '_test';
-    var SUFFIX_CONTROL = '_control';
+    var VAR_PROJECT = 'previp_daily_bonuses';  // <--- можна змінити назву в одинарних лапках '' повинно бути ідентичним з Функцією 1
+    var STATIC_PREFIX = 'ab_test';  // <--- можна змінити назву в одинарних лапках '' повинно бути ідентичним з Функцією 1
+    var STATIC_MIDDLE = 'strata';  // <--- можна змінити назву в одинарних лапках '' повинно бути ідентичним з Функцією 1
+    var STATIC_GROUP = 'group';  // <--- можна змінити назву в одинарних лапках ''
+    var SUFFIX_TEST = '_test';  // <--- можна змінити назву в одинарних лапках ''
+    var SUFFIX_CONTROL = '_control';  // <--- можна змінити назву в одинарних лапках ''
     
-    var SEARCH_PREFIX = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_MIDDLE + '_';
-    var GROUP_PREFIX = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_GROUP;
-    var FULL_TEST_TAG = GROUP_PREFIX + SUFFIX_TEST;
-    var FULL_CONTROL_TAG = GROUP_PREFIX + SUFFIX_CONTROL;
-    
-    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
-    var HASH_PARAMS = ['user_id', 'user_ext_id', 'user_email', 'core_registration_date'];
-    var HASH_SEPARATOR = '|';
     // ===================================
     
-    var resultTag;
-    var baseTag;
-    
-    for (var f = 0; f < TAG_FIELDS.length; f++) {
-        if (baseTag) break;
-        var field = state[TAG_FIELDS[f]];
-        if (!field) continue;
-        var tags = Array.isArray(field) ? field : String(field).split(',');
-        for (var i = 0; i < tags.length; i++) {
-            var tag = tags[i].trim();
-            if (tag.toLowerCase().indexOf(SEARCH_PREFIX.toLowerCase()) === 0) {
-                baseTag = tag;
-                break;
-            }
-        }
-    }
-    
-    if (baseTag) {
-        var hasGroupTag = false;
-        for (var f = 0; f < TAG_FIELDS.length; f++) {
-            if (hasGroupTag) break;
-            var field = state[TAG_FIELDS[f]];
-            if (!field) continue;
-            var tags = Array.isArray(field) ? field : String(field).split(',');
-            for (var i = 0; i < tags.length; i++) {
-                var tag = tags[i].trim().toLowerCase();
-                if (tag === FULL_TEST_TAG.toLowerCase() || tag === FULL_CONTROL_TAG.toLowerCase()) {
-                    hasGroupTag = true;
-                    break;
-                }
-            }
-        }
-        
-        if (!hasGroupTag) {
-            var hashParts = [];
-            for (var i = 0; i < HASH_PARAMS.length; i++) {
-                hashParts.push(state[HASH_PARAMS[i]] || '');
-            }
-            hashParts.push(baseTag.toLowerCase());
-            var hashString = hashParts.join(HASH_SEPARATOR);
-            var hash = 0;
-            for (var i = 0; i < hashString.length; i++) {
-                hash = ((hash << 5) - hash) + hashString.charCodeAt(i);
-                hash = hash & hash;
-            }
-            var groupSuffix = Math.abs(hash) % 2 === 0 ? SUFFIX_TEST : SUFFIX_CONTROL;
-            resultTag = GROUP_PREFIX + groupSuffix;
-        }
-    }
-    
-    return resultTag;
+    ...
 })();</pre>
                     </div>
+                </div>
+                <br>
+                               <div class="warning">
+<h4>⚠️ Увага!</h4>
+<p>Якщо ви не впевнені у своїх силах або сумніваєтесь у правильності виконаних замін, завжди краще одразу звернутися до фахівця за консультацією.</p>
+<br>
+<h4>⚠️ Важливо!</h4>
+<p><strong>Якщо в тесті змінюється логіка побудови стратифікації, що потребує зміни або доповнення функцій, просимо обов'язково і, головне, завчасно звернутися до відділу Retention Platform Development.</strong></p>
+
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/5.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 150px; height: auto; max-width: 100%; border: 3px solid #f60606; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
+             
                 </div>
             </div>
         </div>
@@ -707,18 +610,22 @@ ab_test_previp_daily_bonuses_group_test</pre>
                             <tr>
                                 <th>Рівень</th>
                                 <th>Тег</th>
+                                <th>Опис</th>
                             </tr>
                             <tr>
                                 <td>Рівень 1</td>
                                 <td><code>ab_test_previp_daily_bonuses_strata_ace_avg_dep_51+</code></td>
+                                <td>Базовий тег (сегмент + депозит)</td>
                             </tr>
                             <tr>
                                 <td>Рівень 2</td>
                                 <td><code>ab_test_title_previp_daily_bonuses</code></td>
+                                <td>Універсальний тег</td>
                             </tr>
                             <tr>
                                 <td>Рівень 3</td>
                                 <td><code>ab_test_previp_daily_bonuses_group_control</code></td>
+                                <td>Груповий тег (50/50 розподіл)</td>
                             </tr>
                         </table>
                     </div>
@@ -728,18 +635,47 @@ ab_test_previp_daily_bonuses_group_test</pre>
         
         <div class="footer">
             <p>📧 При виникненні питань — зверніться до розробника</p>
-            <p>© Smartico.ai A/B Testing Instruction</p>
+            <p>© Smartico.ai Stratification for A/B Testing Instruction</p>
         </div>
     </div>
     
-    <script>
-        function toggleSection(element) {
-            const content = element.nextElementSibling;
-            content.classList.toggle('active');
+   <script>
+    // 1. Універсальна функція для акордеона
+    function toggleSection(element) {
+        const content = element.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    // 2. Логіка Зуму
+    const zoomImgs = document.querySelectorAll('.zoom-img');
+    const overlay = document.getElementById('overlay');
+
+    zoomImgs.forEach(img => {
+        img.onclick = function(e) {
+            e.stopPropagation(); // Щоб клік не прокидався до window.onclick
+            this.classList.toggle('zoomed');
+            overlay.classList.toggle('show');
+        };
+    });
+
+    // 3. Закриття зуму при кліку на оверлей або Esc
+    overlay.onclick = function() {
+        zoomImgs.forEach(img => img.classList.remove('zoomed'));
+        overlay.classList.remove('show');
+    };
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            zoomImgs.forEach(img => img.classList.remove('zoomed'));
+            overlay.classList.remove('show');
         }
-        
-        // Відкрити перший розділ за замовчуванням
-        document.querySelectorAll('.section-content')[0].classList.add('active');
-    </script>
-</body>
+    });
+
+    // 4. Відкриваємо першу секцію відразу
+    window.onload = function() {
+        const firstContent = document.querySelector('.section-content');
+        if (firstContent) firstContent.classList.add('active');
+    };
+</script>
+    </body>
 </html>
