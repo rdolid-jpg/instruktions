@@ -204,6 +204,7 @@
             height: auto;
             cursor: zoom-in;
             transition: transform 0.3s ease;
+            transform-origin: center center;
             border: 2px solid #0ed6b2;
             border-radius: 8px;
             display: block;
@@ -215,12 +216,20 @@
             position: fixed;
             top: 50%;
             left: 50%;
+            transform-origin: center center;
             transform: translate(-50%, -50%) scale(2.0);
             z-index: 1001;
             max-width: 90vw;
             max-height: 90vh;
             cursor: zoom-out;
+            margin: 0;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .zoom-img.zoomed {
+                transform: translate(-50%, -50%) scale(1.05);
+            }
         }
 
         /* Фон підкладка під збільшену картинку */
@@ -671,10 +680,9 @@ ab_test_previp_daily_bonuses_group_test</pre>
         }
     });
 
-    // 4. Відкриваємо першу секцію відразу
+    // 4. Всі секції закриті за замовчуванням, відкриваються тільки по кліку
     window.onload = function() {
-        const firstContent = document.querySelector('.section-content');
-        if (firstContent) firstContent.classList.add('active');
+        // нічого не відкриваємо автоматично
     };
 </script>
     </body>
