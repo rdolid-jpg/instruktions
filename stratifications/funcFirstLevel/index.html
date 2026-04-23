@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Інструкція_Label_Tags_Smartico</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+    h2 { color: #2980b9; margin-top: 25px; }
+    h3 { color: #16a085; }
+    .bad { background-color: #f8d7da; border-left: 5px solid #dc3545; padding: 10px; margin: 15px 0; }
+    .good { background-color: #d4edda; border-left: 5px solid #28a745; padding: 10px; margin: 15px 0; }
+    .note { background-color: #fff3cd; border-left: 5px solid #ffc107; padding: 10px; margin: 15px 0; }
+    pre { background-color: #f4f4f4; border: 1px solid #ddd; padding: 10px; overflow-x: auto; font-family: monospace; }
+    table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+    th { background-color: #f2f2f2; }
+
+    .zoom-container {
+        text-align: center;
+        margin: 20px 0;
+        background-color: #f8d7da;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    .zoom-img {
+        width: 500px;
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        border: 1px solid #dc3545;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .zoom-img.zoomed {
+        transform: scale(2.5);
+        cursor: zoom-out;
+    }
+    @media (max-width: 768px) {
+        .zoom-img {
+            width: 100%;
+        }
+        .zoom-img.zoomed {
+            transform: scale(1.5);
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Як використовувати Label Tags у Smartico</h1>
+
+<h2>1. Що таке Label Tag?</h2>
+<p><strong>Label Tag</strong> – це динамічний контейнер даних. Він дозволяє вставити в email-шаблон (або будь-який інший комунікаційний ресурс) контент, який змінюється залежно від умов: мови користувача, країни, VIP-рівня, випадковим чином або навіть дня тижня.</p>
+<p><strong>Простими словами:</strong> <strong>шаблон</strong> – це "скелет" листа (дизайн, розташування блоків, кольори), а <strong>Label Tag</strong> – це "м'язи" (конкретний текст, картинка, посилання), яке підставляється в цей скелет.</p>
+
+<h2>2. Три типи Label Tags та їхнє призначення</h2>
+<p>У Smartico існує три типи лейблів. Від правильного вибору залежить стабільність відображення листа.</p>
+<table>
+    <thead>
+        <tr><th>Тип лейбла</th><th>Коли використовувати?</th><th>Приклад</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Static Text</strong></td><td><strong>У 90% випадків.</strong> Для текстів, URL картинок, простих посилань. Найбільш безпечний варіант.</td><td><code>400%</code><br><code>https://site.com/bonus.png</code><br><code>Ace_avg_dep_30</code></td></tr>
+        <tr><td><strong>JavaScript function</strong></td><td><strong>Лише для логіки.</strong> Коли контент має обчислюватися: рандомайзер, залежність від дня тижня, підрахунок дати або генерація промокоду.</td><td><code>{{label.name_self}}</code> – результат роботи функції</td></tr>
+        <tr><td><strong>JS function with parameters</strong></td><td><strong>Для динамічних розрахунків.</strong> Коли функції потрібно передати число ззовні (наприклад, суму бонусу з кампанії).</td><td><code>{{label.cash_bonus(15)}}</code> – функція отримає 15 як параметр.</td></tr>
+    </tbody>
+</table>
+
+<h2>3. Головна помилка, яка негативно впливає на доставлення і репутацію домена</h2>
+<div class="bad">
+    <strong>❌ Не кладіть цілі HTML-блоки у JavaScript function!</strong>
+    <p>Чому це погано? Сучасні браузери можуть "домалювати" відсутні/зайві теги, а старі email-клієнти (Outlook, Yahoo) взагалі не виконають код. Ви отримаєте поламаний лист або порожнє місце. Крім того, це ускладнює рерайт при зміні дизайну або головніх кольорів темплейту.</p>
+
+<div class="zoom-container" style="text-align: center; margin: 5px 0; background-color: #f8d7da; padding: 0; border-radius: 8px;">
+    <img src="https://i.imgur.com/NI8SV0w.png" alt="Помилка: верстка в лейблі" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #dc3545; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <p style="font-size: 12px; color: #721c24; margin-top: 5px; font-style: italic;">⚠️ Так робити не треба: цілий HTML-блок у JavaScript function, а також відсутня сама функція</p>
+</div>
+</div>
+<div class="good">
+    <strong>✅ Хороша практика:</strong> Вся верстка залишається в <strong>Email Template</strong>, а в Label Tag (тип <strong>Static Text</strong>) кладеться <strong>лише текст, посилання на картинку або URL</strong>.
+
+<div class="zoom-container" style="text-align: center; margin: 5px 0; background-color: #d4edda; padding: 0; border-radius: 8px;">
+    <img src="https://i.imgur.com/odqBTwU.png" alt="Правильно: тільки дані" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #28a745; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <p style="font-size: 12px; color: #155724; margin-top: 5px; font-style: italic;">✅ Правильний підхід: лише текст/посилання, верстка в темплейті</p>
+</div>
+</div>
+<h2>4. "Золоте правило" розподілу контенту</h2>
+<p>Щоб ваші листи коректно перекладалися автоматично (Auto-Translate) та легко редагувалися, дотримуйтесь простого правила:</p>
+<table>
+    <thead><tr><th>Що залишаємо в <strong>Email Template</strong> (верстка)</th><th>Що кладемо в <strong>Label Tags</strong> (дані)</th></tr></thead>
+    <tbody>
+        <tr><td>Вся HTML-верстка, рамки, фон, кольори</td><td>Динамічний текст оферу (наприклад, "Бонус 100%")</td></tr>
+        <tr><td>Статичні тексти, які не змінюються</td><td>Посилання на картинки (хедер, футер, головне зображення)</td></tr>
+        <tr><td>Розташування елементів (колонки, рядки)</td><td>Текст для кнопки CTA (наприклад, "Отримати бонус")</td></tr>
+        <tr><td>Загальні тексти (наприклад, "Вітаємо!")</td><td>Посилання для переходу (урли)</td></tr>
+    </tbody>
+</table>
+<div class="note">
+    <strong>Чому це важливо?</strong> Тоді система автоперекладу зможе коректно перекласти текст у темплейті, але не чіпатиме теги (бо там можуть бути коди чи нечитабельні символи).
+</div>
+
+<h2>5. Кейс: Налаштування "Рандомайзера" для довгих кампаній</h2>
+<p><strong>Проблема:</strong> Ви запускаєте довготривалу тригерну кампанію. Якщо надсилати один і той же самий лист щоразу, це знижує репутацію домена та набридає користувачам - що спонукає їх до відписки листів як "Спам".</p>
+<p><strong>Рішення:</strong> Використовуйте Label Tag типу <strong>JavaScript function</strong>, який щоразу повертатиме випадковий контент.</p>
+
+<h3>Крок 1. Створюємо Label Tag (рандомайзер тексту).</h3>
+<p>Тип: <code>JavaScript function</code>. Код:</p>
+<pre>function() {
+    var texts = [
+        'Ваш депозит зараховано! Гайда грати!',
+        'Гроші на рахунку! Час вигравати!',
+        'Депозит успішний! Оберіть гру та починайте!'
+    ];
+    var randomIndex = Math.floor(Math.random() * texts.length);
+    return texts[randomIndex];
+}</pre>
+
+<h3>Крок 2. Створюємо Label Tag (рандомайзер картинки).</h3>
+<p>Тип: <code>JavaScript function</code>. Код:</p>
+<pre>function() {
+    var images = [
+        'https://your-cdn.com/banner1.jpg',
+        'https://your-cdn.com/banner2.png',
+        'https://your-cdn.com/banner3.gif'
+    ];
+    var randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+}</pre>
+
+<h3>Крок 3. Вставляємо в Email Template.</h3>
+<ul>
+    <li><strong>Для тексту:</strong> <code>{{label.random_text}}</code> (просто вставляєте у потрібне місце).</li>
+    <li><strong>Для картинки:</strong> <code>&lt;img src="{{label.random_image}}" alt="banner" style="width:100%;"&gt;</code></li>
+</ul>
+<div class="bad">
+    <strong>👉 ВАЖЛИВО!</strong> JS функція повертає <strong>лише текст або URL</strong>. Вся HTML-обгортка (<code>&lt;img src="..."&gt;</code>) залишається в темплейті!
+</div>
+
+<div class="good">
+   <p>В даному прикладі для мультимовності використовується поле в Лейблі "Variations" тут додаються відповідні налаштування мови і вставляється переклад, і в Темплейт буде підставлятись результат лейбл тега з мовою яка вказана в профілі клієнта</p>
+   <div class="zoom-container" style="text-align: center; margin: 5px 0; background-color: #d4edda; padding: 0; border-radius: 8px;">
+    <img src="https://i.imgur.com/kU9QUGZ.png" alt="Додаємо переклади" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #28a745; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <p style="font-size: 12px; color: #155724; margin-top: 5px; font-style: italic;">✅ Один Лейбл тег, + додаткові 4 переклади, замість 5-х різних Лейбл тегів з різними мовами.</p>
+</div>  
+</div>
+
+
+
+<h2>6. Просунутий рівень: Рандомайзер з перекладом (один варіант Label Tag на всі мови)</h2>
+<p>Можна створити одину функцію з мовними варіантами, яка повертатиме текст, мовою яка зазначена в профілі клієнта, без необхідності створювати варіанти з відповідними мовами.</p>
+<pre>function() {
+    var lang = state.core_language || 'en';
+    var texts = {
+        en: ['Deposit confirmed!', 'Money added!', 'Ready to play!'],
+        de: ['Einzahlung bestätigt!', 'Geld hinzugefügt!', 'Bereit zu spielen!'],
+        fr: ['Dépôt confirmé!', 'Argent ajouté!', 'Prêt à jouer!']
+    };
+    var langTexts = texts[lang] || texts.en;
+    var randomIndex = Math.floor(Math.random() * langTexts.length);
+    return langTexts[randomIndex];
+}</pre>
+
+<h2>7. Життєві поради (Best Practices)</h2>
+<ol>
+    <li><strong>Тестуйте перед запуском.</strong> Використовуйте функцію попереднього перегляду в редакторі, щоб побачити, який саме контент підставиться для різних сегментів.</li>
+    <li><strong>Уникайте зайвої логіки.</strong> Якщо текст статичний (не залежить від дня тижня/рандому або що), використовуйте <strong>Static Text</strong>.</li>
+    <li><strong>Слідкуйте за використанням.</strong> Система показує, де саме використовується лейбл. Якщо лейбл ніде не використовується, його краще видалити, щоб не смітити.</li>
+    <li><strong>Не плутайте з тегами користувача.</strong> <code>Label Tags</code> – це для контенту. <code>User markers (core_tags)</code> – це для сегментації та зберігання даних про користувача.</li>
+</ol>
+
+<div class="good">
+    <strong>Висновок:</strong> Правильне використання Label Tags – це коли <strong>верстка</strong> у шаблоні, <strong>логіка</strong> у JS-функції, а <strong>дані</strong> у Static Text. Такий підхід гарантує стабільну доставку, легке масштабування та автоматизацію роботи менеджера.
+</div>
+
+<h2>8. Готові приклади</h2>
+<p>Ось посилання на реальні налаштування, та приклади у Smartico. Використовуйте їх як приклади або ознайомлення для створення власних Лейблів:</p>
+
+<h3>Label Tags (приклади)</h3>
+<ul>
+    <li><a href="https://drive-7.smartico.ai/28063#/labels_tags/35294" target="_blank">Label Tags – Subject</a></li>
+    <li><a href="https://drive-7.smartico.ai/28063#/labels_tags/35299" target="_blank">Label Tags – Preheader</a></li>
+    <li><a href="https://drive-7.smartico.ai/28063#/labels_tags/35284" target="_blank">Label Tags – Title</a></li>
+    <li><a href="https://drive-7.smartico.ai/28063#/labels_tags/35283" target="_blank">Label Tags – Main image/icon</a></li>
+    <li><a href="https://drive-7.smartico.ai/28063#/labels_tags/35278" target="_blank">Label Tags – Main text</a></li>
+    <li><a href="https://drive-7.smartico.ai/28063#/labels_tags/35289" target="_blank">Label Tags – CTA</a></li>
+</ul>
+
+<h3>Email Template (приклад)</h3>
+<ul>
+    <li><a href="https://drive-7.smartico.ai/28063#/templated_mail/82154" target="_blank">Email Template – Шаблон із використанням Label Tags</a></li>
+</ul>
+
+<div class="note">
+    <strong>💡 Порада:</strong> Відкрийте ці посилання, щоб побачити, як саме налаштовані Лейбли. Також, памятайте, що ці приклади не є вичерпними, тобто при необхідності можна продумати і написати іншу логіку/функцію виконання необхідних операцій під конкретну задачу.
+</div>
+
+
+</body>
+</html>
+
+<script>
+    var allImages = document.querySelectorAll('.zoom-img');
+    var isAnyZoomed = false;
+    
+    function resetAllZoom() {
+        for (var i = 0; i < allImages.length; i++) {
+            allImages[i].classList.remove('zoomed');
+        }
+        isAnyZoomed = false;
+    }
+    
+    for (var i = 0; i < allImages.length; i++) {
+        allImages[i].onclick = function(e) {
+            e.stopPropagation();
+            
+            if (this.classList.contains('zoomed')) {
+                this.classList.remove('zoomed');
+                isAnyZoomed = false;
+            } else {
+
+                resetAllZoom();
+                this.classList.add('zoomed');
+                isAnyZoomed = true;
+            }
+        };
+    }
+    
+    document.onclick = function() {
+        if (isAnyZoomed) {
+            resetAllZoom();
+        }
+    };
+</script>

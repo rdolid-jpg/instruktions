@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція: Налаштування A/B тесту в Smartico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46a0 100%);
+        }
+        
+        .section-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-header .icon {
+            font-size: 1.8rem;
+        }
+        
+        .section-content {
+            padding: 30px;
+            display: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        .step {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .step h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .step p, .step li {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .step ul, .step ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .step li {
+            margin-bottom: 5px;
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #a0aec0;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .warning {
+            background: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .warning h4 {
+            color: #e67e22;
+            margin-bottom: 8px;
+        }
+        
+        .tip {
+            background: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .tip h4 {
+            color: #16a085;
+            margin-bottom: 8px;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+            .section-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Інструкція з налаштування A/B тесту</h1>
+            <p>Smartico.ai | Для email-маркетологів</p>
+        </div>
+        
+        <!-- РОЗДІЛ 1: СТВОРЕННЯ КАМПАНІЇ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">📁</span> 1. Створення кампанії та налаштування тригерів</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>📌 Крок 1.1: Створіть нову кампанію</h3>
+                    <p>У розділі <strong>Campaigns</strong> → <strong>Create Campaign</strong> → оберіть тип <strong>Trigger Campaign</strong>.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Крок 1.2: Налаштуйте тригер</h3>
+                    <p>Додайте подію, яка буде запускати кампанію. Наприклад:</p>
+                    <ul>
+                        <li><strong>User Login</strong> — вхід користувача</li>
+                        <li><strong>Custom Event</strong> — будь-яка кастомна подія</li>
+                        <li><strong>Segment Entry</strong> — вхід у сегмент</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Крок 1.3: Створіть Flow з Update Property</h3>
+                    <p>У конструкторі флоу додайте блок <strong>Update Property</strong>:</p>
+                    <ul>
+                        <li>Виберіть <strong>Property</strong>: <code>core_tags</code> (або core_public_tags / core_external_markers)</li>
+                        <li>Оберіть дію: <strong>Add to array / Add value</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Крок 1.4: Вставте код функції</h3>
+                    <p>У полі <strong>Value</strong> вставте JavaScript код відповідної функції:</p>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr>
+                                <th>Лейбл тега</th>
+                                <th>Що робить</th>
+                                <th>Куди вставляти</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Рівень 1</strong></td>
+                                <td>Створює базовий тег (сегмент + депозит)</td>
+                                <td>Перший Update Property у флоу</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Рівень 2</strong></td>
+                                <td>Створює універсальний тег (title)</td>
+                                <td>Другий Update Property у флоу</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Рівень 3</strong></td>
+                                <td>Створює груповий тег (test/control)</td>
+                                <td>Третій Update Property у флоу</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <h4>💡 Важливо:</h4>
+                    <p>Блоки Update Property мають йти <strong>послідовно</strong> один за одним. Спочатку перший рівень, потім другий, потім третій.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 2: НАЛАШТУВАННЯ ПАРАМЕТРІВ ФУНКЦІЙ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">⚙️</span> 2. Налаштування параметрів функцій (для копіювання)</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>📌 Як змінити параметри кампанії</h3>
+                    <p>У кожній функції є блок <strong>НАЛАШТУВАННЯ</strong> на початку. Ось що потрібно змінити для нової кампанії:</p>
+                </div>
+                
+                <div class="step">
+                    <h3>🔧 Змінні, які можна налаштовувати:</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr>
+                                <th>Змінна</th>
+                                <th>Де знаходиться</th>
+                                <th>Що робить</th>
+                                <th>Приклад</th>
+                            </tr>
+                            <tr>
+                                <td><code>VAR_PROJECT</code></td>
+                                <td>Всі 3 функції</td>
+                                <td>Назва кампанії (унікальний ідентифікатор)</td>
+                                <td><code>'previp_daily_bonuses'</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>segmentCodes</code></td>
+                                <td>Функція 1</td>
+                                <td>Відповідність кодів сегментів назвам</td>
+                                <td><code>'1559': 'Iron'</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>avgDepRanges</code></td>
+                                <td>Функція 1</td>
+                                <td>Діапазони середнього депозиту</td>
+                                <td><code>{ min: 0, max: 30, suffix: 'avg_dep_30' }</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>exchangeRates</code></td>
+                                <td>Функція 1</td>
+                                <td>Курси валют для конвертації в USD</td>
+                                <td><code>EUR: 1.1</code></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>📝 Як додати новий сегмент:</h3>
+                    <div class="code-block">
+                        <pre>var segmentCodes = {
+    '205': 'Petrovich',  // Новий сегмент
+    '228': 'Ace',        // Існуючий
+    '1559': 'Iron'       // Існуючий (найвищий пріоритет)
+};</pre>
+                    </div>
+                    <p class="tip">💡 <strong>Важливо:</strong> Чим нижче в списку — тим ВИЩИЙ пріоритет! Останній сегмент у списку має найвищий пріоритет.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>📝 Як змінити діапазони депозитів:</h3>
+                    <div class="code-block">
+                        <pre>var avgDepRanges = [
+    { min: 0, max: 29.999999, suffix: 'avg_dep_30' },      // 0-30
+    { min: 30, max: 50, suffix: 'avg_dep_30_50' },         // 30-50
+    { min: 50.000001, max: Infinity, suffix: 'avg_dep_51+' } // 51+
+];</pre>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>📝 Як змінити курси валют:</h3>
+                    <div class="code-block">
+                        <pre>var exchangeRates = {
+    USD: 1,
+    EUR: 1.1,    // 1 EUR = 1.1 USD
+    GBP: 1.20,   // 1 GBP = 1.20 USD
+    CAD: 0.7     // 1 CAD = 0.7 USD
+};</pre>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    <h4>⚠️ Увага!</h4>
+                    <p>Якщо ви змінюєте <code>VAR_PROJECT</code> — потрібно змінити його <strong>В ОДИНАКОВО</strong> у всіх трьох функціях! Інакше теги не будуть пов'язані між собою.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 3: ВИДАЛЕННЯ ТЕГІВ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🗑️</span> 3. Видалення тегів (якщо потрібно прибрати користувача з тесту)</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>📌 Крок 3.1: Створіть окрему кампанію для видалення</h3>
+                    <p>Створіть нову Trigger Campaign з тригером, який спрацьовує для потрібних користувачів.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Крок 3.2: Додайте блок Update Property</h3>
+                    <p>У флоу додайте блок <strong>Update Property</strong>:</p>
+                    <ul>
+                        <li><strong>Property</strong>: <code>core_tags</code></li>
+                        <li><strong>Action</strong>: <strong>Remove from array</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Крок 3.3: Вкажіть теги для видалення</h3>
+                    <p>У полі <strong>Value</strong> вкажіть теги, які потрібно видалити:</p>
+                    <div class="code-block">
+                        <pre>ab_test_previp_daily_bonuses_strata_iron_avg_dep_30,
+ab_test_previp_daily_bonuses_title,
+ab_test_previp_daily_bonuses_group_test</pre>
+                    </div>
+                    <p class="tip">💡 Можна вказати кілька тегів через кому.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Крок 3.4: Альтернативний спосіб (видалення за маскою)</h3>
+                    <p>Якщо потрібно видалити всі теги кампанії, використайте функцію:</p>
+                    <div class="code-block">
+                        <pre>(function() {
+    var VAR_PROJECT = 'previp_daily_bonuses';
+    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
+    var tagsToRemove = [];
+    
+    for (var f = 0; f < TAG_FIELDS.length; f++) {
+        var field = state[TAG_FIELDS[f]];
+        if (!field) continue;
+        
+        var tags = Array.isArray(field) ? field : String(field).split(',');
+        for (var i = 0; i < tags.length; i++) {
+            var tag = tags[i].trim();
+            if (tag.toLowerCase().indexOf(VAR_PROJECT.toLowerCase()) !== -1) {
+                tagsToRemove.push(tag);
+            }
+        }
+    }
+    
+    return tagsToRemove.join(',');
+})();</pre>
+                    </div>
+                    <p>Ця функція знайде та поверне всі теги, що містять назву кампанії, для видалення.</p>
+                </div>
+                
+                <div class="warning">
+                    <h4>⚠️ Увага!</h4>
+                    <p>Після видалення тегів користувач знову зможе потрапити в тест при наступному запуску кампанії.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 4: ПОВНІ КОДИ ФУНКЦІЙ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">📄</span> 4. Повні коди функцій (копіювати в Update Property)</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>🔵 Функція 1: Створення тегу першого рівня</h3>
+                    <div class="code-block">
+                        <pre>(function() {
+    // ========== НАЛАШТУВАННЯ ==========
+    var VAR_PROJECT = 'previp_daily_bonuses';
+    var STATIC_PREFIX = 'ab_test';
+    var STATIC_MIDDLE = 'strata';
+    
+    var exchangeRates = {
+        USD: 1, CAD: 0.7, AUD: 0.7, EUR: 1.1, GBP: 1.20, NOK: 0.1
+    };
+    
+    var segmentCodes = {
+        '205': 'Petrovich',
+        '228': 'Ace',
+        '762': 'Ace2',
+        '750': 'Ace3',
+        '256': 'Star',
+        '1559': 'Iron'
+    };
+    
+    var avgDepRanges = [
+        { min: 0, max: 29.999999, suffix: 'avg_dep_30' },
+        { min: 30, max: 50, suffix: 'avg_dep_30_50' },
+        { min: 50.000001, max: Infinity, suffix: 'avg_dep_51+' }
+    ];
+    // ===================================
+    
+    var resultTag;
+    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
+    var hasCampaignTag = false;
+    
+    for (var f = 0; f < TAG_FIELDS.length; f++) {
+        if (hasCampaignTag) break;
+        var field = state[TAG_FIELDS[f]];
+        if (!field) continue;
+        var tags = Array.isArray(field) ? field : String(field).split(',');
+        for (var i = 0; i < tags.length; i++) {
+            if (tags[i].trim().toLowerCase().indexOf(VAR_PROJECT.toLowerCase()) !== -1) {
+                hasCampaignTag = true;
+                break;
+            }
+        }
+    }
+    
+    if (hasCampaignTag) return resultTag;
+    
+    var convertedAmount = 0;
+    if (state.acc_total_deposit_amount && state.acc_total_deposit_count) {
+        var totalAmount = state.acc_total_deposit_amount || 0;
+        var totalCount = state.acc_total_deposit_count || 0;
+        if (totalCount !== 0 && totalAmount !== 0) {
+            var avgRaw = totalAmount / totalCount;
+            var currency = state.core_wallet_currency || '';
+            var rate = exchangeRates[currency.toUpperCase()] || 1;
+            var avgUSD = avgRaw * rate;
+            if (!isNaN(avgUSD) && isFinite(avgUSD)) {
+                convertedAmount = Math.floor(avgUSD * 10000) / 10000;
+            }
+        }
+    }
+    
+    var segmentName;
+    var externalSegment = state.core_external_segment;
+    if (externalSegment) {
+        var codes = String(externalSegment).split(',');
+        for (var i = 0; i < codes.length; i++) codes[i] = codes[i].trim();
+        var priorityOrder = [];
+        for (var key in segmentCodes) priorityOrder.push(key);
+        for (var p = priorityOrder.length - 1; p >= 0; p--) {
+            var priorityCode = priorityOrder[p];
+            for (var c = 0; c < codes.length; c++) {
+                if (codes[c] === priorityCode) {
+                    segmentName = segmentCodes[priorityCode];
+                    break;
+                }
+            }
+            if (segmentName) break;
+        }
+    }
+    
+    var avgSuffix;
+    if (segmentName) {
+        for (var r = 0; r < avgDepRanges.length; r++) {
+            var range = avgDepRanges[r];
+            if (convertedAmount >= range.min && convertedAmount <= range.max) {
+                avgSuffix = range.suffix;
+                break;
+            }
+        }
+    }
+    
+    if (segmentName && avgSuffix) {
+        resultTag = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_MIDDLE + '_' + segmentName.toLowerCase() + '_' + avgSuffix;
+    }
+    
+    return resultTag;
+})();</pre>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>🟢 Функція 2: Створення універсального тегу (title)</h3>
+                    <div class="code-block">
+                        <pre>(function() {
+    // ========== НАЛАШТУВАННЯ ==========
+    var VAR_PROJECT = 'previp_daily_bonuses';
+    var STATIC_PREFIX = 'ab_test';
+    var STATIC_TITLE = 'title';
+    var UNIVERSAL_TAG = STATIC_PREFIX + '_' + STATIC_TITLE + '_' + VAR_PROJECT;
+    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
+    // ===================================
+    
+    var resultTag;
+    var hasCampaignTag = false;
+    
+    for (var f = 0; f < TAG_FIELDS.length; f++) {
+        if (hasCampaignTag) break;
+        var field = state[TAG_FIELDS[f]];
+        if (!field) continue;
+        var tags = Array.isArray(field) ? field : String(field).split(',');
+        for (var i = 0; i < tags.length; i++) {
+            if (tags[i].trim().toLowerCase().indexOf(VAR_PROJECT.toLowerCase()) !== -1) {
+                hasCampaignTag = true;
+                break;
+            }
+        }
+    }
+    
+    if (hasCampaignTag) {
+        var hasUniversal = false;
+        for (var f = 0; f < TAG_FIELDS.length; f++) {
+            if (hasUniversal) break;
+            var field = state[TAG_FIELDS[f]];
+            if (!field) continue;
+            var tags = Array.isArray(field) ? field : String(field).split(',');
+            for (var i = 0; i < tags.length; i++) {
+                if (tags[i].trim().toLowerCase() === UNIVERSAL_TAG.toLowerCase()) {
+                    hasUniversal = true;
+                    break;
+                }
+            }
+        }
+        if (!hasUniversal) resultTag = UNIVERSAL_TAG;
+    }
+    
+    return resultTag;
+})();</pre>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>🔴 Функція 3: Створення групового тегу (test/control)</h3>
+                    <div class="code-block">
+                        <pre>(function() {
+    // ========== НАЛАШТУВАННЯ ==========
+    var VAR_PROJECT = 'previp_daily_bonuses';
+    var STATIC_PREFIX = 'ab_test';
+    var STATIC_MIDDLE = 'strata';
+    var STATIC_GROUP = 'group';
+    var SUFFIX_TEST = '_test';
+    var SUFFIX_CONTROL = '_control';
+    
+    var SEARCH_PREFIX = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_MIDDLE + '_';
+    var GROUP_PREFIX = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_GROUP;
+    var FULL_TEST_TAG = GROUP_PREFIX + SUFFIX_TEST;
+    var FULL_CONTROL_TAG = GROUP_PREFIX + SUFFIX_CONTROL;
+    
+    var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
+    var HASH_PARAMS = ['user_id', 'user_ext_id', 'user_email', 'core_registration_date'];
+    var HASH_SEPARATOR = '|';
+    // ===================================
+    
+    var resultTag;
+    var baseTag;
+    
+    for (var f = 0; f < TAG_FIELDS.length; f++) {
+        if (baseTag) break;
+        var field = state[TAG_FIELDS[f]];
+        if (!field) continue;
+        var tags = Array.isArray(field) ? field : String(field).split(',');
+        for (var i = 0; i < tags.length; i++) {
+            var tag = tags[i].trim();
+            if (tag.toLowerCase().indexOf(SEARCH_PREFIX.toLowerCase()) === 0) {
+                baseTag = tag;
+                break;
+            }
+        }
+    }
+    
+    if (baseTag) {
+        var hasGroupTag = false;
+        for (var f = 0; f < TAG_FIELDS.length; f++) {
+            if (hasGroupTag) break;
+            var field = state[TAG_FIELDS[f]];
+            if (!field) continue;
+            var tags = Array.isArray(field) ? field : String(field).split(',');
+            for (var i = 0; i < tags.length; i++) {
+                var tag = tags[i].trim().toLowerCase();
+                if (tag === FULL_TEST_TAG.toLowerCase() || tag === FULL_CONTROL_TAG.toLowerCase()) {
+                    hasGroupTag = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!hasGroupTag) {
+            var hashParts = [];
+            for (var i = 0; i < HASH_PARAMS.length; i++) {
+                hashParts.push(state[HASH_PARAMS[i]] || '');
+            }
+            hashParts.push(baseTag.toLowerCase());
+            var hashString = hashParts.join(HASH_SEPARATOR);
+            var hash = 0;
+            for (var i = 0; i < hashString.length; i++) {
+                hash = ((hash << 5) - hash) + hashString.charCodeAt(i);
+                hash = hash & hash;
+            }
+            var groupSuffix = Math.abs(hash) % 2 === 0 ? SUFFIX_TEST : SUFFIX_CONTROL;
+            resultTag = GROUP_PREFIX + groupSuffix;
+        }
+    }
+    
+    return resultTag;
+})();</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 5: ПРИКЛАДИ ТЕГІВ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🏷️</span> 5. Приклади тегів, які створюються</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>📌 Приклад для користувача з сегментом Iron та депозитом 25 USD:</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr>
+                                <th>Рівень</th>
+                                <th>Тег</th>
+                                <th>Опис</th>
+                            </tr>
+                            <tr>
+                                <td>Рівень 1</td>
+                                <td><code>ab_test_previp_daily_bonuses_strata_iron_avg_dep_30</code></td>
+                                <td>Базовий тег (сегмент + депозит)</td>
+                            </tr>
+                            <tr>
+                                <td>Рівень 2</td>
+                                <td><code>ab_test_title_previp_daily_bonuses</code></td>
+                                <td>Універсальний тег</td>
+                            </tr>
+                            <tr>
+                                <td>Рівень 3</td>
+                                <td><code>ab_test_previp_daily_bonuses_group_test</code> або <code>..._group_control</code></td>
+                                <td>Груповий тег (50/50 розподіл)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>📌 Приклад для користувача з сегментом Ace та депозитом 60 USD:</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr>
+                                <th>Рівень</th>
+                                <th>Тег</th>
+                            </tr>
+                            <tr>
+                                <td>Рівень 1</td>
+                                <td><code>ab_test_previp_daily_bonuses_strata_ace_avg_dep_51+</code></td>
+                            </tr>
+                            <tr>
+                                <td>Рівень 2</td>
+                                <td><code>ab_test_title_previp_daily_bonuses</code></td>
+                            </tr>
+                            <tr>
+                                <td>Рівень 3</td>
+                                <td><code>ab_test_previp_daily_bonuses_group_control</code></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📧 При виникненні питань — зверніться до розробника</p>
+            <p>© Smartico.ai A/B Testing Instruction</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
+        
+        // Відкрити перший розділ за замовчуванням
+        document.querySelectorAll('.section-content')[0].classList.add('active');
+    </script>
+</body>
+</html>
