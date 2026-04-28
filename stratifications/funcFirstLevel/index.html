@@ -1,9 +1,13 @@
 (function() {
     // ========== НАЛАШТУВАННЯ (змінюйте тут дані) ==========
-    // Шаблон: ab_test_{VAR_PROJECT}_strata_{segmentName}_{avgSuffix}
-    var VAR_PROJECT = 'previp_daily_bonuses';  // Назва кампанії
+    // Шаблон: ab_test_[{VAR_PROJECT}]_strata_[({segmenPrefix:segmentName})_({depPrefix:avgSuffix})]
+    var VAR_PROJECT = '[receRXXIyiVTbc62h]';  // Назва кампанії
     var STATIC_PREFIX = 'ab_test';           // Статичний початок
     var STATIC_MIDDLE = 'strata';            // Статична середина
+
+    // Префікси для сегментів (можна змінювати для різних тестів)
+    var SEG_PREFIX = 'st1:'; 
+    var DEP_PREFIX = 'st5:';
     
     // КУРСИ ВАЛЮТ ДЛЯ КОНВЕРТАЦІЇ В USD
     var exchangeRates = {
@@ -15,7 +19,7 @@
         NOK: 0.1
     };
     
-    // ВІДПОВІДНІСТЬ КОДІВ СЕГМЕНТІВ ЇХ НАЗВАМ
+    // ВІДПОВІДНІСТЬ КОДІВ СЕГМЕНТІВ ЇХ НАЗВАМ (Чим нижче в списку — тим ВИЩИЙ пріоритет)
     var segmentCodes = {
         '228': 'Ace',
         '762': 'Ace2',
@@ -36,6 +40,7 @@
     
 
     // ПЕРЕВІРКА: чи є вже будь-який тег, що містить VAR_PROJECT
+    var searchId = VAR_PROJECT.replace(/[\[\]]/g, '');
     var TAG_FIELDS = ['core_tags', 'core_public_tags', 'core_external_markers'];
     var hasCampaignTag = false;
     
@@ -47,8 +52,7 @@
         var tags = Array.isArray(field) ? field : String(field).split(',');
         for (var i = 0; i < tags.length; i++) {
             var tag = tags[i].trim().toLowerCase();
-            // Якщо тег містить назву кампанії
-            if (tag.indexOf(VAR_PROJECT.toLowerCase()) !== -1) {
+            if (tag.indexOf(searchId.toLowerCase()) !== -1) {
                 hasCampaignTag = true;
                 break;
             }
@@ -116,8 +120,13 @@
     }
     
     // БЛОК 4: ФОРМУВАННЯ ТЕГУ ЗА ШАБЛОНОМ
-    if (segmentName && avgSuffix) {
-        resultTag = STATIC_PREFIX + '_' + VAR_PROJECT + '_' + STATIC_MIDDLE + '_' + segmentName.toLowerCase() + '_' + avgSuffix;
+if (segmentName && avgSuffix) {
+        // Формат: ab_test_[ID]_strata_[(st1:segment)_(st5:deposit)]
+        resultTag = STATIC_PREFIX + '_' + 
+                    VAR_PROJECT + '_' + 
+                    STATIC_MIDDLE + '_[' + 
+                    '(' + SEG_PREFIX + segmentName.toLowerCase() + ')_(' + 
+                    DEP_PREFIX + avgSuffix + ')]';
     }
     
     return resultTag;
