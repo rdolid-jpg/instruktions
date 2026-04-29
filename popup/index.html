@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція з Pop-up у Smartico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f1de98 0%, #d4a763 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #4a3b2f;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: #5d4037;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            color: #4e342e;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #f9e076 0%, #f5b041 100%);
+            color: white;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 20px 20px 0 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(135deg, #f5b041 0%, #e67e22 100%);
+        }
+        
+        .section-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-header .icon {
+            font-size: 1.8rem;
+        }
+        
+        .section-content {
+            padding: 30px;
+            display: none;
+            border-top: 1px solid #fdebd0;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        .step {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 3px solid #f5b041;
+        }
+        
+        .step h3 {
+            color: #4e342e;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .step p, .step li {
+            color: #5d4037;
+            line-height: 1.6;
+        }
+        
+        .step ul, .step ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .step li {
+            margin-bottom: 5px;
+        }
+        
+        .code-block {
+            background: #2d2420;
+            color: #e0cfa5;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            border: 1px solid #e6d5a8;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .warning {
+            background: #fef9e7;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .warning h4 {
+            color: #d68910;
+            margin-bottom: 8px;
+        }
+        
+        .tip {
+            background: #fcf3e3;
+            border-left: 4px solid #f5b041;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .tip h4 {
+            color: #b9770e;
+            margin-bottom: 8px;
+        }
+        
+        .good {
+            background: #eafaf1;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .good h4 {
+            color: #1e8449;
+            margin-bottom: 8px;
+        }
+        
+        .bad {
+            background: #fdedec;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .bad h4 {
+            color: #c0392b;
+            margin-bottom: 8px;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #fdebd0;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background: #fef9e7;
+            color: #4e342e;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #f5b041;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #5d4037;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+            .section-content {
+                padding: 20px;
+            }
+        }
+        
+        .zoom-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+            border: 2px solid #f5b041;
+            border-radius: 8px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .zoom-img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 1001;
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            cursor: zoom-out;
+            margin: 0;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .zoom-img.zoomed {
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .zoom-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .img-caption {
+            font-size: 12px;
+            margin-top: 5px;
+            font-style: italic;
+            color: #5d4037;
+        }
+        .code-block {
+    position: relative;
+}
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #e6d5a8;
+    color: #e0cfa5;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s, background 0.2s;
+    z-index: 10;
+}
+.code-block:hover .copy-btn {
+    opacity: 1;
+}
+.copy-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Pop-up у Smartico</h1>
+            <p>Від готового шаблону до кастомного рішення: повний гайд</p>
+        </div>
+        
+        <!-- РОЗДІЛ 1: ПРОСТИЙ ПОПАП -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">📦</span> 1. Базовий pop-up: копіюємо та налаштовуємо</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Що потрібно зробити</h3>
+                    <ul>
+                        <li>Перейдіть у <strong>Marketing → Templates → Popups</strong>.</li>
+                        <li>Знайдіть готовий шаблон (наприклад, “Example Popup with HTML/CSS/JS”) та натисніть <strong>Clone</strong>.</li>
+                        <li>Відредагуйте поля в <strong>Configuration (JSON)</strong>: змініть текст, посилання на картинку, URL кнопки тощо.</li>
+                        <li>У вкладці <strong>Body</strong> за потреби підкорегуйте стилі (CSS).</li>
+                    </ul>
+                    <div class="tip">
+                        <h4>💡 Основні параметри, які можна міняти одразу</h4>
+                        <p><code>title_text</code>, <code>subtitle_text</code>, <code>button_text</code>, <code>button_url</code>, <code>hero_image_url</code>, <code>background_color</code>, <code>title_color</code> тощо.</p>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Приклад частини JSON-конфігурації
+{
+    "name": "title_text",
+    "type": "text",
+    "label": "Title",
+    "value": "Ваш новий заголовок"
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 2: ДОДАВАННЯ/ВИДАЛЕННЯ ПОЛІВ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">✏️</span> 2. Як додати або видалити поле у шаблоні</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Структура JSON</h3>
+                    <p>Кожне поле описується об'єктом у масиві <code>fields</code>. Ви можете додати нове поле або видалити непотрібне прямо у редакторі Configuration.</p>
+                    
+                    <h3>📌 Додаємо новий текстовий параметр</h3>
+                    <div class="code-block">
+                        <pre>{
+    "name": "new_field",
+    "type": "text",
+    "label": "Мій новий напис",
+    "value": "Текст за замовчуванням"
+}</pre>
+                    </div>
+                    <p>Після додавання в JSON, у HTML-коді (Body) використайте змінну <code>{%#o.new_field%}</code> для виводу її значення.</p>
+                    
+                    <h3>📌 Видаляємо поле</h3>
+                    <p>Просто приберіть відповідний об'єкт з масиву <code>fields</code> у JSON, а з HTML видаліть рядок, де ця змінна використовується.</p>
+                    
+                    <div class="warning">
+                        <h4>⚠️ Важливо</h4>
+                        <p>Не видаляйте поля, які використовуються у HTML-розмітці, не прибравши їх звідти — це може зламати відображення.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 3: CONTENT VARIATIONS -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🌍</span> 3. Content Variations: мови, гео та кастомні умови</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <p>У pop-up ассеті є вкладка <strong>Content Variations</strong>. Вона дозволяє створювати декілька версій контенту для одного попапу, які показуватимуться залежно від мови, країни чи будь-якої іншої умови.</p>
+                    
+                    <h3>Що можна змінювати у варіаціях?</h3>
+                    <ul>
+                        <li>Будь-який текст (заголовок, підпис, текст кнопки).</li>
+                        <li>Посилання на зображення (hero image).</li>
+                        <li>Кольори (фон, текст, кнопка).</li>
+                        <li>Посилання для CTA.</li>
+                    </ul>
+                    
+                    <h3>Як створити варіації</h3>
+                    <ol>
+                        <li>Відкрийте pop-up ассет, перейдіть у вкладку <strong>Content Variations</strong>.</li>
+                        <li>Натисніть <strong>Add Variation</strong>.</li>
+                        <li>Вкажіть умову (наприклад, <em>Language = fr</em> або <em>Country = CA</em>).</li>
+                        <li>У формі, що з'явиться, змініть потрібні поля (текст, URL картинки, кольори).</li>
+                        <li>Збережіть. Тепер для користувачів, що підпадають під умову, покажеться цей варіант.</li>
+                    </ol>
+                    
+                    <div class="tip">
+                        <h4>💡 Приклад: два варіанти — англійська та французька</h4>
+                        <p>Створіть варіацію <strong>French</strong> із умовою <code>Language = fr</code>. Змініть <code>title_text</code> на французький переклад, решту полів за потреби. Базова версія залишиться для всіх інших мов.</p>
+                    </div>
+                    <div class="code-block">
+                        <pre>// JSON варіації (спрощено)
+{
+    "title_text": "Votre bonus",
+    "button_text": "Obtenir",
+    "hero_image_url": "https://cdn.example.com/bonus_fr.png"
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 4: КАСТОМНИЙ ШАБЛОН -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🛠️</span> 4. Створення кастомного попапу з власним HTML/CSS</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <p>Щоб повністю контролювати дизайн, використовуйте клонування вже готовіх шаблонів які є в Smartico. або скористайтесть допомогою AI, і виберіть кнопку "Create With AI" і в промпті детально опишіть свій запит по попапу з описом структури кольорів і функціоналу папапу. І у вкладці <strong>Body</strong> ви можете відредагувати неточності або доповнити верстку попапа і замінити картинки і посилання.</p>
+                    
+                    <h3>Основні правила</h3>
+                    <ul>
+                        <li>Контент попапу має бути всередині <code>&lt;div id="popup"&gt;...&lt;/div&gt;</code> — Smartico автоматично вставляє цю обгортку.</li>
+                        <li>Динамічні значення з JSON вставляються так: <code>{%#o.назва_поля%}</code>.</li>
+                        <li>Стилі пишіть у тегу <code>&lt;style&gt;</code> всередині Body.</li>
+                    </ul>
+                    
+                    <div class="good">
+                        <h4>✅ Рекомендована структура Body</h4>
+                        <div class="code-block">
+                            <pre>&lt;style&gt;
+  /* ваші CSS-правила */
+&lt;/style&gt;
+
+&lt;!-- HTML-розмітка попапу --&gt;
+&lt;div class="my-popup"&gt;
+  &lt;img src="{%#o.hero_image_url%}"&gt;
+  &lt;h1&gt;{%#o.title_text%}&lt;/h1&gt;
+  &lt;a href="{%#o.button_url%}"&gt;{%#o.button_text%}&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  {{label.script_for_popup_under_modal}}
+&lt;/script&gt;</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- РОЗДІЛ 5: СКРИПТ ДЛЯ УНИКНЕННЯ ПЕРЕКРИТТЯ МОДАЛЬНИХ ВІКОН -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🚨</span> 5. УВАГА! Попап не має перекривати модальні вікна на сайті</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <p>Щоб pop-up Smartico не відображався поверх відкритих модальних вікон на сайті або в профілі користувача (наприклад, вікно депозиту), у кожен шаблон попапу <strong>необхідно додати спеціальний скрипт</strong> в самий кінець поля <strong>Body</strong>.</p>
+                    
+                    <div class="warning">
+                        <h4>⚠️ Обов'язково вставити цей код</h4>
+                        <p>Навіть якщо у вашому Body вже є теги <code>&lt;script&gt;</code>, додайте цей блок окремо в самому низу.</p>
+                    </div>
+                    
+                    <div class="code-block">
+    <button class="copy-btn" title="Скопіювати код">📋</button>
+    <pre>&lt;script&gt;
+{{label.script_for_popup_under_modal}}
+&lt;/script&gt;</pre>
+</div>
+                    
+                    <p>Цей Label Tag містить готовий JS-код, який перевіряє наявність модального вікна та за потреби знижує z-index фрейму, щоб попап опинився під ним.</p>
+                    
+                    <div class="good">
+                        <h4>📌 Важливо</h4>
+                        <ul>
+                            <li>Код <strong>обов'язково</strong> має бути вставлений <strong>після всього іншого HTML/CSS</strong> у полі Body.</li>
+                            <li>Не змінюйте форматування — використовуйте точнісінько як у прикладі.</li>
+                            <li>Якщо ви створюєте кілька кастомних шаблонів, додавайте цей скрипт у кожен.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip">
+                        <h4>📞 Потрібна допомога?</h4>
+                        <p>Якщо після всіх маніпуляцій попап не відображається або виникають інші проблеми, зверніться до <strong>відділу Retention Platform Development</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📧 При виникненні питань — зверніться до розробника</p>
+            <p>© Smartico.ai – Pop-up Customization Guide</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
+        
+        const zoomImgs = document.querySelectorAll('.zoom-img');
+        const overlay = document.getElementById('overlay');
+        
+        zoomImgs.forEach(img => {
+            img.onclick = function(e) {
+                e.stopPropagation();
+                this.classList.toggle('zoomed');
+                overlay.classList.toggle('show');
+            };
+        });
+        
+        overlay.onclick = function() {
+            zoomImgs.forEach(img => img.classList.remove('zoomed'));
+            overlay.classList.remove('show');
+        };
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                zoomImgs.forEach(img => img.classList.remove('zoomed'));
+                overlay.classList.remove('show');
+            }
+        });
+        // Кнопка копіювання
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const codeBlock = this.closest('.code-block');
+        const pre = codeBlock.querySelector('pre');
+        if (!pre) return;
+        const textToCopy = pre.innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            this.textContent = '✅';
+            setTimeout(() => { this.textContent = '📋'; }, 1500);
+        }).catch(err => {
+            console.error('Помилка копіювання: ', err);
+        });
+    });
+});
+    </script>
+</body>
+</html>
