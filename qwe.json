@@ -1,0 +1,92 @@
+[
+    {
+        "label": "Texts",
+        "options": [
+            {
+                "name": "notif_text_block",
+                "label": "Notification Text",
+                "fields": [
+                    {
+                        "name": "notif_text",
+                        "type": "text",
+                        "label": "",
+                        "value": "Subscribe to our notifications for the latest news and updates!"
+                    }
+                ],
+                "optional": false
+            }
+        ]
+    },
+    {
+        "label": "Image",
+        "options": [
+            {
+                "name": "image_block",
+                "label": "Image",
+                "fields": [
+                    {
+                        "name": "image_url",
+                        "type": "image",
+                        "label": "",
+                        "value": "https://static7.smr.vc/eae74d254bc7ba6b382786-rp_logo_128_128.webp"
+                    }
+                ],
+                "optional": false
+            }
+        ]
+    },
+    {
+        "label": "Buttons",
+        "options": [
+            {
+                "name": "primary_button_block",
+                "label": "Primary Button",
+                "fields": [
+                    {
+                        "name": "primary_button_text",
+                        "type": "text",
+                        "label": "Text",
+                        "value": "Subscribe"
+                    }
+                ],
+                "optional": false
+            },
+            {
+                "name": "secondary_button_block",
+                "label": "Secondary Button",
+                "fields": [
+                    {
+                        "name": "close_button_text",
+                        "type": "text",
+                        "label": "Text",
+                        "value": "X"
+                    }
+                ],
+                "optional": false
+            }
+        ]
+    },
+    {
+        "label": "Frame style and position",
+        "options": [
+            {
+                "name": "frame_styles_group",
+                "label": "Frame Styles",
+                "fields": [
+                    {
+                        "name": "frame_style_desktop",
+                        "type": "text",
+                        "label": "Desktop",
+                        "value": "width: 540px; height: 180px; left: 20px;backdrop-filter:none"
+                    },
+                    {
+                        "name": "frame_style_mobile",
+                        "type": "text",
+                        "label": "Mobile",
+                        "value": "width: 540px; height: 180px; backdrop-filter:none"
+                    }
+                ]
+            }
+        ]
+    }
+]
