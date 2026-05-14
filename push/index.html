@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція з Push-повідомлень у Smartico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f2f7 0%, #a7d9eb 100%); /* Light blue gradient */
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2c3e50; /* Dark blue-grey */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: #215a7d; /* Darker blue */
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            color: #1a4766; /* Even darker blue */
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%); /* Blue gradient */
+            color: white;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 20px 20px 0 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #4682b4 0%, #2c5a84 100%); /* Darker blue gradient */
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header .icon {
+            font-size: 1.8rem;
+        }
+
+        .section-content {
+            padding: 30px;
+            display: none;
+            border-top: 1px solid #e0f2f7; /* Light blue border */
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .step {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 3px solid #4682b4; /* Blue border */
+        }
+
+        .step h3 {
+            color: #1a4766; /* Darker blue */
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .step p, .step li {
+            color: #2c3e50; /* Dark blue-grey */
+            line-height: 1.6;
+        }
+
+        .step ul, .step ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .step li {
+            margin-bottom: 5px;
+        }
+
+        .code-block {
+            background: #2d3e50; /* Dark blue */
+            color: #e0f2f7; /* Light blue */
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            border: 1px solid #a7d9eb; /* Blue border */
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .warning {
+            background: #fef9e7; /* Light yellow */
+            border-left: 4px solid #f39c12; /* Orange */
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .warning h4 {
+            color: #d68910; /* Dark orange */
+            margin-bottom: 8px;
+        }
+
+        .tip {
+            background: #e8f6f8; /* Very light blue */
+            border-left: 4px solid #4682b4; /* Blue */
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .tip h4 {
+            color: #2c5a84; /* Darker blue */
+            margin-bottom: 8px;
+        }
+
+        .good {
+            background: #eafaf1; /* Light green */
+            border-left: 4px solid #27ae60; /* Green */
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .good h4 {
+            color: #1e8449; /* Dark green */
+            margin-bottom: 8px;
+        }
+
+        .bad {
+            background: #fdedec; /* Light red */
+            border-left: 4px solid #e74c3c; /* Red */
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .bad h4 {
+            color: #c0392b; /* Dark red */
+            margin-bottom: 8px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #e0f2f7; /* Light blue border */
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e8f6f8; /* Very light blue */
+            color: #1a4766; /* Darker blue */
+        }
+
+        .badge {
+            display: inline-block;
+            background: #4682b4; /* Blue */
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: #2c3e50; /* Dark blue-grey */
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+            .section-content {
+                padding: 20px;
+            }
+        }
+
+        .zoom-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+            border: 2px solid #4682b4; /* Blue border */
+            border-radius: 8px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .zoom-img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 1001;
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            cursor: zoom-out;
+            margin: 0;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .zoom-img.zoomed {
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .zoom-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .img-caption {
+            font-size: 12px;
+            margin-top: 5px;
+            font-style: italic;
+            color: #2c3e50; /* Dark blue-grey */
+        }
+        .code-block {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #a7d9eb; /* Blue border */
+            color: #e0f2f7; /* Light blue */
+            border-radius: 6px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.7;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 10;
+        }
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Push-повідомлення у Smartico</h1>
+            <p>Від налаштування до динамічного контенту: повний гайд</p>
+        </div>
+
+        <!-- РОЗДІЛ 1: ЩО ТАКЕ PUSH-ПОВІДОМЛЕННЯ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🚀</span> 1. Що таке Push-повідомлення та де вони відображаються?</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Що це таке?</h3>
+                    <p>Push-повідомлення — це короткі сповіщення, які з'являються на екрані користувача, навіть якщо він не перебуває на вашому сайті чи в додатку. Це чудовий спосіб швидко донести важливу інформацію або нагадати про акцію.</p>
+
+                    <h3>Де вони відображаються?</h3>
+                    <ul>
+                        <li><b>На комп'ютерах (ПК):</b> У веб-браузерах (Chrome, Firefox, Edge, Safari). Користувач має надати дозвіл на отримання сповіщень у своєму браузері.</li>
+                        <li><b>На мобільних телефонах:</b>
+                            <ul>
+                                <li>У мобільних додатках (якщо інтегровано).</li>
+                                <li>У веб-браузерах (наприклад, Chrome на Android).</li>
+                                <li>На iOS (iPhone/iPad) — веб-пуші працюють, якщо користувач додав ваш сайт на головний екран як "Web App" (PWA). Без цього пуші в Safari на iOS не приходять.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="warning">
+                        <h4>⚠️ Важливо: Дозвіл користувача</h4>
+                        <p>Push-повідомлення завжди вимагають явного дозволу від користувача. Без цього дозволу (який він надає у своєму браузері або додатку) пуші не будуть доставлені.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 2: БАЗОВЕ НАЛАШТУВАННЯ PUSH-ПОВІДОМЛЕННЯ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">⚙️</span> 2. Базове налаштування Push-повідомлення</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Створення Push Asset</h3>
+                    <p>Push-повідомлення створюються як "Assets" (шаблони) у Smartico, які потім використовуються в кампаніях.</p>
+                    <ol>
+                        <li>Перейдіть у <b>Marketing → Assets → Push Notifications</b>.</li>
+                        <li>Натисніть <b>"Create New Push"</b>.</li>
+                        <li>Заповніть основні поля:
+                            <ul>
+                                <li><b>Title (Заголовок):</b> Короткий, привабливий заголовок повідомлення.</li>
+                                <li><b>Message (Текст повідомлення):</b> Основний текст пуша. Тут можна використовувати прості змінні, наприклад, <code>{{state.user_first_name}}</code>, щоб звертатися до користувача на ім'я.</li>
+                                <li><b>URL:</b> Посилання, куди перейде користувач після натискання на пуш.</li>
+                                <li><b>Image (Зображення):</b> URL великого зображення для пуша (необов'язково, але робить пуш привабливішим).</li>
+                                <li><b>Icon (Іконка):</b> URL маленької іконки, яка відображається поруч із заголовком.</li>
+                            </ul>
+                        </li>
+                        <li>Збережіть ваш Push Asset.</li>
+                    </ol>
+                    <div class="tip">
+                        <h4>💡 Проста персоналізація</h4>
+                        <p>Ви можете легко додати ім'я користувача до повідомлення, використовуючи <code>{{state.user_first_name}}</code>. Наприклад: "Привіт, {{state.user_first_name}}! У нас для тебе бонус!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 3: ОБМЕЖЕННЯ LIQUID-ЛОГІКИ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">⚠️</span> 3. Важливо! Обмеження Liquid-логіки в Push-повідомленнях</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Проблема: Чому складний Liquid-код не працює?</h3>
+                    <p>У полі "Message" Push-повідомлень (і SMS) можна використовувати теги для виведення значень змінних, наприклад, <code>{{state.user_first_name}}</code>. Однак, <b>не можна використовувати складну Liquid-логіку</b>, таку як умовні оператори (<code>{% if %}</code>, <code>{% case %}</code>) або цикли (<code>{% for %}</code>).</p>
+                    <p>Це пов'язано з тим, що Push-повідомлення оптимізовані для швидкої доставки, і їхній механізм не підтримує виконання складних програмних команд безпосередньо в тексті повідомлення.</p>
+
+                    <div class="bad">
+                        <h4>❌ Цей код НЕ буде працювати в полі "Message" Push-повідомлення</h4>
+                        <p>Якщо ви спробуєте вставити такий код:</p>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>{% case state.core_wallet_currency %}
+{% when 'CAD' %}30 CAD
+{% when 'USD' %}20 USD
+{% when 'AUD' %}30 AUD
+{% when 'NZD' %}30 NZD
+{% when 'NOK' %}200 NOK
+{% else %}20 EUR
+{% endcase %}</pre>
+                        </div>
+                        <p>Ви не побачите бажаного результату (наприклад, "30 CAD"). Швидше за все, повідомлення прийде порожнім у цьому місці або взагалі не відобразиться, або в тексті пуш повідомлення буде відображений цей код як текст, оскільки система не зможе обробити цю логіку.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 4: РІШЕННЯ: ДИНАМІЧНИЙ КОНТЕНТ ЧЕРЕЗ ПОПЕРЕДНЄ ОБЧИСЛЕННЯ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">✅</span> 4. Рішення: Динамічний контент через попереднє обчислення</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Основна ідея</h3>
+                    <p>Щоб обійти обмеження, ми маємо <b>обчислити потрібне значення заздалегідь</b> (наприклад, "30 CAD" або "200 NOK") в іншому місці Smartico, де Liquid-логіка працює повноцінно. Потім ми збережемо цей результат у спеціальній "кастомній властивості користувача" і вже її будемо просто підставляти в Push-повідомленні.</p>
+
+                    <h3><span class="badge">Крок 1</span> Створення кастомної властивості користувача</h3>
+                    <p>Ця властивість буде зберігати готовий текст, який ми хочемо показати в пуші.</p>
+                    <ol>
+                        <li>Перейдіть до <b>Settings → User Properties</b> (Налаштування → Властивості користувача).</li>
+                        <li>Натисніть кнопку <b>"Create New Property"</b> (Створити нову властивість).</li>
+                        <li>У полі <b>"Name" (Назва)</b> введіть унікальне ім'я, наприклад: <code>push_currency_value</code>.</li>
+                        <li>У полі <b>"Type" (Тип)</b> виберіть <b><code>String</code></b> (Рядок), оскільки ми будемо зберігати текст (наприклад, "30 CAD").</li>
+                        <li>Натисніть <b>"Save"</b> (Зберегти).</li>
+                    </ol>
+                    <div class="tip">
+                        <h4>💡 Для чого це потрібно?</h4>
+                        <p>Ми створюємо "комірку пам'яті" для кожного користувача, куди Smartico запише результат нашої логіки. Потім Push-повідомлення просто "загляне" в цю комірку і візьме готовий текст.</p>
+                    </div>
+
+                    <h3><span class="badge">Крок 2</span> Обчислення логіки та запис значення (в Campaign Journey)</h3>
+                    <p>Цей крок виконується в Campaign Journey (Подорожі кампанії) <u>перед</u> тим, як користувач отримає Push-повідомлення. Тут ми використовуємо повну Liquid-логіку.</p>
+                    <ol>
+                        <li>Відкрийте вашу Campaign Journey, яка відправлятиме Push-повідомлення.</li>
+                        <li>У Flow Builder (схема кампанії) <b>додайте крок "Action" (Дія)</b>. Розмістіть його <u>перед</u> кроком, який відправляє Push-повідомлення.</li>
+                        <li>Натисніть на цей крок "Action" і в його налаштуваннях:
+                            <ul>
+                                <li>Виберіть тип дії: <b>"Set User Property"</b> (Встановити властивість користувача).</li>
+                                <li>У полі <b>"Property" (Властивість)</b> виберіть створену вами властивість: <code>push_currency_value</code>.</li>
+                                <li>У полі <b>"Value" (Значення)</b> вставте ваш Liquid-код. Цей код обчислить потрібну суму залежно від валюти користувача:</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="good">
+                        <h4>✅ Приклад Liquid-коду для поля "Value"</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>{% case state.core_wallet_currency %}
+{% when 'CAD' %}30 CAD
+{% when 'USD' %}20 USD
+{% when 'AUD' %}30 AUD
+{% when 'NZD' %}30 NZD
+{% when 'NOK' %}200 NOK
+{% else %}20 EUR
+{% endcase %}</pre>
+                        </div>
+                        <p>Цей код перевіряє валюту гаманця користувача (<code>state.core_wallet_currency</code>) і записує відповідну суму (наприклад, "30 CAD" або "200 NOK") у властивість <code>push_currency_value</code>.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>💡 Альтернатива: Automation Rule</h4>
+                        <p>Якщо ця логіка потрібна не лише в одній кампанії, а має спрацьовувати щоразу, коли змінюється валюта користувача, ви можете налаштувати схожу дію в <b>Automation Rule</b> (Правила автоматизації) з тригером "User Property Changed" для <code>core_wallet_currency</code>.</p>
+                    </div>
+
+                    <h3><span class="badge">Крок 3</span> Використання кастомної властивості в Push-повідомленні</h3>
+                    <p>Тепер, коли значення вже обчислене та збережене у властивості <code>push_currency_value</code>, ви можете просто вивести його в Push-повідомленні.</p>
+                    <ol>
+                        <li>Відкрийте ваш Push Asset (шаблон Push-повідомлення).</li>
+                        <li>У полі <b>"Message" (Текст повідомлення)</b> вставте:</li>
+                    </ol>
+                    <div class="good">
+                        <h4>✅ Приклад використання в Push-повідомленні</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>Ваш бонус: {{state.push_currency_value}}</pre>
+                        </div>
+                        <p>Тепер, коли користувач отримає Push, замість <code>{{state.push_currency_value}}</code> буде підставлено вже готове значення, наприклад, "30 CAD" або "200 NOK".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 5: УСУНЕННЯ НЕСПРАВНОСТЕЙ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🚨</span> 5. Усунення несправностей: Чому Push не приходить?</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <p>Якщо ви відправляєте Push, але він не приходить, перевірте наступні пункти:</p>
+
+                    <h3><span class="badge">1</span> Статус дозволу на Push у Smartico</h3>
+                    <p>Навіть якщо браузер показує дозвіл, Smartico має знати про це.</p>
+                    <ol>
+                        <li>Перейдіть у <b>Users</b> (Користувачі) і знайдіть вашого тестового користувача.</li>
+                        <li>Відкрийте його профіль і знайдіть розділ <b>"Push notifications"</b>.</li>
+                        <li>Перевірте <b>"Status" (Статус)</b> для пристрою, на який ви очікуєте Push. Він має бути <b>"Enabled - user has token(s)"</b> ✅.</li>
+                    </ol>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Статус</th>
+                                    <th>Що означає</th>
+                                    <th>Рішення</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Enabled</b></td>
+                                    <td>Дозвіл надано, Push має прийти.</td>
+                                    <td>Проблема, ймовірно, в іншому.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Suspended</b></td>
+                                    <td>Ви надали дозвіл, але потім увійшли під іншим акаунтом у тому ж браузері. Токен був перепризначений.</td>
+                                    <td>Очистіть кеш браузера, видаліть усі дозволи для сайту, потім знову зайдіть на сайт і надайте дозвіл.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Blocked</b></td>
+                                    <td>Користувач заборонив Push-повідомлення.</td>
+                                    <td>Попросіть користувача змінити налаштування браузера.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Ask</b></td>
+                                    <td>Користувач ще не відреагував на запит дозволу.</td>
+                                    <td>Користувач має надати дозвіл.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Not enabled</b></td>
+                                    <td>Smartico не має інформації (користувач ніколи не був онлайн або не взаємодіяв з Push).</td>
+                                    <td>Переконайтеся, що користувач відвідував сайт і йому був показаний запит на Push.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3><span class="badge">2</span> Налаштування цільових пристроїв (Target Devices)</h3>
+                    <p>У налаштуваннях Push-ресурсу або кампанії може бути опція "Target devices".</p>
+                    <ul>
+                        <li>Переконайтеся, що вона встановлена на <b>"Web"</b> або <b>"All"</b>, якщо ви очікуєте пуші в браузері на ПК.</li>
+                        <li>Якщо там стоїть "Native apps", то пуші підуть лише на мобільні додатки.</li>
+                    </ul>
+
+                    <h3><span class="badge">3</span> Налаштування кампанії</h3>
+                    <ul>
+                        <li><b>Статус кампанії:</b> Має бути <b>"Active"</b>.</li>
+                        <li><b>Режим входу (Entry Mode):</b> Для тестування використовуйте <b>"Stop and Start"</b> або <b>"every time conditions are met, run few at the same time"</b>. Це дозволить тестовому користувачеві повторно входити в кампанію. Уникайте "Once during open journey" або "Once in a lifetime".</li>
+                        <li><b>Flow Builder:</b> Перевірте, чи правильно налаштована дія відправки Push-повідомлення у Flow Builder вашої кампанії.</li>
+                    </ul>
+
+                    <h3><span class="badge">4</span> Блокування на рівні ОС/Браузера</h3>
+                    <p>Іноді операційна система (Windows, macOS) або сам браузер мають власні налаштування, які можуть блокувати сповіщення, навіть якщо дозвіл надано на рівні сайту. Перевірте системні налаштування сповіщень.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 6: ТЕСТУВАННЯ PUSH-ПОВІДОМЛЕНЬ -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">🧪</span> 6. Тестування Push-повідомлень: Найкращі практики</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Використовуйте "Personal Message Campaigns"</h3>
+                    <p>Для надійного тестування Push-повідомлень найкраще використовувати спеціальні кампанії типу "Journey" (Подорож), які реагують на ручну відправку повідомлень.</p>
+                    <ol>
+                        <li>Створіть нову кампанію типу <b>"Journey"</b>.</li>
+                        <li>Встановіть категорію <b>"operational"</b> та не використовуйте контрольну групу (control group).</li>
+                        <li><b>Entry Trigger (Тригер входу):</b> Виберіть <b>"core send personal message"</b>.</li>
+                        <li><b>Mandatory Condition (Обов'язкова умова):</b> Додайте умову <b>"core personal message channel"</b> і встановіть її значення на <b>"push"</b>.</li>
+                        <li>У Flow Builder додайте ваш Push Asset (шаблон повідомлення).</li>
+                        <li><b>Entry Mode:</b> Встановіть <b>"Stop and Start"</b> або <b>"every time conditions are met, run few at the same time"</b>.</li>
+                        <li><b>Сегмент:</b> Обов'язково вкажіть тільки <b>тестових користувачів</b>.</li>
+                    </ol>
+                    <div class="tip">
+                        <h4>💡 Як відправити тестовий Push через цю кампанію?</h4>
+                        <p>Зайдіть у профіль вашого тестового користувача в Smartico, натисніть кнопку відправки Push-повідомлення, заповніть поля і натисніть "Send". Ваша кампанія "Personal Message" спрацює і відправить Push.</p>
+                    </div>
+
+                    <h3>Тестуйте на різних пристроях та браузерах</h3>
+                    <p>Завжди перевіряйте, як Push-повідомлення виглядають і працюють на:</p>
+                    <ul>
+                        <li>Різних десктопних браузерах (Chrome, Firefox, Edge, Safari).</li>
+                        <li>Мобільних пристроях (Android, iOS).</li>
+                        <li>Переконайтеся, що всі посилання та кнопки працюють коректно.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📧 При виникненні питань — зверніться до відділу Retention Platform Development</p>
+            <p>© Smartico.ai – Push Notifications Guide</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        const zoomImgs = document.querySelectorAll('.zoom-img');
+        const overlay = document.getElementById('overlay');
+
+        zoomImgs.forEach(img => {
+            img.onclick = function(e) {
+                e.stopPropagation();
+                this.classList.toggle('zoomed');
+                overlay.classList.toggle('show');
+            };
+        });
+
+        overlay.onclick = function() {
+            zoomImgs.forEach(img => img.classList.remove('zoomed'));
+            overlay.classList.remove('show');
+        };
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                zoomImgs.forEach(img => img.classList.remove('zoomed'));
+                overlay.classList.remove('show');
+            }
+        });
+        // Кнопка копіювання
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const codeBlock = this.closest('.code-block');
+                const pre = codeBlock.querySelector('pre');
+                if (!pre) return;
+                const textToCopy = pre.innerText;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    this.textContent = '✅';
+                    setTimeout(() => { this.textContent = '📋'; }, 1500);
+                }).catch(err => {
+                    console.error('Помилка копіювання: ', err);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
