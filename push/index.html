@@ -395,7 +395,7 @@
             <div class="section-content">
                 <div class="step">
                     <h3>Проблема: Чому складний Liquid-код не працює?</h3>
-                    <p>У полі "Message" Push-повідомлень (і SMS) можна використовувати теги для виведення значень змінних, наприклад, <code>{{state.user_first_name}}</code>. Однак, <b>не можна використовувати складну Liquid-логіку</b>, таку як умовні оператори (<code>{% if %}</code>, <code>{% case %}</code>) або цикли (<code>{% for %}</code>).</p>
+                    <p>У полі "Message" Push-повідомлень (і SMS) можна використовувати теги для виведення значень змінних, наприклад, <code>{{state.user_first_name}}</code>. Однак, <b>не можна використовувати складну Liquid-логіку</b>, таку як умовні оператори (<code>{% if %}</code>, <code>{% case %}</code>) або цикли (<code>{% for %})</code>.</p>
                     <p>Це пов'язано з тим, що Push-повідомлення оптимізовані для швидкої доставки, і їхній механізм не підтримує виконання складних програмних команд безпосередньо в тексті повідомлення.</p>
 
                     <div class="bad">
@@ -426,7 +426,8 @@
             <div class="section-content">
                 <div class="step">
                     <h3>Основна ідея</h3>
-                    <p>Щоб обійти обмеження, ми маємо <b>обчислити потрібне значення заздалегідь</b> (наприклад, "30 CAD" або "200 NOK") в іншому місці Smartico, де Liquid-логіка працює повноцінно. Потім ми збережемо цей результат у спеціальній "кастомній властивості користувача" і вже її будемо просто підставляти в Push-повідомленні.</p>
+                    <p>Щоб обійти обмеження Push-повідомлень, ми маємо <b>обчислити потрібне значення заздалегідь</b> (наприклад, "30 CAD" або "200 NOK") в іншому місці Smartico, де підтримується складна логіка. Потім ми збережемо цей результат у спеціальній "кастомній властивості користувача" і вже її будемо просто підставляти в Push-повідомленні.</p>
+                    <p>Для обчислення складної логіки ми будемо використовувати <b>JavaScript-код, розміщений у Label Tag</b>. Цей Label Tag потім буде викликаний в Automation Rule або Campaign Journey.</p>
 
                     <h3><span class="badge">Крок 1</span> Створення кастомної властивості користувача</h3>
                     <p>Ця властивість буде зберігати готовий текст, який ми хочемо показати в пуші.</p>
@@ -437,13 +438,96 @@
                         <li>У полі <b>"Type" (Тип)</b> виберіть <b><code>String</code></b> (Рядок), оскільки ми будемо зберігати текст (наприклад, "30 CAD").</li>
                         <li>Натисніть <b>"Save"</b> (Зберегти).</li>
                     </ol>
-                    <p>Але скоріше за все доступ є не у всіх, тому потрібно звернутись до відповідального менеджера, про створення катомної властивості.</p>                    <div class="tip">
+                    <p>Але скоріше за все доступ є не у всіх, тому потрібно звернутись до відповідального менеджера, про створення катомної властивості.</p>
+                    <div class="tip">
                         <h4>💡 Для чого це потрібно?</h4>
                         <p>Ми створюємо "комірку пам'яті" для кожного користувача, куди Smartico запише результат нашої логіки. Потім Push-повідомлення просто "загляне" в цю комірку і візьме готовий текст.</p>
                     </div>
 
-                    <h3><span class="badge">Крок 2</span> Обчислення логіки та запис значення через Automation Rule</h3>
-                    <p>Це <b>основний і найбільш надійний спосіб</b> обчислити складну Liquid-логіку та зберегти результат у властивості користувача. Automation Rules мають повну підтримку Liquid-коду у полі "Value" для дії "Update property".</p>
+                    <h3><span class="badge">Крок 2</span> Створення Label Tag з JavaScript-логікою</h3>
+                    <p>Тут ми напишемо JavaScript-код, який буде обчислювати потрібну суму залежно від валюти користувача. Цей код буде розміщений у спеціальному Label Tag.</p>
+                    <ol>
+                        <li>Перейдіть до <b>Marketing → Labels</b> (Маркетинг → Мітки).</li>
+                        <li>Натисніть кнопку <b>"Create New Label"</b> (Створити нову мітку).</li>
+                        <li>У полі <b>"Name" (Назва)</b> введіть унікальне ім'я для вашого Label Tag, наприклад: <code>calculate_currency_bonus</code>.</li>
+                        <li>У полі <b>"Value" (Значення)</b> вставте наступний JavaScript-код:</li>
+                    </ol>
+                    <div class="good">
+                        <h4>✅ JavaScript-код для Label Tag</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>(function() {
+    const getAmountByCurrency = function(userCurrency) {
+        const currency = (userCurrency || '').toUpperCase(); // Перетворюємо валюту на великі літери
+        switch (currency) {
+            case 'EUR':
+            case 'USD':
+                return 20;
+            case 'CAD':
+            case 'AUD':
+            case 'NZD':
+                return 30;
+            case 'NOK':
+                return 200;
+            default:
+                return 0; // Якщо валюта не збігається, повертаємо 0
+        }
+    };
+
+    // JavaScript-код, розміщений у Label Tag, має доступ до об'єкта 'state'
+    const userCurrency = state.core_wallet_currency; 
+    // Обчислюємо суму бонусу за допомогою нашої функції
+    const amount = getAmountByCurrency(userCurrency);
+    // Формуємо фінальний рядок (наприклад, "20 USD")
+    const result = amount + ' ' + userCurrency;
+    
+    return result; // Повертаємо обчислений рядок
+})();</pre>
+                        </div>
+                        <p><b>Пояснення коду:</b></p>
+                        <ul>
+                            <li><code>(function() { ... })();</code> — це самозапускаюча функція. Вона виконується одразу, як тільки Smartico її "прочитає".</li>
+                            <li><code>state.core_wallet_currency</code> — JavaScript-код, розміщений у Label Tag, має доступ до об'єкта <code>state</code>, який містить дані про користувача.</li>
+                            <li>Функція <code>getAmountByCurrency</code> визначає суму бонусу залежно від валюти.</li>
+                            <li><code>return result;</code> — те, що поверне ця функція, і буде кінцевим значенням, яке ми запишемо у властивість користувача.</li>
+                        </ul>
+                    </div>
+                    <ol start="5">
+                        <li>Натисніть <b>"Save"</b> (Зберегти) для Label Tag.</li>
+                    </ol>
+
+                    <h3><span class="badge">Крок 3А</span> Варіант 1: Обчислення та запис значення через Campaign Journey</h3>
+                    <p>Цей варіант підходить, якщо вам потрібно обчислити значення <b>безпосередньо в рамках конкретної кампанії</b>, перед відправкою Push-повідомлення.</p>
+                    <ol>
+                        <li>Відкрийте вашу Campaign Journey (Подорож кампанії), яка відправлятиме Push-повідомлення.</li>
+                        <li>У Flow Builder (схема кампанії) <b>додайте крок "Action" (Дія)</b>. Розмістіть його <u>перед</u> кроком, який відправляє Push-повідомлення.</li>
+                        <li>Натисніть на цей крок "Action" і в його налаштуваннях:
+                            <ul>
+                                <li>У розділі "Category" (Категорія) виберіть <b>"USER PROFILE"</b>.</li>
+                                <li>У розділі "Action" (Дія) виберіть <b>"Update property"</b> (Оновити властивість).</li>
+                                <li>У полі <b>"Property" (Властивість)</b> виберіть вашу кастомну властивість: <code>push_currency_value</code>.</li>
+                                <li>У полі <b>"Value" (Значення)</b> <b>вставте ваш Label Tag</b>:</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="good">
+                        <h4>✅ Приклад для поля "Value" у Campaign Journey (Update property)</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>{{label.calculate_currency_bonus}}</pre>
+                        </div>
+                        <p>Тут <code>{{label.calculate_currency_bonus}}</code> — це назва вашого Label Tag, який містить JavaScript-код.</p>
+                    </div>
+                    <ol start="4">
+                        <li>Натисніть <b>"Save"</b> (Зберегти) для дії.</li>
+                    </ol>
+                    <div class="tip">
+                        <h4>💡 Що робить цей варіант?</h4>
+                        <p>Коли користувач проходить через цей крок у кампанії, Smartico виконає JavaScript-код з Label Tag, отримає обчислений результат (наприклад, "30 CAD") і запише його у властивість <code>push_currency_value</code> в профілі користувача.</p>
+                    </div>
+
+                    <h3><span class="badge">Крок 3Б</span> Варіант 2: Обчислення та запис значення через Automation Rule</h3>
+                    <p>Цей варіант підходить, якщо вам потрібно обчислювати значення <b>автоматично, щоразу при зміні певних даних користувача</b> (наприклад, валюти), незалежно від конкретної кампанії.</p>
                     <ol>
                         <li>Перейдіть до <b>Automation → Automation Rules</b> (Автоматизація → Правила автоматизації).</li>
                         <li>Натисніть кнопку <b>"Create New Rule"</b> (Створити нове правило).</li>
@@ -469,24 +553,17 @@
                                 <li>У розділі "Category" (Категорія) виберіть <b>"USER PROFILE"</b>.</li>
                                 <li>У розділі "Action" (Дія) виберіть <b>"Update property"</b> (Оновити властивість).</li>
                                 <li>У полі <b>"Property" (Властивість)</b> виберіть вашу кастомну властивість: <code>push_currency_value</code>.</li>
-                                <li>У полі <b>"Value" (Значення)</b> <b>вставте ваш Liquid-код</b>:</li>
+                                <li>У полі <b>"Value" (Значення)</b> <b>вставте ваш Label Tag</b>:</li>
                             </ul>
                         </li>
                     </ol>
                     <div class="good">
-                        <h4>✅ Liquid-код для поля "Value" у Automation Rule (Update property)</h4>
+                        <h4>✅ Приклад для поля "Value" у Automation Rule (Update property)</h4>
                         <div class="code-block">
                             <button class="copy-btn" title="Скопіювати код">📋</button>
-                            <pre>{% case state.core_wallet_currency %}
-{% when 'CAD' %}30 CAD
-{% when 'USD' %}20 USD
-{% when 'AUD' %}30 AUD
-{% when 'NZD' %}30 NZD
-{% when 'NOK' %}200 NOK
-{% else %}20 EUR
-{% endcase %}</pre>
+                            <pre>{{label.calculate_currency_bonus}}</pre>
                         </div>
-                        <p>Цей код перевіряє валюту гаманця користувача (<code>state.core_wallet_currency</code>) і записує відповідну суму (наприклад, "30 CAD" або "200 NOK") у властивість <code>push_currency_value</code>.</p>
+                        <p>Тут <code>{{label.calculate_currency_bonus}}</code> — це назва вашого Label Tag, який містить JavaScript-код.</p>
                     </div>
                     <ol start="5">
                         <li><b>Збережіть та активуйте Automation Rule:</b>
@@ -497,12 +574,12 @@
                         </li>
                     </ol>
                     <div class="tip">
-                        <h4>💡 Що робить це правило?</h4>
-                        <p>Це правило буде автоматично спрацьовувати (наприклад, коли змінюється валюта користувача) і обчислювати потрібний текст за допомогою Liquid-коду. Потім воно запише цей готовий текст у властивість <code>push_currency_value</code> в профілі користувача.</p>
+                        <h4>💡 Що робить цей варіант?</h4>
+                        <p>Це правило буде автоматично спрацьовувати (наприклад, коли змінюється валюта користувача). Smartico виконає JavaScript-код з Label Tag, отримає обчислений результат (наприклад, "30 CAD") і запише його у властивість <code>push_currency_value</code> в профілі користувача.</p>
                     </div>
 
-                    <h3><span class="badge">Крок 3</span> Використання кастомної властивості в Push-повідомленні</h3>
-                    <p>Тепер, коли значення вже обчислене та збережене у властивості <code>push_currency_value</code> (завдяки Automation Rule), ви можете просто вивести його в Push-повідомленні.</p>
+                    <h3><span class="badge">Крок 4</span> Використання кастомної властивості в Push-повідомленні</h3>
+                    <p>Тепер, коли значення вже обчислене та збережене у властивості <code>push_currency_value</code> (завдяки Automation Rule або Campaign Journey), ви можете просто вивести його в Push-повідомленні.</p>
                     <ol>
                         <li>Відкрийте ваш Push Asset (шаблон Push-повідомлення).</li>
                         <li>У полі <b>"Message" (Текст повідомлення)</b> вставте:</li>
@@ -515,17 +592,6 @@
                         </div>
                         <p>Тепер, коли користувач отримає Push, замість <code>{{state.push_currency_value}}</code> буде підставлено вже готове значення, наприклад, "30 CAD" або "200 NOK".</p>
                     </div>
-
-                    <!-- <div class="warning">
-                        <h4>⚠️ Чому не можна використовувати JavaScript у Label Tag для "Update property"?</h4>
-                        <p>Ми обговорювали ідею написати JavaScript функцію в Label Tag, а потім вставити цей Label Tag у поле "Value" дії "Update property". На жаль, <b>цей підхід не працюватиме</b> з наступних причин:</p>
-                        <ul>
-                            <li><b>Liquid (сервер) vs. JavaScript (браузер):</b> Liquid-код обробляється на сервері Smartico, а JavaScript — у браузері користувача. Дія "Update property" виконується на сервері і очікує або готове значення, або Liquid-код для обчислення.</li>
-                            <li><b>"Update property" не виконує JavaScript:</b> Якщо ви вставите Label Tag, що містить JavaScript, у поле "Value", Smartico просто збереже <u>текст цього JavaScript-коду</u> як значення властивості, а не виконає його і не запише результат.</li>
-                            <li><b>Label Tag для HTML:</b> Label Tags, що містять JavaScript, призначені для вставки в HTML-контент (наприклад, Pop-up або Email), де браузер може виконати цей JavaScript. Вони не призначені для обчислення значень на сервері Smartico.</li>
-                        </ul>
-                        <p>Тому для обчислення динамічних значень на сервері Smartico (для дії "Update property") необхідно використовувати саме <b>Liquid-код</b>, як показано в прикладі з Automation Rule.</p>
-                    </div> -->
                 </div>
             </div>
         </div>
