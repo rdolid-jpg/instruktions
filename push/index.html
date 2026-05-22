@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #e0f2f7 0%, #a7d9eb 100%); /* Light blue gradient */
             min-height: 100vh;
             padding: 40px 20px;
@@ -317,9 +317,50 @@
         .copy-btn:hover {
             background: rgba(255,255,255,0.2);
         }
+
+        /* CSS для плаваючої кнопки Home */
+        .home-button {
+            position: fixed;
+            top: 20px; /* Відступ від верхнього краю */
+            left: 20px; /* Відступ від лівого краю */
+            background-color: #4682b4; /* Синій колір, як у заголовків секцій */
+            color: white;
+            font-size: 1.8rem; /* Розмір іконки */
+            width: 50px; /* Ширина кнопки */
+            height: 50px; /* Висота кнопки */
+            border-radius: 50%; /* Робить кнопку круглою */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тінь для об'ємності */
+            text-decoration: none; /* Прибирає підкреслення посилання */
+            z-index: 1002; /* Переконайтеся, що кнопка знаходиться поверх інших елементів */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .home-button:hover {
+            background-color: #2c5a84; /* Темніший синій при наведенні */
+            transform: scale(1.05); /* Збільшення при наведенні */
+        }
+
+        /* Медіа-запит для мобільних пристроїв, щоб кнопка не заважала */
+        @media (max-width: 768px) {
+            .home-button {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Плаваюча кнопка Home -->
+    <a href="https://rdolid-jpg.github.io/instruktions" class="home-button" title="На головну сторінку">
+        🏠
+    </a>
+
     <div class="overlay" id="overlay"></div>
     <div class="container">
         <div class="header">
@@ -370,7 +411,7 @@
                         <li>Натисніть <b>"Create New Push"</b>.</li>
                         <li>Заповніть основні поля:
                             <ul>
-                                <li><b>Title (Заголовок):</b> Короткий, привабливий заголовок повідомлення.</li>
+                                <li><b>Title (Заголовок):</b> Короткий, привабливий заголошення.</li>
                                 <li><b>Message (Текст повідомлення):</b> Основний текст пуша. Тут можна використовувати прості змінні, наприклад, <code>{{state.user_first_name}}</code>, щоб звертатися до користувача на ім'я.</li>
                                 <li><b>URL:</b> Посилання, куди перейде користувач після натискання на пуш.</li>
                                 <li><b>Image (Зображення):</b> URL великого зображення для пуша (необов'язково, але робить пуш привабливішим).</li>
@@ -395,7 +436,7 @@
             <div class="section-content">
                 <div class="step">
                     <h3>Проблема: Чому складний Liquid-код не працює?</h3>
-                    <p>У полі "Message" Push-повідомлень (і SMS) можна використовувати теги для виведення значень змінних, наприклад, <code>{{state.user_first_name}}</code>. Однак, <b>не можна використовувати складну Liquid-логіку</b>, таку як умовні оператори (<code>{% if %}</code>, <code>{% case %}</code>) або цикли (<code>{% for %})</code>.</p>
+                    <p>У полі "Message" Push-повідомлень (і SMS) можна використовувати теги для виведення значень змінних, наприклад, <code>{{state.user_first_name}}</code>. Однак, <b>не можна використовувати складну Liquid-логіку</b>, таку як умовні оператори (<code>{% if %}</code>, <code>{% case %}</code>) або цикли (<code>{% for %})</code>).</p>
                     <p>Це пов'язано з тим, що Push-повідомлення оптимізовані для швидкої доставки, і їхній механізм не підтримує виконання складних програмних команд безпосередньо в тексті повідомлення.</p>
 
                     <div class="bad">
@@ -418,43 +459,26 @@
             </div>
         </div>
 
-        <!-- РОЗДІЛ 4: РІШЕННЯ: ДИНАМІЧНИЙ КОНТЕНТ ЧЕРЕЗ ПОПЕРЕДНЄ ОБЧИСЛЕННЯ -->
+        <!-- РОЗДІЛ 4: ПРОСТЕ РІШЕННЯ: ДИНАМІЧНИЙ КОНТЕНТ У PUSH-ПОВІДОМЛЕННЯХ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">✅</span> 4. Рішення: Динамічний контент через попереднє обчислення</h2>
+                <h2><span class="icon">💡</span> 4. Просте Рішення: Динамічний контент у Push-повідомленнях</h2>
             </div>
             <div class="section-content">
                 <div class="step">
                     <h3>Основна ідея</h3>
-                    <p>Щоб обійти обмеження Push-повідомлень, ми маємо <b>обчислити потрібне значення заздалегідь</b> (наприклад, "30 CAD" або "200 NOK") в іншому місці Smartico, де підтримується складна логіка. Потім ми збережемо цей результат у спеціальній "кастомній властивості користувача" і вже її будемо просто підставляти в Push-повідомленні.</p>
-                    <p>Для обчислення складної логіки ми будемо використовувати <b>JavaScript-код, розміщений у Label Tag</b>. Цей Label Tag потім буде викликаний в Automation Rule або Campaign Journey.</p>
+                    <p>Для інтеграції динамічного контенту в Push-повідомлення, коли складна Liquid-логіка не підтримується, Smartico дозволяє використовувати JavaScript-код, розміщений у Label Tag. Цей розділ описує <b>простий підхід</b>, при якому обчислене значення з Label Tag безпосередньо вставляється в повідомлення, а також розширені можливості з Campaign Tags.</p>
 
-                    <h3><span class="badge">Крок 1</span> Створення кастомної властивості користувача</h3>
+                    <h3><span class="badge">Метод 1</span> Динамічний контент безпосередньо з Label Tag</h3>
+                    <p>Цей метод ідеально підходить для випадків, коли вам потрібно відобразити динамічне значення, обчислене за допомогою JavaScript, без необхідності зберігати його в профілі користувача. Значення обчислюється "на льоту" під час відправки повідомлення.</p>
 
-                    <div class="warning">
-                        <h4>⚠️ Доступ на створення кастомних властивостей за замовчуванням заблокований</h4>
-                        <p>Тому при необхідності створення відповідної властивосі зверніться до відповідального за комунікацію зі Smartico, менеджера відділу Retention Platform Development <a href="slack://user?team=T900C3S75&id=U07PZPUA8AJ">i.polianskyi@upstars.com</a></p>
-                    </div>
-                    
-                    <p>Ця властивість буде зберігати готовий текст, який ми хочемо показати в пуші. В разі наявності у вас доступу, виконайте такі кроки:</p>
-                    <ol>
-                        <li>Перейдіть до <b>Settings → User Properties</b> (Налаштування → Властивості користувача).</li>
-                        <li>Натисніть кнопку <b>"Create New Property"</b> (Створити нову властивість).</li>
-                        <li>У полі <b>"Name" (Назва)</b> введіть унікальне ім'я, наприклад: <code>push_currency_value</code>.</li>
-                        <li>У полі <b>"Type" (Тип)</b> виберіть <b><code>String</code></b> (Рядок), оскільки ми будемо зберігати текст (наприклад, "30 CAD").</li>
-                        <li>Натисніть <b>"Save"</b> (Зберегти).</li>
-                    </ol>
-                    <div class="tip">
-                        <h4>💡 Для чого це потрібно?</h4>
-                        <p>Ми створюємо "комірку пам'яті" для кожного користувача, куди Smartico запише результат нашої логіки. Потім Push-повідомлення просто "загляне" в цю комірку і візьме готовий текст.</p>
-                    </div>
-
-                    <h3><span class="badge">Крок 2</span> Створення Label Tag з JavaScript-логікою</h3>
+                    <h4><span class="badge">Крок 1</span> Створення Label Tag з JavaScript-логікою</h4>
                     <p>Тут ми напишемо JavaScript-код, який буде обчислювати потрібну суму залежно від валюти користувача. Цей код буде розміщений у спеціальному Label Tag.</p>
                     <ol>
                         <li>Перейдіть до <b>Marketing → Labels</b> (Маркетинг → Мітки).</li>
                         <li>Натисніть кнопку <b>"Create New Label"</b> (Створити нову мітку).</li>
                         <li>У полі <b>"Name" (Назва)</b> введіть унікальне ім'я для вашого Label Tag, наприклад: <code>calculate_currency_bonus</code>.</li>
+                        <li>У полі <b>"Tag value type" (Тип значення тегу)</b> виберіть <b>"JavaScript function"</b>.</li>
                         <li>У полі <b>"Value" (Значення)</b> вставте наступний JavaScript-код:</li>
                     </ol>
                     <div class="good">
@@ -485,7 +509,7 @@
     const amount = getAmountByCurrency(userCurrency);
     // Формуємо фінальний рядок (наприклад, "20 USD")
     const result = amount + ' ' + userCurrency;
-    
+
     return result; // Повертаємо обчислений рядок
 })();</pre>
                         </div>
@@ -501,7 +525,100 @@
                         <li>Натисніть <b>"Save"</b> (Зберегти) для Label Tag.</li>
                     </ol>
 
-                    <h3><span class="badge">Крок 3А</span> Варіант 1: Обчислення та запис значення через Campaign Journey</h3>
+                    <h4><span class="badge">Крок 2</span> Використання Label Tag у Push-повідомленні</h4>
+                    <p>Тепер, коли ваш Label Tag створено, ви можете просто вставити його в поле <b>"Title" (Заголовок)</b> або <b>"Message" (Текст повідомлення)</b> вашого Push Asset.</p>
+                    <div class="good">
+                        <h4>✅ Приклад використання в Push-повідомленні</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>Ваш бонус: {{label.calculate_currency_bonus}}</pre>
+                        </div>
+                        <p>Коли користувач отримає Push, замість <code>{{label.calculate_currency_bonus}}</code> буде підставлено вже готове значення, наприклад, "30 CAD" або "200 NOK", обчислене безпосередньо під час відправки.</p>
+                    </div>
+
+                    <h3><span class="badge">Розширене використання</span> Campaign Tags у поєднанні з Label Tags</h3>
+                    <p>Campaign Tags (Теги кампанії) дозволяють створювати динамічний контент, який може бути специфічним для окремої кампанії. Вони можуть бути особливо корисними, коли вам потрібно додати додатковий контекст або модифікувати значення, отримане з Label Tag, безпосередньо в рамках кампанії.</p>
+
+                    <h4>Що таке Campaign Tag?</h4>
+                    <p>Campaign Tag — це змінна, яка визначається на рівні конкретної кампанії. Вона може містити статичний текст, інші змінні (включаючи Label Tags) або навіть просту Liquid-логіку (хоча для складної логіки краще використовувати Label Tags).</p>
+
+                    <h4><span class="badge">Приклад використання</span> Комбінування Label Tag та Campaign Tag</h4>
+                    <p>Уявіть, що ваш Label Tag <code>{{label.calculate_currency_bonus}}</code> повертає "20 USD". Ви можете створити Campaign Tag, який додасть до цього значення додатковий текст або номер кампанії.</p>
+
+                    <h4>Створення Campaign Tag</h4>
+                    <ol>
+                        <li>Відкрийте вашу Campaign Journey.</li>
+                        <li>Перейдіть до розділу <b>"Campaign Tags"</b> (зазвичай знаходиться в налаштуваннях кампанії або на першому кроці).</li>
+                        <li>Натисніть <b>"Add New Tag"</b>.</li>
+                        <li>У полі <b>"Name" (Назва)</b> введіть, наприклад: <code>bonus_message</code>.</li>
+                        <li>У полі <b>"Value" (Значення)</b> вставте комбінацію, наприклад:</li>
+                    </ol>
+                    <div class="good">
+                        <h4>✅ Приклад для поля "Value" у Campaign Tag</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>Campaign #1 Bonus: {{label.calculate_currency_bonus}}</pre>
+                        </div>
+                        <p>Тут <code>{{label.calculate_currency_bonus}}</code> — це ваш Label Tag, який обчислює динамічне значення. Campaign Tag <code>bonus_message</code> тепер міститиме рядок "Campaign #1 Bonus: 20 USD" (якщо Label Tag повернув "20 USD").</p>
+                        <div class="zoom-container">
+                            <img src="./media/11.png" alt="Приклад налаштування Campaign Tag" class="zoom-img">
+                            <div class="img-caption">Приклад налаштування Campaign Tag з використанням Label Tag</div>
+                        </div>
+                    </div>
+                    <ol start="6">
+                        <li>Збережіть Campaign Tag.</li>
+                    </ol>
+
+                    <h4>Використання Campaign Tag у Push-повідомленні</h4>
+                    <p>Тепер ви можете використовувати цей Campaign Tag у вашому Push Asset:</p>
+                    <div class="good">
+                        <h4>✅ Приклад використання Campaign Tag у Push-повідомленні</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>{{campaign.bonus_message}}</pre>
+                        </div>
+                        <p>Це дозволяє вам мати гнучкий, динамічний контент, який може бути адаптований для кожної окремої кампанії, використовуючи глобальні обчислення з Label Tags та додаючи специфічний для кампанії контекст через Campaign Tags.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 5: СКЛАДНЕ РІШЕННЯ: ДИНАМІЧНИЙ КОНТЕНТ ЧЕРЕЗ КАСТОМНУ ВЛАСТИВІСТЬ КОРИСТУВАЧА -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">⚙️</span> 5. Складне Рішення: Динамічний контент через кастомну властивість користувача</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <h3>Основна ідея</h3>
+                    <p>Цей підхід використовується, коли логіка обчислення є більш складною, або коли обчислене значення потрібно зберігати в профілі користувача для подальшого використання в інших кампаніях, каналах комунікації або для аналітики. Значення обчислюється заздалегідь і записується у спеціальну кастомну властивість.</p>
+
+                    <h4><span class="badge">Крок 1</span> Створення кастомної властивості користувача</h4>
+                    <div class="warning">
+                        <h4>⚠️ Доступ на створення кастомних властивостей за замовчуванням заблокований</h4>
+                        <p>Тому при необхідності створення відповідної властивосі зверніться до відповідального за комунікацію зі Smartico, менеджера відділу Retention Platform Development <a href="slack://user?team=T900C3S75&id=U07PZPUA8AJ">i.polianskyi@upstars.com</a></p>
+                    </div>
+                    <p>Ця властивість буде зберігати готовий текст, який ми хочемо показати в пуші. В разі наявності у вас доступу, виконайте такі кроки:</p>
+                    <ol>
+                        <li>Перейдіть до <b>Settings → User Properties</b> (Налаштування → Властивості користувача).</li>
+                        <li>Натисніть кнопку <b>"Create New Property"</b> (Створити нову властивість).</li>
+                        <li>У полі <b>"Name" (Назва)</b> введіть унікальне ім'я, наприклад: <code>push_currency_value</code>.</li>
+                        <li>У полі <b>"Type" (Тип)</b> виберіть <b><code>String</code></b> (Рядок), оскільки ми будемо зберігати текст (наприклад, "30 CAD").</li>
+                        <li>Натисніть <b>"Save"</b> (Зберегти).</li>
+                    </ol>
+                    <div class="tip">
+                        <h4>💡 Для чого це потрібно?</h4>
+                        <p>Ми створюємо "комірку пам'яті" для кожного користувача, куди Smartico запише результат нашої логіки. Потім Push-повідомлення просто "загляне" в цю комірку і візьме готовий текст.</p>
+                    </div>
+
+                    <h4><span class="badge">Крок 2</span> Створення Label Tag з JavaScript-логікою</h4>
+                    <p>Для обчислення динамічного значення використовуйте той самий Label Tag, що був створений у <u>Розділі 4, Метод 1, Крок 1</u> (наприклад, <code>calculate_currency_bonus</code>), який містить JavaScript-код.</p>
+                    <div class="tip">
+                        <h4>💡 Повторне використання</h4>
+                        <p>Label Tags є глобальними, тому один і той самий Label Tag з JavaScript-логікою може бути використаний як для простого варіанту, так і для обчислення значень, що зберігаються у властивостях користувача.</p>
+                    </div>
+
+                    <h4><span class="badge">Крок 3А</span> Обчислення та запис значення через Campaign Journey</h4>
                     <p>Цей варіант підходить, якщо вам потрібно обчислити значення <b>безпосередньо в рамках конкретної кампанії</b>, перед відправкою Push-повідомлення.</p>
                     <ol>
                         <li>Відкрийте вашу Campaign Journey (Подорож кампанії), яка відправлятиме Push-повідомлення.</li>
@@ -531,7 +648,7 @@
                         <p>Коли користувач проходить через цей крок у кампанії, Smartico виконає JavaScript-код з Label Tag, отримає обчислений результат (наприклад, "30 CAD") і запише його у властивість <code>push_currency_value</code> в профілі користувача.</p>
                     </div>
 
-                    <h3><span class="badge">Крок 3Б</span> Варіант 2: Обчислення та запис значення через Automation Rule</h3>
+                    <h4><span class="badge">Крок 3Б</span> Обчислення та запис значення через Automation Rule</h4>
                     <p>Цей варіант підходить, якщо вам потрібно обчислювати значення <b>автоматично, щоразу при зміні певних даних користувача</b> (наприклад, валюти), незалежно від конкретної кампанії.</p>
                     <ol>
                         <li>Перейдіть до <b>Automation → Automation Rules</b> (Автоматизація → Правила автоматизації).</li>
@@ -583,7 +700,7 @@
                         <p>Це правило буде автоматично спрацьовувати (наприклад, коли змінюється валюта користувача). Smartico виконає JavaScript-код з Label Tag, отримає обчислений результат (наприклад, "30 CAD") і запише його у властивість <code>push_currency_value</code> в профілі користувача.</p>
                     </div>
 
-                    <h3><span class="badge">Крок 4</span> Використання кастомної властивості в Push-повідомленні</h3>
+                    <h4><span class="badge">Крок 4</span> Використання кастомної властивості в Push-повідомленні</h4>
                     <p>Тепер, коли значення вже обчислене та збережене у властивості <code>push_currency_value</code> (завдяки Automation Rule або Campaign Journey), ви можете просто вивести його в Push-повідомленні.</p>
                     <ol>
                         <li>Відкрийте ваш Push Asset (шаблон Push-повідомлення).</li>
@@ -601,10 +718,10 @@
             </div>
         </div>
 
-        <!-- РОЗДІЛ 5: УСУНЕННЯ НЕСПРАВНОСТЕЙ -->
+        <!-- РОЗДІЛ 6: УСУНЕННЯ НЕСПРАВНОСТЕЙ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">🚨</span> 5. Усунення несправностей: Чому Push не приходить?</h2>
+                <h2><span class="icon">🚨</span> 6. Усунення несправностей: Чому Push не приходить?</h2>
             </div>
             <div class="section-content">
                 <div class="step">
@@ -680,10 +797,10 @@
             </div>
         </div>
 
-        <!-- РОЗДІЛ 6: ТЕСТУВАННЯ PUSH-ПОВІДОМЛЕНЬ -->
+        <!-- РОЗДІЛ 7: ТЕСТУВАННЯ PUSH-ПОВІДОМЛЕНЬ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">🧪</span> 6. Тестування Push-повідомлень: Найкращі практики</h2>
+                <h2><span class="icon">🧪</span> 7. Тестування Push-повідомлень: Найкращі практики</h2>
             </div>
             <div class="section-content">
                 <div class="step">
