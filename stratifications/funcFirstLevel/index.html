@@ -12,11 +12,11 @@
     // КУРСИ ВАЛЮТ ДЛЯ КОНВЕРТАЦІЇ В USD
     var exchangeRates = {
         USD: 1,
-        CAD: 0.7,
-        AUD: 0.7,
-        EUR: 1.1,
-        GBP: 1.20,
-        NOK: 0.1
+        CAD: 0.73,
+        AUD: 0.71,
+        EUR: 1.16,
+        GBP: 1.34,
+        NOK: 0.11
     };
     
     // ВІДПОВІДНІСТЬ КОДІВ СЕГМЕНТІВ ЇХ НАЗВАМ (Чим нижче в списку — тим ВИЩИЙ пріоритет)
@@ -30,9 +30,9 @@
     
     // ДІАПАЗОНИ СЕРЕДНЬОГО ДЕПОЗИТУ ТА СУФІКСИ ТЕГІВ
     var avgDepRanges = [
-        { min: 0, max: 29.999999, suffix: 'avg_dep_30' },
-        { min: 30, max: 50, suffix: 'avg_dep_30_50' },
-        { min: 50.000001, max: Infinity, suffix: 'avg_dep_51+' }
+        { min: 0, max: 29.999999, suffix: 'avg_dep_less_30' },
+        { min: 30, max: 49.999999, suffix: 'avg_dep_30_50' },
+        { min: 50, max: Infinity, suffix: 'avg_dep_50+' }
     ];
     // ==================================================
     
