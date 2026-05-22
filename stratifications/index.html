@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,103 +11,107 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #5868ae 0%, #5e3d7e 100%);
             min-height: 100vh;
             padding: 40px 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .header {
             text-align: center;
             color: white;
             margin-bottom: 40px;
         }
-        
+
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-        
+
         .header p {
             font-size: 1.2rem;
             opacity: 0.9;
         }
-        
+
         .section {
             background: white;
             border-radius: 20px;
             margin-bottom: 30px;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-        
+
         .section-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px 30px;
             cursor: pointer;
             transition: all 0.3s ease;
+            border-radius: 20px 20px 0 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
-        
+
         .section-header:hover {
             background: linear-gradient(135deg, #5a67d8 0%, #6b46a0 100%);
         }
-        
+
         .section-header h2 {
             font-size: 1.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .section-header .icon {
             font-size: 1.8rem;
         }
-        
+
         .section-content {
             padding: 30px;
             display: none;
             border-top: 1px solid #e2e8f0;
         }
-        
+
         .section-content.active {
             display: block;
         }
-        
+
         .step {
             margin-bottom: 25px;
             padding-left: 20px;
             border-left: 3px solid #667eea;
         }
-        
+
         .step h3 {
             color: #2d3748;
             margin-bottom: 10px;
             font-size: 1.2rem;
         }
-        
-        .step p, .step li {
+
+        .step p,
+        .step li {
             color: #4a5568;
             line-height: 1.6;
         }
-        
-        .step ul, .step ol {
+
+        .step ul,
+        .step ol {
             margin-left: 20px;
             margin-top: 10px;
         }
-        
+
         .step li {
             margin-bottom: 5px;
         }
-        
+
         .code-block {
             background: #1a202c;
             color: #a0aec0;
@@ -117,13 +122,13 @@
             font-size: 0.9rem;
             margin: 15px 0;
         }
-        
+
         .code-block pre {
             margin: 0;
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-        
+
         .warning {
             background: #fef5e7;
             border-left: 4px solid #f39c12;
@@ -131,12 +136,12 @@
             border-radius: 10px;
             margin: 15px 0;
         }
-        
+
         .warning h4 {
             color: #e67e22;
             margin-bottom: 8px;
         }
-        
+
         .tip {
             background: #e8f8f5;
             border-left: 4px solid #1abc9c;
@@ -144,33 +149,34 @@
             border-radius: 10px;
             margin: 15px 0;
         }
-        
+
         .tip h4 {
             color: #16a085;
             margin-bottom: 8px;
         }
-        
+
         .table-wrapper {
             overflow-x: auto;
             margin: 15px 0;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        
-        th, td {
+
+        th,
+        td {
             border: 1px solid #e2e8f0;
             padding: 12px;
             text-align: left;
         }
-        
+
         th {
             background: #f7fafc;
             color: #2d3748;
         }
-        
+
         .badge {
             display: inline-block;
             background: #667eea;
@@ -180,7 +186,7 @@
             font-size: 0.8rem;
             margin-right: 10px;
         }
-        
+
         .footer {
             text-align: center;
             color: white;
@@ -188,17 +194,18 @@
             font-size: 0.9rem;
             opacity: 0.8;
         }
-        
+
         @media (max-width: 768px) {
             .section-header h2 {
                 font-size: 1.2rem;
             }
+
             .section-content {
                 padding: 20px;
             }
         }
 
-    .zoom-img {
+        .zoom-img {
             width: 100%;
             max-width: 500px;
             height: auto;
@@ -223,7 +230,7 @@
             max-height: 90vh;
             cursor: zoom-out;
             margin: 0;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -240,19 +247,74 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
         }
-        .overlay.show { display: block; }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 20px;
+            /* Відступ від верхнього краю */
+            left: 20px;
+            /* Відступ від лівого краю */
+            background-color: #8296f2;
+            /* Синій колір, як у заголовків секцій */
+            color: white;
+            font-size: 1.8rem;
+            /* Розмір іконки */
+            width: 50px;
+            /* Ширина кнопки */
+            height: 50px;
+            /* Висота кнопки */
+            border-radius: 50%;
+            /* Робить кнопку круглою */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Тінь для об'ємності */
+            text-decoration: none;
+            /* Прибирає підкреслення посилання */
+            z-index: 1002;
+            /* Переконайтеся, що кнопка знаходиться поверх інших елементів */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .home-button:hover {
+            background-color: #9a68cd;
+            /* Темніший при наведенні */
+            transform: scale(1.05);
+            /* Збільшення при наведенні */
+        }
+
+        /* Медіа-запит для мобільних пристроїв, щоб кнопка не заважала */
+        @media (max-width: 768px) {
+            .home-button {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
+
 <body>
+    <!-- Плаваюча кнопка Home -->
+    <a href="https://rdolid-jpg.github.io/instruktions" class="home-button" title="На головну сторінку">
+        🏠
+    </a>
     <div class="overlay" id="overlay"></div>
     <div class="container">
         <div class="header">
             <h1>🎯 Налаштування Stratifications для A/B тесту</h1>
         </div>
-        
+
         <!-- РОЗДІЛ 1: СТВОРЕННЯ КАМПАНІЇ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
@@ -261,9 +323,10 @@
             <div class="section-content">
                 <div class="step">
                     <h3>📌 Крок 1.1: Створіть нову кампанію</h3>
-                    <p>У розділі <strong>Realtime Campaigns/Scheduled Campaigns</strong> → <strong>Create Campaign</strong> → оберіть тип кампанії.</p>
+                    <p>У розділі <strong>Realtime Campaigns/Scheduled Campaigns</strong> → <strong>Create
+                            Campaign</strong> → оберіть тип кампанії.</p>
                 </div>
-                
+
                 <div class="step">
                     <h3>📌 Крок 1.2: Налаштуйте тригер</h3>
                     <p>Додайте подію, яка буде запускати кампанію. Наприклад:</p>
@@ -273,7 +336,7 @@
                         <li><strong>Segment Entry</strong> — вхід у сегмент</li>
                     </ul>
                 </div>
-                
+
                 <div class="step">
                     <h3>📌 Крок 1.3: Створіть Flow з Update Property</h3>
                     <p>У конструкторі флоу додайте блок <strong>Update Property</strong>:</p>
@@ -281,7 +344,7 @@
                         <li>В полі <strong>Property</strong> виберіть "Core: JS markers"</li>
                         <li>В полі <strong>Value</strong> вставте назву відповідного Label tags</li>
                     </ul>
-   
+
                     <div class="table-wrapper">
                         <table>
                             <tr>
@@ -290,35 +353,43 @@
                                 <th>Куди вставляти</th>
                             </tr>
                             <tr>
-                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35384" target="_blank">{{label.func_strat_mark_user_first_level}}</a></strong></td>
+                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35384"
+                                            target="_blank">{{label.func_strat_mark_user_first_level}}</a></strong></td>
                                 <td>Створює базовий тег (сегмент + депозит)</td>
                                 <td>Перший Update Property у флоу</td>
                             </tr>
                             <tr>
-                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35387" target="_blank">{{func_strat_mark_user_second_level}}</a></strong></td>
+                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35387"
+                                            target="_blank">{{func_strat_mark_user_second_level}}</a></strong></td>
                                 <td>Створює універсальний тег (title)</td>
                                 <td>Другий Update Property у флоу</td>
                             </tr>
                             <tr>
-                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35701" target="_blank">{{func_strat_mark_user_third_level}}</a></strong></td>
+                                <td><strong><a href="https://drive-7.smartico.ai/28063#/labels_tags/35701"
+                                            target="_blank">{{func_strat_mark_user_third_level}}</a></strong></td>
                                 <td>Створює груповий тег (test/control)</td>
                                 <td>Третій Update Property у флоу</td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                <p>Або просто склонуйте вже налаштовану кампанію для прикладу <strong><a href="https://drive-7.smartico.ai/28063#/j_audience_head/940400" target="_blank">example_setting_campaign_for_stratification</a></strong> і відредагуйте необхібні налаштування тригеру</p>
+                <p>Або просто склонуйте вже налаштовану кампанію для прикладу <strong><a
+                            href="https://drive-7.smartico.ai/28063#/j_audience_head/940400"
+                            target="_blank">example_setting_campaign_for_stratification</a></strong> і відредагуйте
+                    необхібні налаштування тригеру</p>
                 <div class="tip">
                     <h4>💡 Важливо:</h4>
-                    <p>Блоки Update Property мають йти <strong>послідовно</strong> один за одним. Спочатку перший рівень, потім другий, потім третій.</p><br>
+                    <p>Блоки Update Property мають йти <strong>послідовно</strong> один за одним. Спочатку перший
+                        рівень, потім другий, потім третій.</p><br>
                     <div style="text-align: center; margin: 5px 0; padding: 0;">
-                        <img src="./media/1.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <img src="./media/1.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <!-- РОЗДІЛ 2: НАЛАШТУВАННЯ ПАРАМЕТРІВ ФУНКЦІЙ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
@@ -327,9 +398,10 @@
             <div class="section-content">
                 <div class="step">
                     <h3>📌 Як змінити параметри в функціях в Label tags</h3>
-                    <p>У кожній функції є блок <strong>НАЛАШТУВАННЯ</strong> на початку. Ось що можна змінити для нової/поточної кампанії:</p>
+                    <p>У кожній функції є блок <strong>НАЛАШТУВАННЯ</strong> на початку. Ось що можна змінити для
+                        нової/поточної кампанії:</p>
                 </div>
-                
+
                 <div class="step">
                     <h3>🔧 Змінні, які можна налаштовувати:</h3>
                     <div class="table-wrapper">
@@ -367,7 +439,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <h3>📝 Тут додати новий сегмент:</h3>
                     <div class="code-block">
@@ -377,9 +449,10 @@
     '1559': 'Iron'       // Існуючий (найвищий пріоритет)
 };</pre>
                     </div>
-                    <p class="tip">💡 <strong>Важливо:</strong> Чим нижче в списку — тим ВИЩИЙ пріоритет! Останній сегмент у списку має найвищий пріоритет.</p>
+                    <p class="tip">💡 <strong>Важливо:</strong> Чим нижче в списку — тим ВИЩИЙ пріоритет! Останній
+                        сегмент у списку має найвищий пріоритет.</p>
                 </div>
-                
+
                 <div class="step">
                     <h3>📝 Тут змінити діапазони депозитів:</h3>
                     <div class="code-block">
@@ -390,7 +463,7 @@
 ];</pre>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <h3>📝 Тут змінити курси валют:</h3>
                     <div class="code-block">
@@ -402,30 +475,34 @@
 };</pre>
                     </div>
                 </div>
-                
+
                 <div class="warning">
                     <h4>⚠️ Увага!</h4>
-                    <p>Якщо ви змінюєте назву <code>VAR_PROJECT</code> — потрібно змінити його <strong>ОДИНАКОВО</strong> у всіх трьох функціях! Інакше теги не будуть пов'язані між собою.</p>
+                    <p>Якщо ви змінюєте назву <code>VAR_PROJECT</code> — потрібно змінити його
+                        <strong>ОДИНАКОВО</strong> у всіх трьох функціях! Інакше теги не будуть пов'язані між собою.
+                    </p>
 
                     <div style="text-align: center; margin: 5px 0; padding: 0;">
-                        <img src="./media/4.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #f39c12; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <img src="./media/4.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 500px; height: auto; max-width: 100%; border: 1px solid #f39c12; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-             
+
                 </div>
             </div>
         </div>
-        
+
         <!-- РОЗДІЛ 3: ВИДАЛЕННЯ ТЕГІВ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">🗑️</span> 3. Видалення тегів (якщо потрібно прибрати користувача з тесту, або почистити теги по закінченню тесту)</h2>
+                <h2><span class="icon">🗑️</span> 3. Видалення тегів (якщо потрібно прибрати користувача з тесту, або
+                    почистити теги по закінченню тесту)</h2>
             </div>
             <div class="section-content">
                 <div class="step">
                     <h3>📌 Крок 3.1: Створіть окрему кампанію для видалення</h3>
                     <p>Створіть нову Campaign з тригером, який спрацьовує для потрібних користувачів.</p>
                 </div>
-                
+
                 <div class="step">
                     <h3>📌 Крок 3.2: Додайте блок Remove JS markers</h3>
                     <p>У флоу додайте блок <strong>Remove JS markers</strong>:</p>
@@ -433,10 +510,11 @@
                 </div>
                 <div class="tip">
                     <div style="text-align: center; margin: 5px 0; padding: 0;">
-                        <img src="./media/2.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <img src="./media/2.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <h3>📌 Крок 3.3: Вкажіть теги для видалення</h3>
                     <p>В полі <strong>Remove marks from user</strong> додайте назви тегів які потрібно видалити:</p>
@@ -448,12 +526,13 @@ ab_test_previp_daily_bonuses_group_test</pre>
                     <div class="tip">
                         <p>💡 Можна вказати кілька тегів через кому.</p>
 
-                    <div style="text-align: center; margin: 5px 0; padding: 0;">
-                        <img src="./media/3.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <div style="text-align: center; margin: 5px 0; padding: 0;">
+                            <img src="./media/3.png" alt="Приклад налаштування флоу" class="zoom-img"
+                                style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        </div>
                     </div>
                 </div>
-                </div>
-                
+
                 <!-- <div class="step">
                     <h3>📌 Крок 3.4: Альтернативний спосіб (видалення за маскою)</h3>
                     <p>Якщо потрібно видалити всі теги кампанії, використайте функцію:</p>
@@ -481,18 +560,20 @@ ab_test_previp_daily_bonuses_group_test</pre>
                     </div>
                     <p>Ця функція знайде та поверне всі теги, що містять назву кампанії, для видалення.</p>
                 </div> -->
-                
+
                 <div class="warning">
                     <h4>⚠️ Увага!</h4>
-                    <p>Після видалення тегів користувач знову зможе потрапити в тест при наступному запуску кампанії.</p>
+                    <p>Після видалення тегів користувач знову зможе потрапити в тест при наступному запуску кампанії.
+                    </p>
                 </div>
             </div>
         </div>
-        
+
         <!-- РОЗДІЛ 4: ПОВНІ КОДИ ФУНКЦІЙ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">📄</span> 4. Що можна змінювати в коді функції, не боячись зломати логіку обчислення</h2>
+                <h2><span class="icon">📄</span> 4. Що можна змінювати в коді функції, не боячись зломати логіку
+                    обчислення</h2>
             </div>
             <div class="section-content">
                 <div class="step">
@@ -527,7 +608,7 @@ ab_test_previp_daily_bonuses_group_test</pre>
    })();</pre>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <h3>🟢 Функція 2: Створення універсального тегу (title)</h3>
                     <div class="code-block">
@@ -543,7 +624,7 @@ ab_test_previp_daily_bonuses_group_test</pre>
 })();</pre>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <h3>🔴 Функція 3: Створення групового тегу (test/control)</h3>
                     <div class="code-block">
@@ -563,21 +644,25 @@ ab_test_previp_daily_bonuses_group_test</pre>
                     </div>
                 </div>
                 <br>
-                               <div class="warning">
-<h4>⚠️ Увага!</h4>
-<p>Якщо ви не впевнені у своїх силах або сумніваєтесь у правильності виконаних замін, завжди краще одразу звернутися до фахівця за консультацією.</p>
-<br>
-<h4>⚠️ Важливо!</h4>
-<p><strong>Якщо в тесті змінюється логіка побудови стратифікації, що потребує зміни або доповнення функцій, просимо обов'язково і, головне, завчасно звернутися до відділу Retention Platform Development.</strong></p>
+                <div class="warning">
+                    <h4>⚠️ Увага!</h4>
+                    <p>Якщо ви не впевнені у своїх силах або сумніваєтесь у правильності виконаних замін, завжди краще
+                        одразу звернутися до фахівця за консультацією.</p>
+                    <br>
+                    <h4>⚠️ Важливо!</h4>
+                    <p><strong>Якщо в тесті змінюється логіка побудови стратифікації, що потребує зміни або доповнення
+                            функцій, просимо обов'язково і, головне, завчасно звернутися до відділу Retention Platform
+                            Development.</strong></p>
 
                     <div style="text-align: center; margin: 5px 0; padding: 0;">
-                        <img src="./media/5.png" alt="Приклад налаштування флоу" class="zoom-img" style="width: 150px; height: auto; max-width: 100%; border: 3px solid #f60606; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <img src="./media/5.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 150px; height: auto; max-width: 100%; border: 3px solid #f60606; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-             
+
                 </div>
             </div>
         </div>
-        
+
         <!-- РОЗДІЛ 5: ПРИКЛАДИ ТЕГІВ -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
@@ -605,13 +690,15 @@ ab_test_previp_daily_bonuses_group_test</pre>
                             </tr>
                             <tr>
                                 <td>Рівень 3</td>
-                                <td><code>ab_test_previp_daily_bonuses_group_test</code> або <code>..._group_control</code></td>
+                                <td><code>ab_test_previp_daily_bonuses_group_test</code> або
+                                    <code>..._group_control</code>
+                                </td>
                                 <td>Груповий тег (50/50 розподіл)</td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <h3>📌 Приклад для користувача з сегментом Ace та депозитом 60 USD:</h3>
                     <div class="table-wrapper">
@@ -641,49 +728,50 @@ ab_test_previp_daily_bonuses_group_test</pre>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             <p>📧 При виникненні питань — зверніться до розробника</p>
             <p>© Smartico.ai Stratification for A/B Testing Instruction</p>
         </div>
     </div>
-    
-   <script>
-    // 1. Універсальна функція для акордеона
-    function toggleSection(element) {
-        const content = element.nextElementSibling;
-        content.classList.toggle('active');
-    }
 
-    // 2. Логіка Зуму
-    const zoomImgs = document.querySelectorAll('.zoom-img');
-    const overlay = document.getElementById('overlay');
+    <script>
+        // 1. Універсальна функція для акордеона
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
 
-    zoomImgs.forEach(img => {
-        img.onclick = function(e) {
-            e.stopPropagation(); // Щоб клік не прокидався до window.onclick
-            this.classList.toggle('zoomed');
-            overlay.classList.toggle('show');
-        };
-    });
+        // 2. Логіка Зуму
+        const zoomImgs = document.querySelectorAll('.zoom-img');
+        const overlay = document.getElementById('overlay');
 
-    // 3. Закриття зуму при кліку на оверлей або Esc
-    overlay.onclick = function() {
-        zoomImgs.forEach(img => img.classList.remove('zoomed'));
-        overlay.classList.remove('show');
-    };
+        zoomImgs.forEach(img => {
+            img.onclick = function (e) {
+                e.stopPropagation(); // Щоб клік не прокидався до window.onclick
+                this.classList.toggle('zoomed');
+                overlay.classList.toggle('show');
+            };
+        });
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "Escape") {
+        // 3. Закриття зуму при кліку на оверлей або Esc
+        overlay.onclick = function () {
             zoomImgs.forEach(img => img.classList.remove('zoomed'));
             overlay.classList.remove('show');
-        }
-    });
+        };
 
-    // 4. Всі секції закриті за замовчуванням, відкриваються тільки по кліку
-    window.onload = function() {
-        // нічого не відкриваємо автоматично
-    };
-</script>
-    </body>
+        document.addEventListener('keydown', function (e) {
+            if (e.key === "Escape") {
+                zoomImgs.forEach(img => img.classList.remove('zoomed'));
+                overlay.classList.remove('show');
+            }
+        });
+
+        // 4. Всі секції закриті за замовчуванням, відкриваються тільки по кліку
+        window.onload = function () {
+            // нічого не відкриваємо автоматично
+        };
+    </script>
+</body>
+
 </html>
