@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Smartico Lootbox 2.0 — Повна інструкція (оновлена)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0b3b3a 0%, #062020 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #0ea5a4 0%, #0c8a89 100%);
+            color: white;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #0c8a89 0%, #0a6f6e 100%);
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header .icon {
+            font-size: 1.8rem;
+        }
+
+        .section-content {
+            padding: 30px;
+            display: none;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .step {
+            margin-bottom: 28px;
+            padding-left: 20px;
+            border-left: 3px solid #0ea5a4;
+        }
+
+        .step h3 {
+            color: #0b1220;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .step h4 {
+            color: #2d3748;
+            margin: 12px 0 6px;
+            font-size: 1.05rem;
+        }
+
+        .step p,
+        .step li {
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .step ul,
+        .step ol {
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+
+        .step li {
+            margin-bottom: 6px;
+        }
+
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #0ea5a4;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.7;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 10;
+        }
+
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .warning {
+            background: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .warning h4 {
+            color: #e67e22;
+            margin-bottom: 8px;
+        }
+
+        .tip {
+            background: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .tip h4 {
+            color: #16a085;
+            margin-bottom: 8px;
+        }
+
+        .good {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .good h4 {
+            color: #155724;
+            margin-bottom: 8px;
+        }
+
+        .bad {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .bad h4 {
+            color: #721c24;
+            margin-bottom: 8px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f7fafc;
+            color: #0b1220;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #0ea5a4;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+            .section-content {
+                padding: 20px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #0ea5a4;
+            color: white;
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            z-index: 1002;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .home-button:hover {
+            background-color: #0c8a89;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .home-button {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+
+        .email-sample {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 12px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #0ea5a4, #0c8a89);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .link {
+            color: #0ea5a4;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://rdolid-jpg.github.io/instruktions" class="home-button" title="На головну сторінку">🏠</a>
+<div class="overlay" id="overlay"></div>
+
+<div class="container">
+    <div class="header">
+        <h1>🎁 Smartico Lootbox 2.0</h1>
+        <p>Повна інструкція: від налаштування до кастомізації скінів (оновлено за офіційною документацією)</p>
+    </div>
+
+    <!-- РОЗДІЛ 1: ОПИС LOOTBOX 2.0 ТА 1.0 -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="icon">📦</span> 1. Lootbox 2.0: огляд та порівняння з Lootbox 1.0</h2>
+        </div>
+        <div class="section-content">
+            <div class="step">
+                <h3>🎯 Що таке Lootbox 2.0?</h3>
+                <p><strong>Lootbox 2.0</strong> — це ігровий інструмент у Smartico, призначений для проведення щоденних акцій: адвент-календарів, марафонів, daily-бонусів. Гравець щодня відкриває коробку або картку та отримує приз.</p>
+
+                <p><strong>Основні можливості Lootbox 2.0:</strong></p>
+                <ul>
+                    <li><strong>2 типи макетів (Layout):</strong> <code>Map</code> (календар/мапа) та <code>Cards</code> (картки горизонтальним рядом).</li>
+                    <li><strong>2 типи розкладу (Schedule):</strong> <code>Calendar Days</code> (конкретні дати) та <code>Weekdays</code> (повторювані дні тижня).</li>
+                    <li><strong>Контроль часового поясу (Timezone):</strong> призи згорають опівночі за часом гравця або за фіксованим часом.</li>
+                    <li><strong>Кастомні скіни:</strong> повна заміна візуального оформлення через <code>Mini-games skin editor</code>.</li>
+                    <li><strong>Типи призів:</strong> no prize, points, bonus, tangible (фізичні товари), spin (спроби в міні-іграх) та mission (тільки типу 'Featured Manually').</li>
+                    <li><strong>Prize Acknowledgment:</strong> можливість вимагати ручне підтвердження отримання призу.</li>
+                    <li><strong>Рандомізація:</strong> можливість призначати кілька призів на один день (гравець отримає один випадковим чином).</li>
+                </ul>
+
+                <h3>⚡ Lootbox 1.0 (стара версія)</h3>
+                <p><strong>Lootbox 1.0</strong> — попередня версія, яка залишається в системі для складних кастомних сценаріїв. Її налаштування є більш трудомістким і має більше змінних параметрів.</p>
+
+                <div class="warning">
+                    <h4>⚠️ Коли використовувати Lootbox 1.0</h4>
+                    <p>Тільки коли видача призу залежить від складних умов (факт депозиту, ставки), або коли потрібно відправити Webhook, запустити іншу кампанію, додати/видалити мітки гравцю.</p>
+                </div>
+
+                <div class="good">
+                    <h4>✅ Коли використовувати Lootbox 2.0</h4>
+                    <p>Для 99% випадків щоденних акцій. Налаштовується за 10-15 хвилин, не потребує участі розробників.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 2: ПОКРОКОВЕ НАЛАШТУВАННЯ -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="icon">⚙️</span> 2. Покрокове налаштування Lootbox 2.0</h2>
+        </div>
+        <div class="section-content">
+            <div class="step">
+                <h3>📋 Крок 0: Підготовка</h3>
+                <ul>
+                    <li>Підготуйте список призів: тип, назва, зображення, кількість (stock).</li>
+                    <li>Визначте часовий пояс кампанії (наприклад, <code>Europe/Kiev</code>).</li>
+                    <li>Підготуйте скін (набір зображень) згідно з вимогами з Розділу 4.</li>
+                </ul>
+
+                <h3>🏗️ Крок 1: Створення гри</h3>
+                <ul>
+                    <li>Перейдіть у <strong>Back Office → Gamification → Mini-games</strong> або <strong>Retention Games → Lootbox</strong>.</li>
+                    <li>Натисніть кнопку <strong>«Create New Game»</strong>.</li>
+                    <li>У полі <strong>«Game name»</strong> введіть назву. <strong>Важливо:</strong> Після збереження гри буде автоматично створено <strong>Custom Section</strong> з такою ж назвою — це потрібно для посилань.</li>
+                    <li>У полі <strong>«Type»</strong> оберіть <strong>Lootbox 2.0</strong>.</li>
+                    <li>У полі <strong>«Layout»</strong> оберіть <strong>Map</strong> (календар) або <strong>Cards</strong> (картки).</li>
+                </ul>
+
+                <h3>📅 Крок 2: Налаштування розкладу</h3>
+                <ul>
+                    <li><strong>Schedule type:</strong> оберіть <code>Calendar Days</code> (конкретні дати) або <code>Weekdays</code> (дні тижня).</li>
+                    <li>Для <strong>Calendar Days</strong>: вкажіть <code>Start Date</code> та <code>End Date</code>. Система автоматично розрахує кількість днів і створить відповідну кількість призів.</li>
+                    <li>Для <strong>Weekdays</strong>: оберіть дні тижня (Mon, Tue, Wed, Thu, Fri, Sat, Sun) та налаштуйте повторення. Кількість днів визначається кількістю обраних днів.</li>
+                    <li><strong>Timezone for days boundaries:</strong> оберіть часовий пояс цільової аудиторії. <code>Calendar days, user time zone</code> — призи згорають опівночі за часом гравця.</li>
+                </ul>
+
+                <h3>🎁 Крок 3: Налаштування призів</h3>
+                <ul>
+                    <li>Після вибору розкладу система автоматично створила необхідну кількість днів. Перейдіть у вкладку <strong>«Days»</strong> або <strong>«Prizes»</strong>.</li>
+                    <li>Для кожного дня натисніть <strong>«Edit»</strong>.</li>
+                    <li>Заповніть поля:
+                        <ul>
+                            <li><strong>Prize type:</strong> Points, Bonus, Tangible, Spin, Mission (тільки 'Featured Manually') або No prize.</li>
+                            <li><strong>Prize name:</strong> назва призу (відображається гравцю).</li>
+                            <li><strong>Prize image:</strong> завантажте квадратне зображення (рекомендовано 512x512).</li>
+                            <li><strong>Stock items:</strong> <code>0</code> = нескінченний пул. Обов'язково увімкніть параметр <strong>'Surcharge'</strong> для коректного обліку.</li>
+                            <li><strong>Winning message:</strong> оберіть або створіть повідомлення про виграш. Для цього потрібно попередньо налаштувати повідомлення в розділі <strong>Gamification → Winning Messages</strong>.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="tip">
+                    <h4>💡 Рандомізація (Кілька призів на день)</h4>
+                    <p>Ви можете додати кілька різних призів на один день (працює і для Cards, і для Map). У такому випадку гравець отримає один із цих призів, який система обере випадковим чином!</p>
+                </div>
+
+                <div class="tip">
+                    <h4>💡 Prize Acknowledgment (Ручне підтвердження)</h4>
+                    <p>Щоб гравець підтверджував отримання призу, у полі 'Type of Winning Message' оберіть <strong>'Full message with acknowledge button'</strong>. Приз буде видано лише після натискання кнопки 'Claim'. Не забрані призи потраплять у вкладку <strong>'Not Claimed Prizes'</strong>, де оператор може видати їх вручну кнопкою <strong>'Claim Manually'</strong>.</p>
+                </div>
+
+                <div class="tip">
+                    <h4>💡 Для Calendar Days:</h4>
+                    <p>Діапазон дат для призу має становити <strong>рівно один день</strong>. Наприклад: Start Date: 10.10.2024, End Date: 10.10.2024. Система автоматично встановлює ці дати при створенні днів, але переконайтеся, що ви не змінюєте їх на більший діапазон.</p>
+                </div>
+
+                <h3>🎨 Крок 4: Застосування скіна</h3>
+                <ul>
+                    <li>У налаштуваннях гри знайдіть поле <strong>«Skin»</strong>.</li>
+                    <li>Оберіть створений раніше скін зі списку (як створити скін — див. Розділ 4).</li>
+                </ul>
+
+                <h3>🔐 Крок 5: Налаштування доступу та видимості</h3>
+                <ul>
+                    <li><strong>Visibility:</strong> оберіть <code>All users</code>, <code>Specific segments</code> або <code>Specific users</code>.</li>
+                    <li><strong>Trigger:</strong> налаштуйте, як гравець потрапляє в гру (посилання в email, API, manual grant).</li>
+                    <li><strong>Attempts per day:</strong> скільки разів гравець може відкривати лутбокс за день.</li>
+                </ul>
+
+                <h3>🧪 Крок 6: Тестування</h3>
+                <ul>
+                    <li>Створіть тестовий сегмент з 2-5 email-адресами.</li>
+                    <li>Надішліть тестове посилання та перевірте:
+                        <ul>
+                            <li>Коректність відображення на десктопі та мобільному.</li>
+                            <li>Часовий пояс (midnight reset).</li>
+                            <li>Стани призів (locked / active / claimed).</li>
+                            <li>Fallback при закінченні призів.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>🚀 Крок 7: Запуск</h3>
+                <ul>
+                    <li>Переключіть гру в статус <strong>«Active»</strong>.</li>
+                    <li>Заплануйте email-кампанію з посиланням на гру.</li>
+                </ul>
+
+                <div class="tip">
+                    <h4>💡 Як отримати та використовувати посилання на Lootbox (Deep link)</h4>
+                    <p>Для запуску Lootbox використовуються <strong>діплінки (deep links)</strong>. Після створення гри автоматично створюється <strong>Custom Section</strong> з такою ж назвою. Вам потрібен ID цього Custom Section. Знайти його можна:</p>
+                    <ul>
+                        <li>У списку <strong>Gamification → Custom Sections</strong>.</li>
+                        <li>Або в налаштуваннях гри (після збереження з'являється поле "Custom Section ID").</li>
+                    </ul>
+                    <p>Базовий формат посилання: <code>dp:gf_section&id=XXX</code>, де XXX — ID Custom Section.</p>
+
+                    <p><strong>Рекомендований формат для Email (standalone):</strong> <code>dp:gf_section&id=XXX&standalone=true</code> — відкриває гру як окремий елемент без лівого меню та верхнього колонтитула.</p>
+
+                    <div class="code-block">
+                        <button class="copy-btn">📋</button>
+                        <pre>&lt;a href="dp:gf_section&id=123&standalone=true"&gt;Відкрити Lootbox&lt;/a&gt;</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 3: КЕЙСИ (ОКРЕМО ДЛЯ CARDS ТА MAP) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="icon">🏆</span> 3. Кейси налаштування: CARDS та MAP</h2>
+        </div>
+        <div class="section-content">
+            <div class="step">
+                <!-- Кейс для Cards -->
+                <h3>🃏 Кейс 1: Щоденні бонуси на будні (Layout: CARDS, Weekdays)</h3>
+                <p><strong>Мета:</strong> Підтримувати щоденну активність у будні (понеділок-п'ятниця) з простими призами. Цей підхід ідеальний для старту, оскільки не потребує складної кастомізації позицій.</p>
+
+                <h4>Покрокове налаштування:</h4>
+                <ol>
+                    <li>Створіть гру з типом <strong>Lootbox 2.0</strong>, Layout <strong>Cards</strong>.</li>
+                    <li>Schedule: <strong>Weekdays</strong>.</li>
+                    <li>Оберіть дні: <strong>Mon, Tue, Wed, Thu, Fri</strong>.</li>
+                    <li>Recurrence: <strong>weekly</strong> (повторюється щотижня).</li>
+                    <li>Timezone: оберіть <strong>Calendar days, user time zone</strong>, щоб кожен гравець мав можливість відкрити картку до півночі за своїм часом.</li>
+                    <li>Завантажте скін для Cards (або використайте готовий). Для Cards обов'язкові файли: <code>game-bg</code> (JPEG, до 900kb) та <code>game-bg-mobile</code> (JPEG, до 900kb). На відміну від Map, тут немає обмежень щодо кількості днів.</li>
+                    <li>Налаштуйте призи для 5 днів (по одному на день).</li>
+                    <li>Встановіть <strong>Attempts per day: 1</strong>.</li>
+                    <li>Отримайте deep link (див. розділ 2, крок 7).</li>
+                </ol>
+
+                <div class="email-sample">
+                    <strong>📧 Приклад email для запуску:</strong><br/><br/>
+                    <strong>Тема:</strong> 🎁 Сьогоднішній бонус вже чекає!<br/><br/>
+                    Привіт, {{user_first_name}}!<br/><br/>
+                    У тебе є одна картка на сьогодні — відкрий її та отримай бонус. Заходь щодня, щоб не пропустити нові призи!<br/><br/>
+                    <a href="#" class="btn">Відкрити картку</a>
+                </div>
+
+                <!-- Кейс для Map -->
+                <h3>🗺️ Кейс 2: Адвент-календар (Layout: MAP, Calendar Days)</h3>
+                <p><strong>Мета:</strong> Провести 25-денну новорічну акцію (або будь-яку іншу подієву акцію) з різними призами кожного дня. Цей варіант більш видовищний, але потребує ретельної підготовки скіна.</p>
+
+                <h4>Покрокове налаштування:</h4>
+                <ol>
+                    <li>Створіть гру з типом <strong>Lootbox 2.0</strong>, Layout <strong>Map</strong>.</li>
+                    <li>Schedule: <strong>Calendar Days</strong>.</li>
+                    <li>Start Date: 01.12.2026, End Date: 25.12.2026. <strong>Важливо:</strong> Максимальна кількість днів для Map — <strong>31</strong>. Офіційно підтримувані кількості для автоматичного позиціонування: 7, 14, 25, 31 день. Для 25 днів система автоматично розставить призи.</li>
+                    <li>Timezone: <strong>Calendar days, user time zone</strong> (щоб приз активувався опівночі за часом гравця).</li>
+                    <li>Завантажте скін для 25 днів (розміри: <code>game-bg</code> = 1835x3895 px, <code>game-bg-mobile</code> = 527x3260 px, обидва JPEG <900kb).</li>
+                    <li>Налаштуйте призи для кожного з 25 днів. Система автоматично створила 25 днів після вибору дат.</li>
+                    <li>Для великих призів налаштуйте Prize Acknowledgment (див. розділ 2).</li>
+                    <li>Якщо ви хочете провести акцію на нестандартну кількість днів (наприклад, 10 днів), оберіть найближчий більший шаблон (14 днів) і скоригуйте позиції через CSS (див. розділ 4).</li>
+                </ol>
+
+                <div class="email-sample">
+                    <strong>📧 Приклад email для запуску:</strong><br/><br/>
+                    <strong>Тема:</strong> 🎄 Різдвяний календар — відкрий перший подарунок!<br/><br/>
+                    Привіт, {{user_first_name}}!<br/><br/>
+                    Сьогодні стартує наш святковий календар. Кожного дня до Різдва на тебе чекає новий приз. Не пропусти!<br/><br/>
+                    <a href="#" class="btn">Відкрити календар</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 4: КАСТОМІЗАЦІЯ СКІНІВ -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="icon">🎨</span> 4. Кастомізація скінів — покрокова інструкція</h2>
+        </div>
+        <div class="section-content">
+            <div class="step">
+                <h3>📍 Де знаходиться редактор скінів?</h3>
+                <p>Перейдіть у <strong>Back Office → Gamification → Mini-games skin</strong>.</p>
+
+                <div class="tip">
+                    <h4>💡 Готовий скін 'Sweet Choco'</h4>
+                    <p>Для макету Map в системі вже доступний готовий універсальний (не сезонний) скін <strong>'Sweet Choco'</strong>. Ви можете використовувати його "з коробки" без залучення дизайнерів!</p>
+                </div>
+
+                <h3>📝 Покрокова інструкція створення скіна:</h3>
+                <table>
+                    <thead><tr><th>Крок</th><th>Дія</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>1</strong></td><td>Натисніть кнопку <strong>«Create New Skin»</strong></td></tr>
+                        <tr><td><strong>2</strong></td><td>У полі <strong>«Mini-game type»</strong> оберіть <code>Lootbox</code></td></tr>
+                        <tr><td><strong>3</strong></td><td>Введіть <strong>«Name»</strong> — назву вашого скіна</td></tr>
+                        <tr><td><strong>4</strong></td><td>Оберіть <strong>«Layout»</strong> — <code>Cards</code> або <code>Map</code></td></tr>
+                        <tr><td><strong>5</strong></td><td>Натисніть <strong>«Upload package»</strong> та завантажте підготовлені файли (кожен файл окремо, не ZIP-архівом)</td></tr>
+                        <tr><td><strong>6</strong></td><td>(Опціонально) Додайте <strong>«Custom CSS»</strong> для змін шрифтів або позицій (див. нижче)</td></tr>
+                        <tr><td><strong>7</strong></td><td>Натисніть <strong>«Save»</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <h4>⚠️ Важливі вимоги при завантаженні:</h4>
+                    <ul>
+                        <li>Фонові зображення (<code>game-bg</code>, <code>game-bg-mobile</code>) <strong>ОБОВ'ЯЗКОВО мають бути у форматі JPEG</strong> та вагою до 900 KB. Це стосується як Map, так і Cards.</li>
+                        <li>Назви файлів мають ЗБІГАТИСЯ з назвами в референс-пакеті.</li>
+                        <li>Зображення потрібно завантажувати <strong>розархівованими</strong> (кожен файл окремо).</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <h4>💡 Перевірка завантаженого пакета</h4>
+                    <p>Після завантаження система покаже детальну інформацію про кожен файл: попередній перегляд, формат, розміри, статус, вагу. Якщо є відсутні або неправильні файли — ви отримаєте сповіщення одразу.</p>
+                </div>
+
+                <h3>🎯 Налаштування позицій через CSS (для макету MAP)</h3>
+                <p>При використанні макету Map на 25 або 31 день позиції деяких призів можуть потребувати ручного коригування. Особливо це актуально, якщо ви використовуєте шаблон на 14 днів для 10-денної акції. У полі <strong>«Custom CSS»</strong> додайте:</p>
+                <div class="code-block">
+                    <button class="copy-btn">📋</button>
+                    <pre>/* Для десктопу */
+.desktop-week-prize-1 {
+    top: XXXpx !important;
+    left: YYYpx !important;
+}
+.desktop-week-prize-2 { ... }
+/* Для мобільних пристроїв */
+.mobile-week-prize-1 {
+    top: XXXpx !important;
+    left: YYYpx !important;
+}</pre>
+                </div>
+                <p><strong>Правило:</strong> При зміні CSS обов'язково використовуйте <code>!important</code>. Номери класів відповідають дням (1,2,3... максимум 31).</p>
+                <div class="tip">
+                    <h4>💡 Додаткові CSS-класи</h4>
+                    <p>Ви також можете налаштовувати позиції для кнопок, фону та інших елементів. Детальніше дивіться в документації Smartico.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 5: ТЗ ДЛЯ ДИЗАЙНЕРІВ (таблиці) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="icon">🖌️</span> 5. ТЗ для дизайнерів — всі файли, формати та розміри</h2>
+        </div>
+        <div class="section-content">
+            <div class="step">
+                <div class="warning">
+                    <h4>⚠️ Важливо: Нові поп-апи (Updated Pop-ups)</h4>
+                    <p>Для всіх новостворених скінів опція <strong>'Use new pop-ups'</strong> увімкнена за замовчуванням і <strong>не може бути вимкнена</strong>. Це означає, що ви обов'язково повинні завантажити пакет зображень, який містить файли для нових поп-апів (див. таблиці нижче). Колір шрифту текстового контенту в поп-апах можна налаштувати за допомогою поля <strong>'Override CSS'</strong>.</p>
+                </div>
+                <div class="warning">
+                    <h4>⚠️ Увага на розміри картинок</h4>
+                    <p>В таблицях нижче наведені розміри картинок які відповідають стандартам, але ті розмірои біля яких вказаний знак "~" (приблизні значення) це означає, що потрібно витримати пропорції, а розмір в пікселях може бути довільним. Наприклад, якщо вказано ~568×874px, то картинка може бути 568×874, 1136×1748, 284×437 і т.д., але пропорції повинні залишатися однаковими.</p>
+                </div>
+
+                <h3>📐 Таблиця 1: СКІН ДЛЯ CARDS</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>Назва файлу</th><th>Опис / Призначення</th><th>Формат</th><th>Рекомендований розмір</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>game-bg</code></td><td>фон гри (десктоп)</td><td>PNG</td><td>≤900KB, ~2000×1200px</td></tr>
+                            <tr><td><code>game-bg-mobile</code></td><td>фон гри (мобільний)</td><td>PNG</td><td>≤900KB, ~1054×2151px</td></tr>
+                            <tr><td><code>card-back-bg</code></td><td>фон зворотної сторони картки</td><td>PNG</td><td>~582×896px</td></tr>
+                            <tr><td><code>card-front-bg</code></td><td>фон лицьової сторони картки</td><td>PNG</td><td>~568×874px</td></tr>
+                            <tr><td><code>locked</code></td><td>іконка заблокованої картки</td><td>PNG</td><td>~591×895px</td></tr>
+                            <tr><td><code>missed</code></td><td>іконка "пропущено"</td><td>PNG</td><td>~284×473px</td></tr>
+                            <tr><td><code>promo-image</code></td><td>зображення для промо</td><td>PNG</td><td>~1002×482px</td></tr>
+                            <tr><td><code>prize-no-image</code></td><td>заглушка призу</td><td>PNG</td><td>~552×552px</td></tr>
+                            <tr><td><code>ico</code></td><td>іконка</td><td>PNG</td><td>~208×208px</td></tr>
+                            <tr><td colspan="4" style="background-color: #f7fafc; font-weight: bold; text-align: center;">Файли для нових поп-апів (Обов'язкові)</td></tr>
+                            <tr><td><code>popup_bg_top_left</code></td><td>верхній лівий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_top</code></td><td>верхня частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_top_right</code></td><td>верхній правий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_left</code></td><td>ліва частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_center</code></td><td>центр фону попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_right</code></td><td>права частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_bottom_left</code></td><td>нижній лівий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_bottom</code></td><td>нижня частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_bottom_right</code></td><td>нижній правий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>button_primary_bg_left</code></td><td>ліва частина основної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_primary_bg_center</code></td><td>центр основної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_primary_bg_right</code></td><td>права частина основної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_secondary_bg_left</code></td><td>ліва частина другорядної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_secondary_bg_center</code></td><td>центр другорядної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_secondary_bg_right</code></td><td>права частина другорядної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>📐 Таблиця 2: СКІН ДЛЯ MAP</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>Назва файлу</th><th>Опис / Призначення</th><th>Формат</th><th>Розмір / Примітки</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>game-bg</code></td><td>фон для мапи (десктоп)</td><td><strong>JPEG</strong></td><td>залежить від кількості днів (див. Таблицю 3)</td></tr>
+                            <tr><td><code>game-bg-mobile</code></td><td>фон для мапи (мобільний)</td><td><strong>JPEG</strong></td><td>залежить від кількості днів (див. Таблицю 3)</td></tr>
+                            <tr><td><code>active-box</code></td><td>активна / доступна коробка</td><td>PNG</td><td>~501×501px</td></tr>
+                            <tr><td><code>active-box-opened</code></td><td>коробка у відкритому стані</td><td>PNG</td><td>~501×501px</td></tr>
+                            <tr><td><code>locked</code></td><td>заблокована коробка</td><td>PNG</td><td>~257×257px</td></tr>
+                            <tr><td><code>prize-no-image</code></td><td>заглушка для призу без зображення</td><td>PNG</td><td>~257×257px</td></tr>
+                            <tr><td><code>ico</code></td><td>іконка</td><td>PNG</td><td>~208×208px</td></tr>
+                            <tr><td colspan="4" style="background-color: #f7fafc; font-weight: bold; text-align: center;">Файли для нових поп-апів (Обов'язкові)</td></tr>
+                            <tr><td><code>popup_bg_top_left</code></td><td>верхній лівий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_top</code></td><td>верхня частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_top_right</code></td><td>верхній правий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_left</code></td><td>ліва частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_center</code></td><td>центр попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_right</code></td><td>права частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_bottom_left</code></td><td>нижній лівий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_bottom</code></td><td>нижня частина попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>popup_bg_bottom_right</code></td><td>нижній правий кут попапу</td><td>PNG</td><td>50×50px</td></tr>
+                            <tr><td><code>button_primary_bg_left</code></td><td>ліва частина основної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_primary_bg_center</code></td><td>центр основної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_primary_bg_right</code></td><td>права частина основної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_secondary_bg_left</code></td><td>ліва частина другорядної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_secondary_bg_center</code></td><td>центр другорядної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                            <tr><td><code>button_secondary_bg_right</code></td><td>права частина другорядної кнопки</td><td>PNG</td><td>22×44px</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>📐 Таблиця 3: Розміри фонів для макету MAP</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Кількість днів</th><th>game-bg (Desktop)</th><th>game-bg-mobile</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>7 днів</strong></td><td>1835 × 1284 px</td><td>527 × 1072 px</td></tr>
+                            <tr><td><strong>14 днів</strong></td><td>1835 × 2193 px</td><td>527 × 1622 px</td></tr>
+                            <tr><td><strong>25 днів</strong></td><td>1835 × 3895 px</td><td>527 × 3260 px</td></tr>
+                            <tr><td><strong>31 день</strong></td><td>1835 × 3895 px</td><td>527 × 3260 px</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Примітка:</strong> Максимальна кількість днів для Map — 31. Для Cards ці розміри не застосовуються (фон фіксований).</p>
+
+                <div class="good">
+                    <h4>📌 Як підготувати та передати файли дизайнеру:</h4>
+                    <ol>
+                        <li>Завантажте офіційні reference‑пакети Smartico: <a class="link" href="https://help.smartico.ai/welcome/products/mini-games/custom-skins-for-mini-games/lootbox-2.0-skins" target="_blank">https://help.smartico.ai/welcome/products/mini-games/custom-skins-for-mini-games/lootbox-2.0-skins</a></li>
+                        <li>Попросіть дизайнера використовувати ТОЧНО ТАКІ САМІ назви файлів, як у таблицях вище.</li>
+                        <li>Фонові зображення (<code>game-bg</code>, <code>game-bg-mobile</code>) мають бути стиснуті до ваги <strong>менше 900 KB</strong> та збережені <strong>виключно у форматі JPEG для MAP</strong>.</li>
+                        <li>Перед завантаженням розархівуйте файли (не надсилайте ZIP-архівом).</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 6: ЧАСТІ ПИТАННЯ -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="icon">❓</span> 6. Часті питання (FAQ)</h2>
+        </div>
+        <div class="section-content">
+            <div class="step">
+                <h3>❓ Чи можна зробити лутбокс на 3, 10 або 20 днів?</h3>
+                <div class="warning">
+                    <h4>⚠️ Відповідь згідно з технічною документацією</h4>
+                    <p><strong>Офіційно підтримувані варіанти для макету MAP:</strong> 7, 14, 25, 31 день. Саме під ці варіанти в документації вказані точні розміри фонових зображень, і для них система автоматично розставляє призи по правильних позиціях.</p>
+                    <p><strong>Максимальна кількість днів для MAP:</strong> 31 день. Більше днів додати неможливо.</p>
+                    <p><strong>Рішення для нестандартної кількості днів (наприклад, 10 днів):</strong></p>
+                    <ul>
+                        <li><strong>Варіант 1 (Макет Cards):</strong> Використовуйте макет <strong>CARDS</strong> — він має фіксований фон і не має жорсткої сітки позицій, тому автоматично адаптується під будь-яку кількість днів. Це рекомендований спосіб для початкового етапу.</li>
+                        <li><strong>Варіант 2 (Кастомізація макету Map):</strong> Оберіть найближчий більший макет (наприклад, 14 днів для 10-денної акції). У редакторі скінів у полі <strong>Custom CSS</strong> ви можете вручну змінити позиції призів за допомогою класів <code>.desktop-week-prize-X</code> та <code>.mobile-week-prize-X</code>. <strong>Важливо:</strong> при зміні позицій через CSS обов'язково використовуйте правило <code>!important</code>.</li>
+                    </ul>
+                </div>
+
+                <h3>❓ Чому не завантажується пакет зображень?</h3>
+                <ul>
+                    <li>Перевірте, чи фонові зображення <code>game-bg</code> та <code>game-bg-mobile</code> збережені у форматі <strong>JPEG</strong> (не PNG).</li>
+                    <li>Перевірте, чи <strong>назви файлів</strong> точно відповідають специфікації (чутливі до регістру).</li>
+                    <li>Переконайтеся, що ви завантажуєте файли <strong>окремо</strong>, а не ZIP-архівом.</li>
+                    <li>Перевірте вагу фонових зображень — має бути <strong>менше 900 KB</strong>.</li>
+                </ul>
+
+                <h3>❓ Де взяти reference package (еталонний пакет зображень)?</h3>
+                <p>Reference package доступний в офіційній документації Smartico за посиланням: <a class="link" href="https://help.smartico.ai/welcome/products/mini-games/custom-skins-for-mini-games/lootbox-2.0-skins" target="_blank">https://help.smartico.ai/welcome/products/mini-games/custom-skins-for-mini-games/lootbox-2.0-skins</a>. Там ви знайдете готові пакети для Cards та Map з усіма необхідними файлами.</p>
+
+                <h3>❓ Як отримати ID Custom Section для deep link?</h3>
+                <p>Після створення гри перейдіть у <strong>Gamification → Custom Sections</strong>, знайдіть секцію з назвою вашої гри. ID буде в першій колонці. Також ID можна побачити в налаштуваннях гри після збереження.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📧 При виникненні питань — зверніться до розробника або підтримки Smartico</p>
+        <p>© Smartico Lootbox 2.0 – Інструкція | Оновлено за офіційною документацією</p>
+    </div>
+</div>
+
+<script>
+    function toggleSection(element) {
+        const content = element.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    // Кнопки копіювання
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const codeBlock = this.closest('.code-block');
+            const pre = codeBlock.querySelector('pre');
+            if (!pre) return;
+            const textToCopy = pre.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                this.textContent = '✅';
+                setTimeout(() => { this.textContent = '📋'; }, 1500);
+            }).catch(err => {
+                console.error('Помилка копіювання: ', err);
+            });
+        });
+    });
+</script>
+</body>
+</html>
