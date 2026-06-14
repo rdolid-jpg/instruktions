@@ -1,139 +1,379 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Центр інструкцій</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --bg-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --hover-color: #3b82f6;
-        }
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100%;
-            padding: 20px;
-        }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
+  /* ===== Анімації ===== */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
 
-        h1 {
-            font-weight: 600;
-            margin-bottom: 30px;
-            font-size: 28px;
-            color: #0f172a;
-        }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+  @keyframes rainbowMove {
+    0% {
+      background-position: 0% 50%;
+    }
 
-        li {
-            margin-bottom: 15px;
-        }
+    50% {
+      background-position: 100% 50%;
+    }
 
-        a {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 24px;
-            text-decoration: none;
-            color: var(--text-color);
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            text-align: left;
-        }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 
-        a:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-        }
+  @keyframes shimmerSlide {
+    0% {
+      left: -100%;
+    }
 
-        /* Додаємо іконку стрілочки праворуч */
-        a::after {
-            content: '→';
-            font-size: 1.2rem;
-            opacity: 0.5;
-            transition: transform 0.3s ease;
-        }
+    100% {
+      left: 200%;
+    }
+  }
 
-        a:hover::after {
-            opacity: 1;
-            transform: translateX(5px);
-        }
+  @keyframes floatIcon {
 
-        /* Адаптивність для малих екранів */
-        @media (max-width: 480px) {
-            .container {
-                padding: 25px 15px;
-            }
-            h1 {
-                font-size: 22px;
-            }
-            a {
-                padding: 15px;
-                font-size: 15px;
-            }
-        }
-    </style>
-</head>
-<body>
+    0%,
+    100% {
+      transform: translateY(0);
+    }
 
-<div class="container">
-    <h1>Документація та інструкції</h1>
-    <ul>
-        <li>
-            <a href="labelTags/index.html">
-                <span>Використання <strong>Label Tags</strong> для створення фрагментів HTML-верстки та динамічного контенту</span>
-            </a>
-        </li>
-        <li>
-            <a href="popup/index.html">
-                <span>Налаштування <strong>Pop-up</strong></span>
-            </a>
-        </li>
-        <li>
-            <a href="push/index.html">
-                <span>Налаштування <strong>Push Notifications</strong> і використання Liquid логіки</span>
-            </a>
-        </li>        
-        <li>
-            <a href="stratifications/index.html">
-                <span>Налаштування <strong>Stratifications</strong> для А/В Тестування</span>
-            </a>
-        </li>
-                <li>
-            <a href="lootboxes/index.html">
-                <span>Налаштування <strong>Lootboxes</strong> та кастомізація скінів</span>
-            </a>
-        </li>
-    </ul>
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes pulseBackground {
+
+    0%,
+    100% {
+      background-size: 280% 280%;
+    }
+
+    50% {
+      background-size: 110% 110%;
+    }
+  }
+
+  /* ===== Головний фон ===== */
+  .page {
+    padding: 2.5rem 1.25rem 3rem;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center,
+        #E0F2FE,
+        #A5D8F3,
+        #77B8DE,
+        #4A98C9,
+        #1E78B5);
+    background-size: 150% 150%;
+    background-position: center;
+    animation: pulseBackground 8s ease-in-out infinite;
+  }
+
+  /* ===== Шапка ===== */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 0.4rem;
+  }
+
+  .mainTitle {
+    font-size: clamp(22px, 6vw, 36px);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(90deg,
+        #FFFFFF,
+        #FFE8B6,
+        #FFD1E8,
+        #C5F0FF,
+        #D4FFCC,
+        #FFFFFF
+        /* знову білий */
+      );
+    background-size: 300% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rainbowMove 5s linear infinite;
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.85));
+  }
+
+  .subTitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* ===== Сітка карток ===== */
+  .cardsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ===== Картка ===== */
+  .card {
+    flex: 0 0 calc(33.333% - 8px);
+    min-width: 180px;
+    border-radius: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 160ms ease;
+    padding: 1rem 0.95rem 0.85rem;
+    gap: 8px;
+  }
+
+  .card:hover {
+    transform: translateY(-6px) scale(1.035);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  .card:active {
+    transform: scale(0.96) translateY(2px);
+  }
+
+  /* Фокус для клавіатури */
+  .card:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 4px;
+    transform: scale(1.02);
+  }
+
+  /* Кольори карток */
+  .card:nth-child(1) {
+    background: #219a52;
+    animation: fadeUp 0.4s 0.05s ease both;
+  }
+
+  .card:nth-child(2) {
+    background: #e67e22;
+    animation: fadeUp 0.4s 0.10s ease both;
+  }
+
+  .card:nth-child(3) {
+    background: #4682b4;
+    animation: fadeUp 0.4s 0.15s ease both;
+  }
+
+  .card:nth-child(4) {
+    background: #5e3d7e;
+    animation: fadeUp 0.4s 0.20s ease both;
+  }
+
+  .card:nth-child(5) {
+    background: #0ea5a4;
+    animation: fadeUp 0.4s 0.25s ease both;
+  }
+
+  /* ===== Блискітка ===== */
+  .shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-15deg);
+    pointer-events: none;
+  }
+
+  .card:hover .shimmer {
+    animation: shimmerSlide 0.5s ease;
+  }
+
+  /* ===== Декоративні кружечки ===== */
+  .decoCircle {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.11;
+    pointer-events: none;
+  }
+
+  .decoCircle--1 {
+    width: 70px;
+    height: 70px;
+    top: -20px;
+    right: -16px;
+  }
+
+  .decoCircle--2 {
+    width: 40px;
+    height: 40px;
+    bottom: 8px;
+    left: -14px;
+  }
+
+  /* ===== Іконка ===== */
+  .iconBox {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .card:hover .iconBox {
+    animation: floatIcon 1.5s ease infinite;
+  }
+
+  /* ===== Текст картки ===== */
+  .cardTitle {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(90deg, #fff, #ffdde1, #c8f0ff, #d4fccc, #fff);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rainbowMove 4s linear infinite;
+    filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.28));
+  }
+
+  .cardText {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.86);
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== Кнопка "Відкрити" ===== */
+  .actionRow {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .actionButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px 9px;
+    border-radius: 20px;
+    transition: background 150ms, gap 150ms, color 150ms;
+  }
+
+  .card:hover .actionButton {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    gap: 8px;
+  }
+
+  /* ===== Адаптив ===== */
+  @media (max-width: 540px) {
+    .card {
+      flex: 0 0 100%;
+    }
+  }
+
+  @media (min-width: 541px) and (max-width: 780px) {
+    .card {
+      flex: 0 0 calc(50% - 6px);
+    }
+  }
+</style>
+
+<div class="page">
+  <div class="header">
+    <div class="mainTitle">Документація та інструкції</div>
+  </div>
+
+  <div class="cardsGrid">
+    <a class="card" href="labelTags/index.html">
+      <div class="shimmer"></div>
+      <div class="decoCircle decoCircle--1"></div>
+      <div class="decoCircle decoCircle--2"></div>
+      <div class="iconBox" aria-hidden="true">🏷️</div>
+      <div class="cardTitle">Label Tags</div>
+      <div class="cardText">Фрагменти HTML-верстки та динамічний контент на сторінках</div>
+      <div class="actionRow"><span class="actionButton">Відкрити →</span></div>
+    </a>
+
+    <a class="card" href="popup/index.html">
+      <div class="shimmer"></div>
+      <div class="decoCircle decoCircle--1"></div>
+      <div class="decoCircle decoCircle--2"></div>
+      <div class="iconBox" aria-hidden="true">📢</div>
+      <div class="cardTitle">Pop-up</div>
+      <div class="cardText">Налаштування та кастомізація спливаючих вікон</div>
+      <div class="actionRow"><span class="actionButton">Відкрити →</span></div>
+    </a>
+
+    <a class="card" href="push/index.html">
+      <div class="shimmer"></div>
+      <div class="decoCircle decoCircle--1"></div>
+      <div class="decoCircle decoCircle--2"></div>
+      <div class="iconBox" aria-hidden="true">🔔</div>
+      <div class="cardTitle">Push Notifications</div>
+      <div class="cardText">Налаштування пуш-повідомлень та Liquid логіка</div>
+      <div class="actionRow"><span class="actionButton">Відкрити →</span></div>
+    </a>
+
+    <a class="card" href="stratifications/index.html">
+      <div class="shimmer"></div>
+      <div class="decoCircle decoCircle--1"></div>
+      <div class="decoCircle decoCircle--2"></div>
+      <div class="iconBox" aria-hidden="true">🎯</div>
+      <div class="cardTitle">Stratifications</div>
+      <div class="cardText">Налаштування стратифікацій для А/В спліт-тестів</div>
+      <div class="actionRow"><span class="actionButton">Відкрити →</span></div>
+    </a>
+
+    <a class="card" href="lootboxes/index.html">
+      <div class="shimmer"></div>
+      <div class="decoCircle decoCircle--1"></div>
+      <div class="decoCircle decoCircle--2"></div>
+      <div class="iconBox" aria-hidden="true">🎁</div>
+      <div class="cardTitle">Lootboxes</div>
+      <div class="cardText">Налаштування лутбоксів та кастомізація скінів</div>
+      <div class="actionRow"><span class="actionButton">Відкрити →</span></div>
+    </a>
+  </div>
 </div>
-</body>
-</html>
