@@ -389,38 +389,39 @@
                 <h3>📋 Крок 0: Підготовка</h3>
                 <ul>
                     <li>Підготуйте список призів: тип, назва, зображення, кількість (stock).</li>
-                    <li>Визначте часовий пояс кампанії (наприклад, <code>Europe/Kiev</code>).</li>
+                    <li>Визначте часовий пояс кампанії.</li>
                     <li>Підготуйте скін (набір зображень) згідно з вимогами з Розділу 4.</li>
+                    <li>Підготуйте картинки для призів: квадратне зображення (рекомендовано 512x512)</li>
                 </ul>
 
                 <h3>🏗️ Крок 1: Створення гри</h3>
                 <ul>
-                    <li>Перейдіть у <strong>Back Office → Gamification → Mini-games</strong> або <strong>Retention Games → Lootbox</strong>.</li>
-                    <li>Натисніть кнопку <strong>«Create New Game»</strong>.</li>
-                    <li>У полі <strong>«Game name»</strong> введіть назву. <strong>Важливо:</strong> Після збереження гри буде автоматично створено <strong>Custom Section</strong> з такою ж назвою — це потрібно для посилань.</li>
-                    <li>У полі <strong>«Type»</strong> оберіть <strong>Lootbox 2.0</strong>.</li>
-                    <li>У полі <strong>«Layout»</strong> оберіть <strong>Map</strong> (календар) або <strong>Cards</strong> (картки).</li>
+                    <li>Перейдіть у <strong>Back Office → Gamification → Retention Games → Lootbox</strong>.</li>
+                    <li>Натисніть кнопку <strong>«Create»</strong>.</li>
+                    <li>Витберіть <strong>Lootbox Weekdays</strong> або <strong>Lootbox Calendar Days</strong> в залежность від механіки.</li>
+                    <li>У полі <strong>«Name»</strong> введіть назву. <strong>Важливо:</strong> Після збереження гри буде автоматично створено <strong>Custom Section</strong> з такою ж назвою — це потрібно для посилань.</li>
+                    <li>У полі <strong>«Visual layout»</strong> оберіть <strong>Map</strong> (календар) або <strong>Cards</strong> (картки).</li>
                 </ul>
 
                 <h3>📅 Крок 2: Налаштування розкладу</h3>
                 <ul>
-                    <li><strong>Schedule type:</strong> оберіть <code>Calendar Days</code> (конкретні дати) або <code>Weekdays</code> (дні тижня).</li>
-                    <li>Для <strong>Calendar Days</strong>: вкажіть <code>Start Date</code> та <code>End Date</code>. Система автоматично розрахує кількість днів і створить відповідну кількість призів.</li>
-                    <li>Для <strong>Weekdays</strong>: оберіть дні тижня (Mon, Tue, Wed, Thu, Fri, Sat, Sun) та налаштуйте повторення. Кількість днів визначається кількістю обраних днів.</li>
+                    <li><strong>Schedule type:</strong> оберіть <code>Calendar Days</code> (конкретну дату початку і кількість днів) або <code>Weekdays</code> (дні тижня).</li>
+                    <li>Для <strong>Calendar Days</strong>: вкажіть <code>Start Date</code> та <code>Lootbox duration, days</code>. Система автоматично розрахує кількість днів і створить відповідну кількість призів.</li>
+                    <li>Для <strong>Weekdays</strong>: оберіть дні тижня (Mon, Tue, Wed, Thu, Fri, Sat, Sun).</li>
                     <li><strong>Timezone for days boundaries:</strong> оберіть часовий пояс цільової аудиторії. <code>Calendar days, user time zone</code> — призи згорають опівночі за часом гравця.</li>
                 </ul>
 
                 <h3>🎁 Крок 3: Налаштування призів</h3>
                 <ul>
-                    <li>Після вибору розкладу система автоматично створила необхідну кількість днів. Перейдіть у вкладку <strong>«Days»</strong> або <strong>«Prizes»</strong>.</li>
+                    <li>Після вибору розкладу система автоматично створила необхідну кількість днів. Перейдіть у вкладку <strong>«Prizes»</strong>.</li>
                     <li>Для кожного дня натисніть <strong>«Edit»</strong>.</li>
                     <li>Заповніть поля:
                         <ul>
                             <li><strong>Prize type:</strong> Points, Bonus, Tangible, Spin, Mission (тільки 'Featured Manually') або No prize.</li>
                             <li><strong>Prize name:</strong> назва призу (відображається гравцю).</li>
-                            <li><strong>Prize image:</strong> завантажте квадратне зображення (рекомендовано 512x512).</li>
-                            <li><strong>Stock items:</strong> <code>0</code> = нескінченний пул. Обов'язково увімкніть параметр <strong>'Surcharge'</strong> для коректного обліку.</li>
-                            <li><strong>Winning message:</strong> оберіть або створіть повідомлення про виграш. Для цього потрібно попередньо налаштувати повідомлення в розділі <strong>Gamification → Winning Messages</strong>.</li>
+                            <li><strong>Icon:</strong> завантажте квадратне зображення (рекомендовано 512x512).</li>
+                            <li><strong>Items in stock (current):</strong> <code>0</code> = нескінченний пул. Обов'язково увімкніть параметр <strong>'Surcharge'</strong> для коректного обліку.</li>
+                            <li><strong>Winning message:</strong> оберіть або створіть повідомлення про виграш.</strong>.</li>
                         </ul>
                     </li>
                 </ul>
@@ -448,9 +449,9 @@
 
                 <h3>🔐 Крок 5: Налаштування доступу та видимості</h3>
                 <ul>
-                    <li><strong>Visibility:</strong> оберіть <code>All users</code>, <code>Specific segments</code> або <code>Specific users</code>.</li>
-                    <li><strong>Trigger:</strong> налаштуйте, як гравець потрапляє в гру (посилання в email, API, manual grant).</li>
-                    <li><strong>Attempts per day:</strong> скільки разів гравець може відкривати лутбокс за день.</li>
+                    <li>Видимість <strong>Who can see the game:</strong> оберіть відповідний сегмент.</li>
+                    <li>Налаштуйте кондиції <strong>Trigger</strong>, як гравець потрапляє в гру (посилання в email, API, manual grant).</li>
+                    <li><strong>Game UI configuration:</strong> тут можна налаштувати вигляд та поведінку інтерфейсу в CSS.</li>
                 </ul>
 
                 <h3>🧪 Крок 6: Тестування</h3>
@@ -721,9 +722,10 @@
                 <div class="good">
                     <h4>📌 Як підготувати та передати файли дизайнеру:</h4>
                     <ol>
+                        <li>використайте інструкцію для ТЗ: <a class="link" href="https://docs.google.com/document/d/1rqJ4tpNmPdCsMP2Ckjtc9F78ftlP19QFc-KeWOb4U9M/edit?usp=sharing">Інструкція для CARDS</a> та/або <a class="link" href="https://docs.google.com/document/d/1M8bprtAej_eHEa7UfzIS-5LXi_Fxr-N8mvHTSMXgO6Y/edit?usp=sharing" target="_blank">Інструкція для MAP</a>.</li>
                         <li>Завантажте офіційні reference‑пакети Smartico: <a class="link" href="https://help.smartico.ai/welcome/products/mini-games/custom-skins-for-mini-games/lootbox-2.0-skins" target="_blank">https://help.smartico.ai/welcome/products/mini-games/custom-skins-for-mini-games/lootbox-2.0-skins</a></li>
                         <li>Попросіть дизайнера використовувати ТОЧНО ТАКІ САМІ назви файлів, як у таблицях вище.</li>
-                        <li>Фонові зображення (<code>game-bg</code>, <code>game-bg-mobile</code>) мають бути стиснуті до ваги <strong>менше 900 KB</strong> та збережені <strong>виключно у форматі JPEG для MAP</strong>.</li>
+                        <li>Фонові зображення (<code>game-bg</code>, <code>game-bg-mobile</code>) мають бути стиснуті до ваги <strong>менше 900 KB</strong> та збережені <strong>виключно у форматі JPEG для MAP всі інші в PNG</strong>.</li>
                         <li>Перед завантаженням розархівуйте файли (не надсилайте ZIP-архівом).</li>
                     </ol>
                 </div>
