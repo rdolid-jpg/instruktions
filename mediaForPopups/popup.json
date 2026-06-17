@@ -1,503 +1,5 @@
 [
     {
-        "label": "UI Elements Visibility",
-        "options": [
-            {
-                "name": "context_offer_ui",
-                "label": "Context Offer",
-                "fields": [
-                    {
-                        "name": "context_offer_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "Your <strong>Welcome Pack</strong> is ready!"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "graphic_section_ui",
-                "label": "Graphic Section",
-                "fields": [
-                    {
-                        "name": "background_image_url",
-                        "type": "image",
-                        "label": "Background Image",
-                        "value": ""
-                    },
-                    {
-                        "name": "hero_image_url",
-                        "type": "image",
-                        "label": "Hero Image",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Graphic%20Banner%20New.png?raw=true"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "main_value_ui",
-                "label": "Main Value",
-                "fields": [
-                    {
-                        "name": "main_value_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "Claim 100% + 100 FS"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "additional_value_ui",
-                "label": "Additional Value",
-                "fields": [
-                    {
-                        "name": "additional_value_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "then unlock 200% on your next deposit"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "promo_code_ui",
-                "label": "Promo Code",
-                "fields": [
-                    {
-                        "name": "promo_tip_text",
-                        "type": "text",
-                        "label": "Tip Text",
-                        "value": "Activate it with a promo code"
-                    },
-                    {
-                        "name": "promo_code_text",
-                        "type": "text",
-                        "label": "Code",
-                        "value": "KING21"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "timer_ui",
-                "label": "Timer",
-                "fields": [
-                    {
-                        "name": "timer_label_text",
-                        "type": "text",
-                        "label": "Label",
-                        "value": "Activate in:"
-                    },
-                    {
-                        "name": "timer_end_datetime",
-                        "type": "date",
-                        "label": "End Date",
-                        "value": "2024-06-01T12:00:00Z"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "special_conditions_ui",
-                "label": "Special Conditions",
-                "fields": [
-                    {
-                        "name": "special_conditions_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "Deposit from <strong>20GBP</strong> to claim"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            }
-        ]
-    },
-    {
-        "label": "Content",
-        "options": [
-            {
-                "name": "cta_button_ui",
-                "label": "CTA Button",
-                "fields": [
-                    {
-                        "name": "cta_button_text",
-                        "type": "text",
-                        "label": "Button Text",
-                        "value": "Activate Bonus"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "label": "Styling",
-        "options": [
-            {
-                "name": "theme_colors",
-                "label": "Theme Colors",
-                "fields": [
-                    {
-                        "name": "main_bg_color",
-                        "type": "color",
-                        "label": "Background",
-                        "value": "linear-gradient(180deg, rgba(255, 255, 255, 0.00) 60%, rgba(255, 255, 255, 0.30) 100%), linear-gradient(90deg, #5239F5 0%, #19C8FF 100%)"
-                    },
-                    {
-                        "name": "text_color",
-                        "type": "color",
-                        "label": "Text",
-                        "value": "#1C1C1E"
-                    },
-                    {
-                        "name": "accent_color",
-                        "type": "color",
-                        "label": "Accent",
-                        "value": "#6A44FF"
-                    },
-                    {
-                        "name": "button_bg_color",
-                        "type": "color",
-                        "label": "Button BG",
-                        "value": "#4A47EA"
-                    },
-                    {
-                        "name": "button_text_color",
-                        "type": "color",
-                        "label": "Button Text",
-                        "value": "#FFFFFF"
-                    },
-                    {
-                        "name": "promo_bg_color",
-                        "type": "color",
-                        "label": "Promo BG",
-                        "value": "#FFFFFF"
-                    },
-                    {
-                        "name": "promo_text_color",
-                        "type": "color",
-                        "label": "Promo Text",
-                        "value": "#1C1C1E"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "label": "Custom",
-        "options": [
-            {
-                "name": "custom",
-                "label": "Custom Fields",
-                "fields": [
-                    {
-                        "name": "tick_icon_url",
-                        "type": "text",
-                        "label": "tick_icon_url",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Copy%20Button%20done.png?raw=true"
-                    },
-                    {
-                        "name": "copy_icon_url",
-                        "type": "text",
-                        "label": "copy_icon_url",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Copy%20Button.png?raw=true"
-                    }
-                ]
-            }
-        ]
-    }
-]
-
-
-
-_______________________________
-16,06
-
-[
-    {
-        "label": "UI Elements Visibility",
-        "options": [
-            {
-                "name": "context_offer_ui",
-                "label": "Context Offer",
-                "fields": [
-                    {
-                        "name": "context_offer_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "Your <strong>Welcome Pack</strong> is ready!"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "background_image_ui",
-                "label": "Background Image",
-                "fields": [
-                    {
-                        "name": "background_image_url",
-                        "type": "image",
-                        "label": "Background Image",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Graphic%20Banner%20New.png?raw=true"
-                    },
-                    {
-                        "name": "background_max_height",
-                        "type": "text",
-                        "label": "Background Height (px)",
-                        "value": "120px"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "hero_image_ui",
-                "label": "Hero Image",
-                "fields": [
-                    {
-                        "name": "hero_image_url",
-                        "type": "image",
-                        "label": "Hero Image",
-                        "value": "https://static7.smr.vc/eae74d254bc7ba6b382786-rp_logo_128_128.webp"
-                    },
-                    {
-                        "name": "hero_width",
-                        "type": "text",
-                        "label": "Hero Width (%)",
-                        "value": "20%"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "main_value_ui",
-                "label": "Main Value",
-                "fields": [
-                    {
-                        "name": "main_value_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "Claim 100% + 100 FS"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "additional_value_ui",
-                "label": "Additional Value",
-                "fields": [
-                    {
-                        "name": "additional_value_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "then unlock 200% on your next deposit"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "promo_code_ui",
-                "label": "Promo Code",
-                "fields": [
-                    {
-                        "name": "promo_tip_text",
-                        "type": "text",
-                        "label": "Tip Text",
-                        "value": "Activate it with a promo code"
-                    },
-                    {
-                        "name": "promo_code_text",
-                        "type": "text",
-                        "label": "Code",
-                        "value": "KING21"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "timer_ui",
-                "label": "Timer",
-                "fields": [
-                    {
-                        "name": "timer_label_text",
-                        "type": "text",
-                        "label": "Label",
-                        "value": "Activate in:"
-                    },
-                    {
-                        "name": "timer_end_datetime",
-                        "type": "date",
-                        "label": "End Date",
-                        "value": "2024-06-01T12:00:00Z"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            },
-            {
-                "name": "special_conditions_ui",
-                "label": "Special Conditions",
-                "fields": [
-                    {
-                        "name": "special_conditions_text",
-                        "type": "text",
-                        "label": "Text",
-                        "value": "Deposit from <strong>20GBP</strong> to claim"
-                    }
-                ],
-                "optional": true,
-                "optional_default": true
-            }
-        ]
-    },
-    {
-        "label": "Hero Animation",
-        "options": [
-            {
-                "name": "animation_pulse",
-                "label": "Pulse",
-                "fields": [
-                ],
-                "optional": true,
-                "optional_default": false
-            },
-            {
-                "name": "animation_float",
-                "label": "Float",
-                "fields": [
-                ],
-                "optional": true,
-                "optional_default": false
-            },
-            {
-                "name": "animation_rotate",
-                "label": "Rotate",
-                "fields": [
-                ],
-                "optional": true,
-                "optional_default": false
-            },
-            {
-                "name": "animation_wiggle",
-                "label": "Wiggle",
-                "fields": [
-                ],
-                "optional": true,
-                "optional_default": false
-            }
-        ]
-    },
-    {
-        "label": "Content",
-        "options": [
-            {
-                "name": "cta_button_ui",
-                "label": "CTA Button",
-                "fields": [
-                    {
-                        "name": "cta_button_text",
-                        "type": "text",
-                        "label": "Button Text",
-                        "value": "Activate Bonus"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "label": "Styling",
-        "options": [
-            {
-                "name": "theme_colors",
-                "label": "Theme Colors",
-                "fields": [
-                    {
-                        "name": "main_bg_color",
-                        "type": "color",
-                        "label": "Background",
-                        "value": "linear-gradient(180deg, rgba(255, 255, 255, 0.00) 60%, rgba(255, 255, 255, 0.30) 100%), linear-gradient(90deg, #5239F5 0%, #19C8FF 100%)"
-                    },
-                    {
-                        "name": "text_color",
-                        "type": "color",
-                        "label": "Text",
-                        "value": "#1C1C1E"
-                    },
-                    {
-                        "name": "accent_color",
-                        "type": "color",
-                        "label": "Accent",
-                        "value": "#6A44FF"
-                    },
-                    {
-                        "name": "button_bg_color",
-                        "type": "color",
-                        "label": "Button BG",
-                        "value": "#4A47EA"
-                    },
-                    {
-                        "name": "button_text_color",
-                        "type": "color",
-                        "label": "Button Text",
-                        "value": "#FFFFFF"
-                    },
-                    {
-                        "name": "promo_bg_color",
-                        "type": "color",
-                        "label": "Promo BG",
-                        "value": "#FFFFFF"
-                    },
-                    {
-                        "name": "promo_text_color",
-                        "type": "color",
-                        "label": "Promo Text",
-                        "value": "#1C1C1E"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "label": "Custom",
-        "options": [
-            {
-                "name": "custom",
-                "label": "Custom Fields",
-                "fields": [
-                    {
-                        "name": "tick_icon_url",
-                        "type": "image",
-                        "label": "Tick Icon URL",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Copy%20Button%20done.png?raw=true"
-                    },
-                    {
-                        "name": "copy_icon_url",
-                        "type": "image",
-                        "label": "Copy Icon URL",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Copy%20Button.png?raw=true"
-                    }
-                ]
-            }
-        ]
-    }
-]
-
-
-
-[
-    {
         "label": "Elements Visibility",
         "options": [
             {
@@ -507,7 +9,7 @@ _______________________________
                     {
                         "name": "context_offer_text",
                         "type": "text",
-                        "label": "Text",
+                        "label": "Context text",
                         "value": "Your <strong>Welcome Pack</strong> is ready!"
                     }
                 ],
@@ -522,7 +24,7 @@ _______________________________
                         "name": "background_image_url",
                         "type": "image",
                         "label": "Background Image",
-                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/Graphic%20Banner%20New.png?raw=true"
+                        "value": "https://github.com/rdolid-jpg/instruktions/blob/master/mediaForPopups/ban.png?raw=true"
                     }
                 ],
                 "optional": true,
@@ -536,13 +38,13 @@ _______________________________
                         "name": "hero_image_url",
                         "type": "image",
                         "label": "Main Image",
-                        "value": "https://static7.smr.vc/eae74d254bc7ba6b382786-rp_logo_128_128.webp"
+                        "value": "https://static7.smr.vc/70f4aeb40df3c09ec440b0-Icon_prize.png"
                     },
                     {
                         "name": "hero_width",
                         "type": "text",
                         "label": "Size img (%)",
-                        "value": "20%"
+                        "value": "40%"
                     }
                 ],
                 "optional": true,
@@ -555,7 +57,7 @@ _______________________________
                     {
                         "name": "main_value_text",
                         "type": "text",
-                        "label": "Text",
+                        "label": "Title text",
                         "value": "Claim 100% + 100 FS"
                     }
                 ],
@@ -569,7 +71,7 @@ _______________________________
                     {
                         "name": "additional_value_text",
                         "type": "text",
-                        "label": "Text",
+                        "label": "Sub title text",
                         "value": "then unlock 200% on your next deposit"
                     }
                 ],
@@ -621,7 +123,7 @@ _______________________________
                     {
                         "name": "timer_label_text",
                         "type": "text",
-                        "label": "Text",
+                        "label": "Text, Date & Time by 0UTC",
                         "value": "Activate in:"
                     },
                     {
@@ -657,6 +159,12 @@ _______________________________
                         "type": "text",
                         "label": "Button Text",
                         "value": "Activate Bonus"
+                    },
+                    {
+                        "name": "button_url",
+                        "type": "url",
+                        "label": "Deep link or URL",
+                        "value": "dp:gf_bonuses"
                     }
                 ]
             }
@@ -668,6 +176,14 @@ _______________________________
             {
                 "name": "animation_pulse",
                 "label": "Pulse",
+                "fields": [
+                ],
+                "optional": true,
+                "optional_default": false
+            },
+            {
+                "name": "animation_pulse_2",
+                "label": "Pulse 2",
                 "fields": [
                 ],
                 "optional": true,
@@ -692,6 +208,30 @@ _______________________________
             {
                 "name": "animation_wiggle",
                 "label": "Wiggle",
+                "fields": [
+                ],
+                "optional": true,
+                "optional_default": false
+            },
+            {
+                "name": "animation_bounce_in",
+                "label": "Bounce In",
+                "fields": [
+                ],
+                "optional": true,
+                "optional_default": false
+            },
+            {
+                "name": "animation_glow",
+                "label": "Glow",
+                "fields": [
+                ],
+                "optional": true,
+                "optional_default": false
+            },
+            {
+                "name": "animation_flip_3d",
+                "label": "3D Flip",
                 "fields": [
                 ],
                 "optional": true,
@@ -731,7 +271,7 @@ _______________________________
                         "value": "#4A47EA"
                     },
                     {
-                        "name": "title_color",
+                        "name": "title_color_text",
                         "type": "color",
                         "label": "Title color",
                         "value": "#4A47EA"

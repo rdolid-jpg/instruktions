@@ -1,395 +1,918 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-family-sans);
   font-weight: 400;
-  user-select: none;
 }
-    div#__overlay {
-      background-color: rgba(255, 255, 255, 0.9);
-      opacity: 1;
-    }
-  .popup-container {
-    position: relative;
-    width: 432px;
 
+div#__overlay {
+  background-color: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+}
+
+.popup-container {
+  position: relative;
+  width: 432px;
+  -webkit-transform: translateY(6rem);
   transform: translateY(6rem);
   opacity: 0;
-  scale: 0.6;
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+  -webkit-transition: all 0.7s cubic-bezier(0.5, 0, 0, 1);
   transition: all 0.7s cubic-bezier(0.5, 0, 0, 1);
-  }
-.popup-container.visible {
-  transform: translateY(0);
-  opacity: 1;
-  scale: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
-/* Стан закриття попапу */
+
+.popup-container.visible {
+  -webkit-transform: translateY(0) scale(1);
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
 .popup-container.closing {
-  transform: translateY(-4rem);
+  -webkit-transform: translateY(-4rem) scale(1);
+  transform: translateY(-4rem) scale(1);
   opacity: 0;
+  -webkit-transition: all 0.5s cubic-bezier(0.5, 0, 0, 1);
   transition: all 0.5s cubic-bezier(0.5, 0, 0, 1);
 }
-    .popup-wrapper {
-    --main-bg-color: {%#o.main_bg_color%};
-    --text-color: {%#o.text_color%};
-    --accent-color: {%#o.accent_color%};
-    --button-bg-color: {%#o.button_bg_color%};
-    --button-text-color: {%#o.button_text_color%};
-    --promo-bg-color: {%#o.promo_bg_color%};
-    --promo-text-color: {%#o.promo_text_color%};
 
-    --font-family-sans: 'Poppins', sans-serif;
+.popup-wrapper {
+  --main-bg-color: {%#o.main_bg_color%};
+  --content-section-bg-color: {%#o.content_section_bg_color%};
+  --promo-bg-color: {%#o.promo_bg_color%};
+  --button-bg-color: {%#o.button_bg_color%};
+  --title-color: {%#o.title_color_text%};
+  --text-color-1: {%#o.text_color_1%};
+  --text-color-2: {%#o.text_color_2%};
+  --accent-color: {%#o.accent_color%};
+  --promo-text-color: {%#o.promo_text_color%};
+  --button-text-color: {%#o.button_text_color%};
+  --font-family-sans: 'Poppins', sans-serif;
+  
+  background: var(--main-bg-color);
+  border-radius: 24px;
+  font-family: var(--font-family-sans);
+  color: var(--text-color-1);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 38px;
+}
 
-    background: var(--main-bg-color);
-    border-radius: 24px;
-    font-family: var(--font-family-sans);
-    color: var(--text-color);
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, color 0.3s;
-    margin-top: 38px;
-  }
-
-
-
-
-
-  .close-button {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    background-color: rgba(255, 255, 255, 1);
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    z-index: 10;
-    padding-top: 2px;
-
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  font-size: 24px;
+  z-index: 10;
+  padding-top: 2px;
   opacity: 0;
   visibility: hidden;
+  -webkit-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
   transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-  }
-/* Кінцевий стан хрестика - видимий */
+}
+
 .close-button.visible {
   opacity: 1;
   visibility: visible;
 }
-  .graphic-section {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 2.25 / 1;
-    /* max-height: 11rem; */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
 
-  .hero-image {
-    /* position: absolute; */
-    /* top: 0; */
-    /* left: 0; */
-    width: 100%;
-    height: 100%;
-        background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+/* Graphic section */
+.graphic-section {
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  min-height: 4rem;
+  max-height: 176px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
 
-  .content-section {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: linear-gradient(180deg, #FFFFFFCC 0%, #FFFFFF 100%);
-    border: 2px solid var(--promo-bg-color);
-    border-radius: 18px;
-    padding: 10px;
-    margin: 8px;
-  }
+.graphic-section.has-background {
+  height: 176px;
+  min-height: 176px;
+}
 
-  .text-clamp-2 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
+.graphic-section.has-hero-only {
+  height: 176px;
+  min-height: 176px;
+  background: none;
+}
 
-  .main-value {
-    font-family: var(--font-family-sans);
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 1.1;
-    color: #4A47EA;
-  }
+.graphic-section .hero-image {
+  display: block;
+  width: {%#o.hero_width%};
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
 
-  .additional-value {
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-top: -8px;
-    color: #18181B;
-  }
+/* ===== АНІМАЦІЇ (з префіксами) ===== */
 
-  .promo-section {
-    background-color: var(--promo-bg-color);
-    border-radius: 18px;
-    padding: 12px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+@-webkit-keyframes bannerPulse {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+    -webkit-filter: brightness(1);
+    filter: brightness(1);
   }
-
-  .promo-tip {
-    font-size: 16px;
-    font-weight: 400;
-    color: #52525B;
-    margin-bottom: 4px;
+  50% {
+    -webkit-transform: scale(1.1) rotate(10deg);
+    transform: scale(1.1) rotate(10deg);
+    -webkit-filter: brightness(1.1);
+    filter: brightness(1.1);
   }
-
-  .promo-code-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  100% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+    -webkit-filter: brightness(1);
+    filter: brightness(1);
   }
+}
 
-  .promo-code {
-    font-family: var(--font-family-serif);
-    font-size: 22px;
-    font-weight: 600;
-    color: #18181B;
-    user-select: text !important;
+@keyframes bannerPulse {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+    -webkit-filter: brightness(1);
+    filter: brightness(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1) rotate(10deg);
+    transform: scale(1.1) rotate(10deg);
+    -webkit-filter: brightness(1.1);
+    filter: brightness(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+    -webkit-filter: brightness(1);
+    filter: brightness(1);
+  }
+}
+.animation-pulse-2 {
+  -webkit-animation: bannerPulse 3s ease-in-out infinite;
+  animation: bannerPulse 3s ease-in-out infinite;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform, filter;
+}
+
+@-webkit-keyframes pulse {
+  0%, 100% { -webkit-transform: scale(0.65); transform: scale(0.65); }
+  50% { -webkit-transform: scale(1.1); transform: scale(1.1); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(0.65); }
+  50% { transform: scale(1.1); }
+}
+.animation-pulse {
+  -webkit-animation: pulse 3s ease-in-out infinite;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes float {
+  0%, 100% { -webkit-transform: translateY(12px); transform: translateY(12px); }
+  50% { -webkit-transform: translateY(-8px); transform: translateY(-8px); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(12px); }
+  50% { transform: translateY(-8px); }
+}
+.animation-float {
+  -webkit-animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes rotate {
+  from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animation-rotate {
+  -webkit-animation: rotate 8s linear infinite;
+  animation: rotate 8s linear infinite;
+}
+
+@-webkit-keyframes wiggle {
+  0%, 100% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  50% { -webkit-transform: rotate(8deg); transform: rotate(8deg); }
+  50% { -webkit-transform: rotate(-8deg); transform: rotate(-8deg); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(8deg); }
+  50% { transform: rotate(-8deg); }
+}
+.animation-wiggle {
+  -webkit-animation: wiggle 300ms ease-in-out infinite;
+  animation: wiggle 300ms ease-in-out infinite;
+}
+
+@-webkit-keyframes bounceIn {
+  0% { -webkit-transform: scale(0.3); transform: scale(0.3); opacity: 0; }
+  50% { -webkit-transform: scale(1.1); transform: scale(1.1); opacity: 1; }
+  70% { -webkit-transform: scale(0.5); transform: scale(0.5); }
+  100% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  70% { transform: scale(0.5); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animation-bounce-in {
+  -webkit-animation: bounceIn 4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: bounceIn 4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@-webkit-keyframes glow {
+  0%, 100% { -webkit-filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+  50% { -webkit-filter: drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 0 50px rgba(255,255,255,0.4)); filter: drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 0 50px rgba(255,255,255,0.4)); }
+}
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+  50% { filter: drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 0 50px rgba(255,255,255,0.4)); }
+}
+.animation-glow {
+  -webkit-animation: glow 3s ease-in-out infinite;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes flip3d {
+  0% { -webkit-transform: perspective(400px) rotateY(0deg); transform: perspective(400px) rotateY(0deg); }
+  50% { -webkit-transform: perspective(400px) rotateY(180deg); transform: perspective(400px) rotateY(180deg); }
+  100% { -webkit-transform: perspective(400px) rotateY(360deg); transform: perspective(400px) rotateY(360deg); }
+}
+@keyframes flip3d {
+  0% { transform: perspective(400px) rotateY(0deg); }
+  50% { transform: perspective(400px) rotateY(180deg); }
+  100% { transform: perspective(400px) rotateY(360deg); }
+}
+.animation-flip-3d {
+  -webkit-animation: flip3d 7s ease-in-out infinite;
+  animation: flip3d 7s ease-in-out infinite;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
+.animation-flip-3d:hover {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+/* ===== CONTENT ===== */
+.content-section {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--content-section-bg-color);
+  border: 2px solid var(--promo-bg-color);
+  border-radius: 18px;
+  padding: 10px;
+  margin: 8px;
+  position: relative;
+  z-index: 3;
+}
+
+.text-clamp-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 3.2em; /* фолбек для старих браузерів */
+}
+
+.main-value {
+  font-family: var(--font-family-sans);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--title-color);
+}
+
+.additional-value {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: -8px;
+  color: var(--text-color-1);
+}
+
+.promo-section {
+  background-color: var(--promo-bg-color);
+  border-radius: 18px;
+  padding: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.promo-tip {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color-2);
+  margin-bottom: 4px;
+}
+
+.promo-code-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.promo-code {
+  font-family: var(--font-family-sans);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--promo-text-color);
+  cursor: text;
+  user-select: text !important;
   -webkit-user-select: text !important;
   -moz-user-select: text !important;
   -ms-user-select: text !important;
+}
+.promo-code::selection {
+  background: rgba(74, 71, 234, 0.2);
+  color: var(--promo-text-color);
+}
+.copy-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+}
+.copy-icon:active {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
+
+.timer {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-color-1);
+}
+
+.accent {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+.cta-button {
+  background: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 12px;
+  padding: 11px 24px; /* збільшені відступи */
+  font-family: var(--font-family-sans);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  height: 48px; /* ФІКСОВАНА ВИСОТА */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  -webkit-transition: -webkit-transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-button:hover {
+  transform: translateY(-1px) translateZ(0);
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.45);
+}
+.special-conditions {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-color-2);
+}
+.special-conditions strong {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.context-offer {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  font-family: 'Poppins', sans-serif;
+  color: #18181B;
+  padding: 0;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.2;
+  width: max-content;
+  max-width: 400px;
+  z-index: 3;
+  text-align: center;
+}
+
+.copied-toast {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  z-index: 20;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  font-weight: 500;
+}
+.copied-toast.show {
+  opacity: 1;
+}
+
+/* ========================================
+   МОБІЛЬНА АДАПТАЦІЯ (з префіксами)
+   ======================================== */
+
+/* 1. ДУЖЕ МАЛІ ЕКРАНИ */
+@media (max-width: 330px) {
+  .popup-container {
+    width: 304px !important;
+    margin: 8px auto;
+    max-height: calc(100vh - 16px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .popup-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
 
-  .copy-icon {
-    width: 18px;
-    height: 18px;
+  .popup-wrapper {
+    border-radius: 16px;
+    margin: 0;
   }
 
+  .graphic-section {
+    height: 100px !important;
+    min-height: 100px !important;
+  }
+
+  .content-section {
+    gap: 10px;
+    padding: 6px;
+    border-radius: 14px;
+  }
+
+  .main-value {
+    font-size: 24px !important;
+  }
+  .additional-value {
+    font-size: 16px !important;
+    margin-top: -4px;
+  }
+  .promo-code {
+    font-size: 18px !important;
+  }
+  .promo-tip {
+    font-size: 14px !important;
+  }
   .timer {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px !important;
   }
-
-  .accent {
-    color: var(--accent-color);
-    font-weight: bold;
-  }
-
   .cta-button {
-    background: var(--button-bg-color);
-    color: var(--button-text-color);
-    border: none;
-    border-radius: 12px;
-    padding: 11px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    letter-spacing: 0.5px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 14px !important;
+    padding: 10px;
   }
-
-  .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  }
-
   .special-conditions {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.2;
-    color: #52525B;
+    font-size: 11px !important;
+  }
+  .context-offer {
+    top: -26px;
+    font-size: 14px !important;
+    max-width: 90%;
+  }
+  .close-button {
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+}
+
+/* 2. МОБІЛЬНІ ПРИСТРОЇ */
+@media (max-width: 440px) {
+  .popup-container {
+    width: 328px !important;
+    margin: 12px auto;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .popup-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
 
-  .special-conditions strong {
-    color: #18181B;
-    font-weight: 700;
+  .popup-wrapper {
+    border-radius: 18px;
+    margin: 0;
+  }
+
+  .graphic-section {
+    height: 120px !important;
+    min-height: 120px !important;
+  }
+
+  .content-section {
+    gap: 12px;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .main-value {
+    font-size: 30px !important;
+  }
+  .additional-value {
+    font-size: 18px !important;
+    margin-top: -6px;
+  }
+  .promo-code {
+    font-size: 20px !important;
+  }
+  .promo-tip {
+    font-size: 15px !important;
+  }
+  .timer {
+    font-size: 12px !important;
+  }
+  .cta-button {
+    font-size: 15px !important;
+    padding: 10px;
+  }
+  .special-conditions {
+    font-size: 11px !important;
+  }
+  .context-offer {
+    top: -30px;
+    font-size: 15px !important;
+    max-width: 90%;
+  }
+  .close-button {
+    top: 8px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+    font-size: 18px;
+  }
+}
+
+/* 3. МАЛА ВИСОТА ЕКРАНА (до 32rem) – вмикаємо скрол */
+@media (max-height: 32rem) {
+  .popup-container {
+    -webkit-transform: none !important;
+    transform: none !important;
+    -webkit-transform: scale(1) !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    margin: 16px auto;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .popup-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .popup-wrapper {
+    margin: 0;
+    border-radius: 20px;
+  }
+
+  .graphic-section {
+    height: 120px !important;
+    min-height: 120px !important;
+  }
+
+  .content-section {
+    gap: 12px;
+    padding: 8px;
+  }
+
+  .main-value {
+    font-size: 28px;
+  }
+  .additional-value {
+    font-size: 18px;
+  }
+
+  .close-button {
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
   }
 
   .context-offer {
-    position: absolute;
-    top: -38px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Poppins', sans-serif;
-    color: #18181B;
-    padding: 0 16px;
-    /* border-radius: 16px; */
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 1.2;
-    width: max-content;
-    max-width: 280px;
-    /* box-shadow: 0 4px 10px rgba(0,0,0,0.15); */
-    z-index: 3;
+    top: -30px;
+    font-size: 16px;
+    max-width: 90%;
   }
+}
 
-  .copied-toast {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0,0,0,0.7);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 16px;
-    font-size: 14px;
-    z-index: 20;
-    opacity: 0;
-    transition: opacity 0.3s;
+/* 4. ЗАГАЛЬНІ ПРАВИЛА ДЛЯ МОБІЛЬНИХ */
+@media (max-width: 768px) {
+  .context-offer {
+    max-width: 90%;
+    white-space: normal;
   }
-
-  .copied-toast.show {
-    opacity: 1;
-  }
-
+}
 </style>
 
 <div class="popup-container">
-  {% if (o.context_offer_ui.checked) { %}
+  {% if (o.context_offer_ui && o.context_offer_ui.checked) { %}
   <div class="context-offer">{%#o.context_offer_text%}</div>
   {% } %}
+  
   <div class="popup-wrapper" id="popup-wrapper">
-    <div id="copied-toast" class="copied-toast">Copied!</div>
+    <div id="copied-toast" class="copied-toast">{%#o.copied_toast_text%}</div>
+    
+    <button class="close-button" onclick="dp('dp:close')">&times;</button>
+    
+    
+    {% 
+  var hasBackground = (o.background_image_ui && o.background_image_ui.checked && o.background_image_url); 
+  var hasHero = (o.hero_image_ui && o.hero_image_ui.checked && o.hero_image_url); 
+  var heroWidth = o.hero_width || '20%'; /* значення за замовчуванням */
+%}
 
-  <button class="close-button" onclick="dp('dp:close')">&times;</button>
-
-  {% if (o.graphic_section_ui.checked) { %}
-  <div class="graphic-section" style="background-image: url('{%#o.background_image_url%}');">
-    <img src="{%#o.hero_image_url%}" alt="Bonus Gift" class="hero-image">
-  </div>
-  {% } %}
-
-  <div class="content-section">
-    {% if (o.main_value_ui.checked) { %}
-    <div class="main-value text-clamp-2">{%#o.main_value_text%}</div>
-    {% } %}
-
-    {% if (o.additional_value_ui.checked) { %}
-    <div class="additional-value text-clamp-2">{%#o.additional_value_text%}</div>
-    {% } %}
-
-    {% if (o.promo_code_ui.checked) { %}
-    <div class="promo-section" id="promo-section">
-      <div class="promo-tip">{%#o.promo_tip_text%}</div>
-      <div class="promo-code-wrapper">
-        <span class="promo-code">{%#o.promo_code_text%}</span>
-        <img id="copy-icon" src="{%#o.copy_icon_url%}" alt="Copy" class="copy-icon">
-      </div>
-    </div>
-    {% } %}
-
-    {% if (o.timer_ui.checked) { %}
-    <div class="timer">{%#o.timer_label_text%} <span id="countdown-timer" data-end-datetime="{%#o.timer_end_datetime%}"></span></div>
-    {% } %}
-
-    <button class="cta-button" onclick="dp('dp:ok')">{%#o.cta_button_text%}</button>
-
-    {% if (o.special_conditions_ui.checked) { %}
-    <div class="special-conditions">{%#o.special_conditions_text%}</div>
-    {% } %}
-  </div>
+<div class="graphic-section 
+     {% if (hasBackground) { %}has-background{% } %}
+     {% if (!hasBackground && hasHero) { %}has-hero-only{% } %}
+     {% if (hasHero) { %}has-hero{% } %}"
+     {% if (hasBackground) { %}
+     style="background-image: url({%#o.background_image_url%});"
+     {% } %}>
+  
+  {% if (hasHero) { %}
+    <img src="{%#o.hero_image_url%}" 
+         alt="Bonus Gift" 
+         class="hero-image 
+         {% if (o.animation_pulse && o.animation_pulse.checked) { %}animation-pulse{% } 
+         else if (o.animation_pulse_2 && o.animation_pulse_2.checked) { %}animation-pulse-2{% }
+         else if (o.animation_float && o.animation_float.checked) { %}animation-float{% } 
+         else if (o.animation_rotate && o.animation_rotate.checked) { %}animation-rotate{% } 
+         else if (o.animation_wiggle && o.animation_wiggle.checked) { %}animation-wiggle{% }
+         else if (o.animation_bounce_in && o.animation_bounce_in.checked) { %}animation-bounce-in{% }
+         else if (o.animation_glow && o.animation_glow.checked) { %}animation-glow{% }
+         else if (o.animation_flip_3d && o.animation_flip_3d.checked) { %}animation-flip-3d{% } %}"
+         style="width: {%#heroWidth%};">
+  {% } %}  
 </div>
+    
+    <div class="content-section">
+      {% if (o.main_value_ui && o.main_value_ui.checked) { %}
+      <div class="main-value text-clamp-2">{%#o.main_value_text%}</div>
+      {% } %}
+      
+      {% if (o.additional_value_ui && o.additional_value_ui.checked) { %}
+      <div class="additional-value text-clamp-2">{%#o.additional_value_text%}</div>
+      {% } %}
+      
+      {% if (o.promo_code_ui && o.promo_code_ui.checked) { %}
+      <div class="promo-section" data-promo-code="{%#o.promo_code_text%}">
+        <div class="promo-tip">{%#o.promo_tip_text%}</div>
+        <div class="promo-code-wrapper">
+          <span class="promo-code">{%#o.promo_code_text%}</span>
+          <img class="copy-icon" src="{%#o.copy_icon_url%}" alt="Copy">
+        </div>
+      </div>
+      {% } %}
+      
+      {% if (o.timer_ui && o.timer_ui.checked) { %}
+      <div class="timer">
+        {%#o.timer_label_text%} <span id="countdown-timer" data-end-datetime="{%#o.timer_end_datetime%}"></span>
+      </div>
+      {% } %}
+      
+      <button class="cta-button" onclick="dp('{%#o.button_url%}')">{%#o.cta_button_text%}</button>
+      
+      {% if (o.special_conditions_ui && o.special_conditions_ui.checked) { %}
+      <div class="special-conditions">{%#o.special_conditions_text%}</div>
+      {% } %}
+    </div>
+  </div>
 </div>
 
 <script>
-  (function() {
-    const popupWrapper = document.getElementById('popup-wrapper');
-
-
-
-    // Promo code copy functionality
-    const promoSection = document.getElementById('promo-section');
-    if (promoSection) {
-      promoSection.addEventListener('click', function() {
-        const promoCode = '{%#o.promo_code_text%}';
-        navigator.clipboard.writeText(promoCode).then(function() {
-          const icon = document.getElementById('copy-icon');
-          const originalSrc = icon.src;
-          icon.src = '{%#o.tick_icon_url%}'; // Checkmark icon
-
-          const toast = document.getElementById('copied-toast');
+(function() {
+  var popupContainer = document.querySelector('.popup-container');
+if (popupContainer && !popupContainer.classList.contains('visible')) {
+  setTimeout(function() {
+    popupContainer.classList.add('visible');
+    startClosingTimer();
+  }, 50);
+} else if (popupContainer && popupContainer.classList.contains('visible')) {
+  startClosingTimer();
+}
+  
+  var promoSection = document.querySelector('.promo-section');
+  var copyTimeout = null;
+  var originalIconSrc = null; // Зберігаємо оригінальне джерело іконки
+  
+  if (promoSection) {
+    promoSection.addEventListener('click', function(e) {
+      var promoCode = promoSection.getAttribute('data-promo-code');
+      if (!promoCode) {
+        var promoCodeSpan = promoSection.querySelector('.promo-code');
+        if (promoCodeSpan) {
+          promoCode = promoCodeSpan.innerText || '';
+        }
+      }
+      
+      if (!promoCode) return;
+      
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        } else {
+          var textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          var success = false;
+          try {
+            success = document.execCommand('copy');
+          } catch (err) {
+            console.error('Fallback copy failed:', err);
+          }
+          document.body.removeChild(textarea);
+          return success ? Promise.resolve() : Promise.reject(new Error('Copy failed'));
+        }
+      }
+      
+      copyText(promoCode).then(function() {
+        var icon = promoSection.querySelector('.copy-icon');
+        if (!icon) return;
+        
+        // Зберігаємо оригінальне джерело при першому кліку
+        if (originalIconSrc === null) {
+          originalIconSrc = icon.src;
+        }
+        
+        var tickIconUrl = '{%#o.tick_icon_url%}';
+        if (tickIconUrl && tickIconUrl !== '') {
+          icon.src = tickIconUrl;
+        }
+        
+        var toast = document.getElementById('copied-toast');
+        if (toast) {
           toast.classList.add('show');
-
-          promoSection.style.pointerEvents = 'none';
-
-          setTimeout(function() {
-            icon.src = originalSrc;
+        }
+        
+        if (icon) {
+          icon.style.pointerEvents = 'none';
+        }
+        
+        // Очищаємо попередній таймер
+        if (copyTimeout) {
+          clearTimeout(copyTimeout);
+          copyTimeout = null;
+        }
+        
+        copyTimeout = setTimeout(function() {
+          // Повертаємо оригінальне джерело
+          icon.src = originalIconSrc;
+          if (toast) {
             toast.classList.remove('show');
-            promoSection.style.pointerEvents = 'auto';
-          }, 5000);
-        }).catch(function(err) {
-          console.error('Failed to copy text: ', err);
-        });
+          }
+          if (icon) {
+            icon.style.pointerEvents = 'auto';
+          }
+          copyTimeout = null;
+        }, 3000);
+        
+      }).catch(function(err) {
+        console.error('Failed to copy text: ', err);
       });
-    }
-
-    // Countdown timer functionality
-    const countdownElement = document.getElementById('countdown-timer');
-    if (countdownElement) {
-      const endDateString = countdownElement.getAttribute('data-end-datetime');
-      const endDate = new Date(endDateString).getTime();
-
-      const timerInterval = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = endDate - now;
-
+    });
+  }
+  
+  var countdownElement = document.getElementById('countdown-timer');
+  if (countdownElement) {
+    var endDateString = countdownElement.getAttribute('data-end-datetime');
+    if (endDateString) {
+      var endDate = new Date(endDateString).getTime();
+      
+      function updateTimer() {
+        var now = new Date().getTime();
+        var distance = endDate - now;
+        
         if (distance < 0) {
           clearInterval(timerInterval);
-          countdownElement.innerHTML = "Expired";
+          if (countdownElement) {
+            countdownElement.innerHTML = "Expired";
+          }
           return;
         }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        let result = "";
+        
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        var result = "";
         if (days > 0) result += days + "d ";
         if (hours > 0 || days > 0) result += hours + "h ";
         result += minutes + "m " + seconds + "s";
-
-        countdownElement.innerHTML = result;
-      }, 1000);
+        
+        if (countdownElement) {
+          countdownElement.innerHTML = result;
+        }
+      }
+      
+      var timerInterval = setInterval(updateTimer, 1000);
+      updateTimer();
     }
-  })();
-
-
-(function() {
-  // Знаходимо контейнер попапу
-  const popupContainer = document.querySelector('.popup-container');
+  }
   
-  // Додаємо невелику затримку перед показом анімації
-  // Це дозволить DOM повністю завантажитись
-  setTimeout(function() {
-    popupContainer.classList.add('visible');
-  }, 50);
-})();
-//------------------
-
-(function() {
-  const closeButton = document.querySelector('.close-button');
-  const overlay = document.querySelector('div#__overlay');
-  const popupContainer = document.querySelector('.popup-container');
+  var closeButton = document.querySelector('.close-button');
+  var overlay = document.querySelector('div#__overlay');
   
-  let canClose = false;
-  let timerStarted = false;
+  var canClose = false;
+  var timerStarted = false;
   
   function enableClosing() {
     if (canClose) return;
@@ -399,70 +922,23 @@ body {
     }
   }
   
-  // Запускаємо відлік 3 секунди, коли попап починає з'являтись
   function startClosingTimer() {
     if (timerStarted) return;
     timerStarted = true;
     setTimeout(enableClosing, 3000);
   }
   
-  if (popupContainer) {
-    // Спостерігаємо за появою попапу
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.attributeName === 'class') {
-          if (popupContainer.classList.contains('visible')) {
-            startClosingTimer();
-            observer.disconnect();
-          }
-        }
-      });
-    });
-    
-    observer.observe(popupContainer, { attributes: true });
-    
-    // Якщо попап вже видимий
-    if (popupContainer.classList.contains('visible')) {
-      startClosingTimer();
-      observer.disconnect();
-    }
-  }
   
-  // Закриття по оверлею
   if (overlay) {
     overlay.addEventListener('click', function(e) {
       if (canClose && e.target === overlay) {
-        dp('dp:close');
+        if (typeof dp !== 'undefined') {
+          dp('dp:close');
+        }
       }
     });
   }
 })();
-</script>
-<script>
+
 {{label.script_for_popup_under_modal}}
 </script>
-
-
-  --main-bg-color: {%#o.main_bg_color%};
-  --content-section-bg-color: {%#o.content_section_bg_color%};
-  --promo-bg-color: {%#o.promo_bg_color%};
-  --button-bg-color: {%#o.button_bg_color%};
-  --title-color: {%#o.title_color%};
-  --text-color-1: {%#o.text_color_1%};
-  --text-color-2: {%#o.text_color_2%};
-  --accent-color: {%#o.accent_color%};
-  --promo-text-color: {%#o.promo_text_color%};
-  --button-text-color: {%#o.button_text_color%};
-  --font-family-sans: 'Poppins', sans-serif;
-
-
-  var(--main-bg-color);
-  var(--content-section-bg-color);
-  var(--promo-bg-color);
-  var(--button-bg-color);
-  var(--title-color);
-  var(--text-color-1);
-  var(--text-color-2);
-  var(--accent-color);
-  var(--promo-text-color);
-  var(--button-text-color);
