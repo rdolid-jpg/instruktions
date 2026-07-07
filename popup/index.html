@@ -330,40 +330,27 @@
         .home-button {
             position: fixed;
             top: 20px;
-            /* Відступ від верхнього краю */
             left: 20px;
-            /* Відступ від лівого краю */
             background-color: #f6b650;
-            /* Оранжевий колір, як у заголовків секцій */
             color: white;
             font-size: 1.8rem;
-            /* Розмір іконки */
             width: 50px;
-            /* Ширина кнопки */
             height: 50px;
-            /* Висота кнопки */
             border-radius: 50%;
-            /* Робить кнопку круглою */
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            /* Тінь для об'ємності */
             text-decoration: none;
-            /* Прибирає підкреслення посилання */
             z-index: 1002;
-            /* Переконайтеся, що кнопка знаходиться поверх інших елементів */
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .home-button:hover {
             background-color: #f97d2b;
-            /* Темніший оранжевий при наведенні */
             transform: scale(1.05);
-            /* Збільшення при наведенні */
         }
 
-        /* Медіа-запит для мобільних пристроїв, щоб кнопка не заважала */
         @media (max-width: 768px) {
             .home-button {
                 top: 10px;
@@ -377,7 +364,6 @@
 </head>
 
 <body>
-    <!-- Плаваюча кнопка Home -->
     <a href="https://rdolid-jpg.github.io/instruktions" class="home-button" title="На головну сторінку">
         🏠
     </a>
@@ -590,6 +576,49 @@
                         <h4>📞 Потрібна допомога?</h4>
                         <p>Якщо після всіх маніпуляцій попап не відображається або виникають інші проблеми, зверніться
                             до <strong>відділу Retention Platform Development</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- РОЗДІЛ 6: НАЛАШТУВАННЯ MASTER TEMPLATE POPUP -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="icon">👑</span> 6. Налаштування "Master Template Popup"</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <p>Цей шаблон     <a href="https://drive-7.smartico.ai/28063#/resource_template/11620">Master Template Popup</a> є універсальним і дозволяє гнучко налаштовувати кожен елемент без зміни коду. Всі налаштування розбиті на логічні блоки у вкладці <strong>Summary</strong>.</p>
+
+                    <h3>1. Elements content HEADER (Верхня частина)</h3>
+                    <ul>
+                        <li><strong>Context text:</strong> Короткий текст над попапом. Використовуйте тег <code>&lt;strong&gt;текст&lt;/strong&gt;</code> для виділення кольором акценту, або <code>&lt;b&gt;текст&lt;/b&gt;</code> для звичайного жирного шрифту.</li>
+                        <li><strong>Banner:</strong> Фонове зображення верхньої частини (рекомендовано 864x352px, формати .webp, .png).</li>
+                        <li><strong>Banner Link:</strong> Посилання, якщо хочете, щоб весь банер був клікабельним.</li>
+                        <li><strong>Hero Image:</strong> Головне зображення (наприклад, подарунок або персонаж), яке накладається поверх банера. Можна змінювати його розмір у відсотках. Також це зображення можна анімувати увімкнувши відповідний чекбокс з анімацією на вибір.</li>
+                    </ul>
+
+                    <h3>2. Elements content BODY (Основний контент)</h3>
+                    <ul>
+                        <li><strong>Title & Sub title:</strong> Головний заголовок та підзаголовок.</li>
+                        <li><strong>Promo block:</strong> Блок з промокодом. Містить підказку, сам промокод та текст сповіщення при успішному копіюванні.</li>
+                        <li><strong>Timer block:</strong> Таймер зворотного відліку. Вкажіть текст перед таймером, кінцеву дату/час (за UTC 0) та текст, який з'явиться після завершення часу.</li>
+                        <li><strong>CTA Button:</strong> Головна кнопка дії. Вкажіть текст та посилання (URL або Deep link, наприклад <code>dp:ok</code>).</li>
+                        <li><strong>Special Conditions:</strong> Текст з умовами. Обгорніть частину тексту тегом <code>&lt;span&gt;текст&lt;/span&gt;</code>, щоб зробити її клікабельною (посилання вказується в наступному полі).</li>
+                    </ul>
+
+                    <h3>3. Animation for Hero Image (Анімації)</h3>
+                    <p>Виберіть <strong>тільки одну</strong> з доступних анімацій для вашого Hero Image (Pulse, Float, Rotate, Wiggle, Bounce In, Glow, 3D Flip), увімкнувши відповідний чекбокс.</p>
+
+                    <h3>4. Audio track (Звуковий супровід)</h3>
+                    <p>Можна додати фонову музику або звуковий ефект. За замовчуванням звук вимкнений. Якщо користувач увімкне його кнопкою на банері, гучність буде плавно зростати.</p>
+
+                    <h3>5. Styling colors (Кольори)</h3>
+                    <p>Тут ви можете повністю змінити кольорову гаму попапу: фони, кольори текстів, кнопки та колір акценту. Підтримуються як звичайні кольори (HEX), так і градієнти.</p>
+
+                    <div class="tip">
+                        <h4>💡 Порада щодо чекбоксів</h4>
+                        <p>Більшість блоків (таймер, промокод, аудіо, контекстний текст) є опціональними. Якщо вам не потрібен певний елемент, просто <strong>вимкніть чекбокс</strong> біля його назви в конфігураторі, і він автоматично зникне з попапу.</p>
                     </div>
                 </div>
             </div>
