@@ -98,6 +98,12 @@
             font-size: 1.2rem;
         }
 
+        .step h4 {
+            color: #4e342e;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
         .step p,
         .step li {
             color: #5d4037;
@@ -124,12 +130,38 @@
             font-size: 0.9rem;
             margin: 15px 0;
             border: 1px solid #e6d5a8;
+            position: relative;
         }
 
         .code-block pre {
             margin: 0;
             white-space: pre-wrap;
             word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #e6d5a8;
+            color: #e0cfa5;
+            border-radius: 6px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.7;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 10;
+        }
+
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .warning {
@@ -298,35 +330,6 @@
             color: #5d4037;
         }
 
-        .code-block {
-            position: relative;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #e6d5a8;
-            color: #e0cfa5;
-            border-radius: 6px;
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            line-height: 1;
-            opacity: 0.7;
-            transition: opacity 0.2s, background 0.2s;
-            z-index: 10;
-        }
-
-        .code-block:hover .copy-btn {
-            opacity: 1;
-        }
-
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
         .home-button {
             position: fixed;
             top: 20px;
@@ -374,72 +377,237 @@
             <p>Від готового шаблону до кастомного рішення: повний гайд</p>
         </div>
 
-        <!-- РОЗДІЛ 1: ПРОСТИЙ ПОПАП -->
+        <!-- РОЗДІЛ 1: НАЛАШТУВАННЯ MASTER TEMPLATE POPUP -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">📦</span> 1. Базовий pop-up: копіюємо та налаштовуємо</h2>
+                <h2><span class="icon">👑</span> 1. Налаштування "Master Template Popup"</h2>
             </div>
             <div class="section-content">
                 <div class="step">
-                    <h3>Що потрібно зробити</h3>
-                    <ul>
-                        <li>Перейдіть у <strong>Marketing → Templates → Popups</strong>.</li>
-                        <li>Знайдіть готовий шаблон (наприклад, “Example Popup with HTML/CSS/JS”) та натисніть
-                            <strong>Clone</strong>.</li>
-                        <li>Відредагуйте поля в <strong>Configuration (JSON)</strong>: змініть текст, посилання на
-                            картинку, URL кнопки тощо.</li>
-                        <li>У вкладці <strong>Body</strong> за потреби підкорегуйте стилі (CSS).</li>
-                    </ul>
-                    <div class="tip">
-                        <h4>💡 Основні параметри, які можна міняти одразу</h4>
-                        <p><code>title_text</code>, <code>subtitle_text</code>, <code>button_text</code>,
-                            <code>button_url</code>, <code>hero_image_url</code>, <code>background_color</code>,
-                            <code>title_color</code> тощо.</p>
+                    <p>Цей шаблон <a href="https://drive-7.smartico.ai/28063#/resource_template/11620">Master Template Popup</a> є потужним інструментом для промо-акцій, турнірів, видачі бонусів та гейміфікації. Він підтримує банери, анімовані елементи, таймери зворотного відліку, промокоди з функцією копіювання в один клік та фонове аудіо. Всі налаштування розбиті на логічні блоки у вкладці <strong>Summary</strong>.</p>
+                    
+                    <div class="tip" style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+                        <h4 style="margin-top: 0; color: #856404;">⚠️ ВАЖЛИВО: Один Темплейт = Безліч Ассетів</h4>
+                        <p style="margin-bottom: 10px; color: #856404;">Сам темплейт попапа є <strong>базовим макетом</strong>. Вам <strong>НЕ ПОТРІБНО</strong> клонувати темплейт щоразу, коли ви хочете створити новий попап (щоб не створювати хаос із сотень клонів у системі).</p>
+                        <p style="margin-bottom: 0; color: #856404;">Замість цього, на основі одного темплейту створюються <strong>Ассети (Assets)</strong>. Ассет — це конкретний екземпляр попапа з вашими унікальними налаштуваннями. Всі зміни з чекбоксами, текстами та картинками потрібно проводити <strong>саме в Ассеті</strong>. Зміни в Ассеті ніяк не впливають на оригінальний темплейт, і саме тому мастер темплейт можна перевикористовувати в безкінечній кількості ассетів.</p>
                     </div>
-                    <div class="code-block">
-                        <pre>// Приклад частини JSON-конфігурації
-{
-    "name": "title_text",
-    "type": "text",
-    "label": "Title",
-    "value": "Ваш новий заголовок"
-}</pre>
+
+                    <h3>Крок 1: Створення Ассету та додавання в кампанію</h3>
+                    <ul>
+                        <li>Зайдіть в панель управління Smartico та перейдіть у розділ <strong>Marketing - Assets</strong>.</li>
+                        <li>Натисніть <strong>Pop-up - Create</strong>, і знайдіть цей Master Template у бібліотеці шаблонів.</li>
+                        <li>Зробіть всі необхідні налаштування (тексти, картинки, кольори) у вкладці Summary та збережіть Ассет.</li>
+                        <li>Перейдіть в розділ <strong>Campaigns</strong> (Кампанії) і натисніть Create Campaign.</li>
+                        <li>Виберіть тип кампанії, в Flow виберіть Pop-up.</li>
+                        <li>У налаштуваннях повідомлення (Message Editor) <strong>вставте ваш збережений Ассет</strong> (а не сам темплейт).</li>
+                    </ul>
+
+                    <p><strong>Щоб увімкнути певний блок контенту в Ассеті, потрібно поставити галочку (чекбокс) біля його назви.</strong></p>
+
+                    <div class="tip">
+                        <h4>💡 Порада щодо чекбоксів</h4>
+                        <p>Більшість блоків (таймер, промокод, аудіо, контекстний текст) є опціональними. Якщо вам не потрібен певний елемент, просто <strong>вимкніть чекбокс</strong> біля його назви в конфігураторі, і він автоматично зникне з попапу.</p>
+                    </div>
+
+                    <h3>2. Elements content HEADER (Верхня частина)</h3>
+                    <ul>
+                        <li>
+                            <strong>Context text (Контекстний текст):</strong> Невеличкий текст, який "висить" над основним попапом.
+                            <ul>
+                                <li><strong>Як юзати:</strong> Увімкніть чекбокс. Введіть текст, наприклад: <code>Твій &lt;strong&gt;Welcome Pack&lt;/strong&gt; готовий!</code></li>
+                                <li><strong>Фішка:</strong> Тег <code>&lt;strong&gt;</code> зробить текст жирним і пофарбує його в "Accent color" (колір акценту). Тег <code>&lt;b&gt;</code> просто зробить текст жирним без зміни кольору.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Banner (Банер):</strong> Фонове зображення верхньої частини.
+                            <ul>
+                                <li><strong>Як юзати:</strong> Вставте URL картинки. Рекомендований розмір 864x352px, формати .webp, .png.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Banner Link:</strong> Посилання, якщо хочете, щоб весь банер був клікабельним.
+                        </li>
+                        <li>
+                            <strong>Hero Image (Головне зображення):</strong> Картинка (наприклад, скриня, монети, персонаж, подарунок), яка накладається поверх банера.
+                            <ul>
+                                <li><strong>Як юзати:</strong> Вставте посилання на картинку з прозорим фоном.</li>
+                                <li><strong>Фішка:</strong> Можна змінювати її розмір у відсотках (наприклад, <code>50% - це максимальне значення</code> або <code>20%</code>).</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>3. Elements content BODY (Основний контент)</h3>
+                    <ul>
+                        <li>
+                            <strong>Title (Заголовок):</strong> Головний заклик. Наприклад: <code>Отримай 100% + 100 FS</code>.
+                        </li>
+                        <li>
+                            <strong>Sub title (Підзаголовок):</strong> Додаткова інформація. Наприклад: <code>та розблокуй 200% на наступний депозит</code>.
+                        </li>
+                        <li>
+                            <strong>Promo block (Блок з промокодом):</strong> Дуже крута фіча для конверсій!
+                            <ul>
+                                <li><strong>Tip Text:</strong> Текст над промокодом (наприклад, <code>Активуй з промокодом:</code>).</li>
+                                <li><strong>Promocode:</strong> Сам код (наприклад, <code>KING21</code>). Користувач зможе клікнути на нього, щоб скопіювати!</li>
+                                <li><strong>Copied Toast Text:</strong> Текст, який з'явиться при копіюванні (наприклад, <code>Скопійовано!</code>).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Timer block (Таймер):</strong> Створює ефект FOMO (страх втраченої вигоди).
+                            <ul>
+                                <li><strong>Текст перед таймером:</strong> Наприклад, <code>Бонус згорить через:</code>.</li>
+                                <li><strong>Кінцева дата:</strong> <strong>УВАГА!</strong> Вказуйте час у форматі UTC 0 <code>вибирати значення потрібно з випадаючого списку</code>.</li>
+                                <li><strong>Текст після закінчення:</strong> Що показувати, коли час вийшов (наприклад, <code>Час вийшов</code>).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>CTA Button (Кнопка дії):</strong>
+                            <ul>
+                                <li><strong>Button Text:</strong> Наприклад, <code>Активувати Бонус</code>.</li>
+                                <li><strong>Deep link or URL:</strong> Куди веде кнопка. Можна використовувати звичайні лінки (<code>https://...</code>) або діплінки Smartico (наприклад, <code>dp:...</code>).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Special Conditions (Спеціальні умови):</strong> Дрібний шрифт під кнопкою.
+                            <ul>
+                                <li><strong>Як юзати:</strong> Наприклад: <code>Депозит від &lt;strong&gt;20$&lt;/strong&gt; для активації. Деталі &lt;span&gt;тут&lt;/span&gt;</code>.</li>
+                                <li><strong>Фішка:</strong> Текст всередині <code>&lt;span&gt;...&lt;/span&gt;</code> стане клікабельним посиланням, якщо ви заповните наступне поле <strong>Special Conditions link</strong>.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Special Conditions link:</strong> посилання яке робить текст, обгорнутим тегом <code>&lt;span&gt;...&lt;/span&gt;</code>, клікабельним.
+                            <ul>
+                                <li><strong>Як юзати:</strong> вставте посилання яке вам необхідне.</li>
+                                <li><strong>Фішка:</strong> якщо чекбокс тут вимкнутий то лінка не працюватиме навіть якщо текст огорнутий тегом <code>&lt;span&gt;...&lt;/span&gt;</code>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>4. Animation for Hero Image (Анімації)</h3>
+                    <p>Ви можете "оживити" своє Hero Image (головну картинку). Увімкніть <strong>тільки один</strong> чекбокс з потрібною анімацією:</p>
+                    <ul>
+                        <li><strong>Pulse / Pulse 2:</strong> Пульсація (збільшення/зменшення).</li>
+                        <li><strong>Float:</strong> Плавне літання вгору-вниз (ефект левітації).</li>
+                        <li><strong>Rotate:</strong> Повільне обертання.</li>
+                        <li><strong>Wiggle:</strong> Швидке похитування.</li>
+                        <li><strong>Bounce In:</strong> Ефектна поява зі стрибком при відкритті.</li>
+                        <li><strong>Glow:</strong> Пульсуюче світіння навколо картинки.</li>
+                        <li><strong>3D Flip:</strong> 3D обертання навколо своєї осі.</li>
+                        <li><strong>Bounce (chaotic):</strong> Хаотичний рух картинки по банеру (дуже привертає увагу!).</li>
+                    </ul>
+
+                    <h3>5. Styling colors (Кольори) та Audio track (Звуковий супровід)</h3>
+                    
+                    <h4>🎨 Styling colors</h4>
+                    <p>Тут ви можете повністю змінити кольорову гаму попапу, щоб він ідеально вписався в дизайн вашого бренду.</p>
+                    <ul>
+                        <li><strong>Як юзати:</strong> Підтримуються як звичайні HEX-кольори (наприклад, <code>#4A47EA</code>), так і CSS-градієнти (наприклад, <code>linear-gradient(90deg, #5239F5 0%, #19C8FF 100%)</code>).</li>
+                        <li><strong>Accent color:</strong> Це той самий колір, яким будуть підсвічуватися слова, обгорнуті в тег <code>&lt;strong&gt;</code> у текстах.</li>
+                        <li><strong>Hover on button:</strong> Колір або градієнт кнопки при наведенні мишки. <strong>Фішка:</strong> У цьому темплейті закладена анімація переливання градієнта при наведенні, тому сюди ідеально пасують багатоколірні градієнти!</li>
+                    </ul>
+
+                    <h4>🎵 Audio track</h4>
+                    <p>Хочете додати звук виграшу, дзвін монет чи епічну музику?</p>
+                    <ul>
+                        <li><strong>Як юзати:</strong> Увімкніть Audio URL і вставте лінк на mp3 файл.</li>
+                        <li><strong>Фішка:</strong> За замовчуванням звук вимкнений (щоб не дратувати користувача). На попапі з'явиться кнопка 🔇. Якщо користувач на неї клікне, звук увімкнеться, а гучність буде плавно наростати від 0 до комфортного рівня протягом 30 секунд.</li>
+                    </ul>
+
+                    <h3>6. Тестування та Запуск (Чек-лист)</h3>
+                    <ul>
+                        <li><strong>Перевірте відображення:</strong> У Smartico є вікно прев'ю. Переконайтеся, що всі тексти влазять, картинки завантажуються, а кольори виглядають гармонійно.</li>
+                        <li><strong>Перевірте мобільну версію:</strong> Цей темплейт адаптивний. Звужте вікно прев'ю, щоб побачити, як він виглядає на телефоні. Завдяки вбудованим стилям, занадто довгі тексти будуть акуратно обрізатися трьома крапками, щоб не ламати дизайн.</li>
+                        <li><strong>Тестова відправка:</strong> Завжди робіть тестову відправку на свій тестовий акаунт перед запуском на всю базу. Перевірте:
+                            <ul>
+                                <li>Чи працює копіювання промокоду по кліку?</li>
+                                <li>Чи правильно рахує таймер (чи не скінчився він вже)?</li>
+                                <li>Чи ведуть кнопки туди, куди треба?</li>
+                                <li>Чи працює кнопка закриття (вона з'являється із затримкою в 3 секунди, щоб користувач точно звернув увагу на контент).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Запуск:</strong> Якщо все супер — зберігайте кампанію, налаштовуйте аудиторію (Targeting) та розклад (Scheduling) і тисніть <strong>Publish</strong>!</li>
+                    </ul>
+
+                    <div class="tip">
+                        <h4>✅ Короткий чек-лист перед запуском</h4>
+                        <ul>
+                            <li>Банер та Hero Image завантажені у правильному форматі (.webp, .png) та мають хорошу якість.</li>
+                            <li>Дата таймера вказана у форматі <strong>UTC 0</strong>.</li>
+                            <li>Посилання в кнопці (CTA) працює коректно.</li>
+                            <li>Увімкнена <strong>лише одна</strong> анімація для Hero Image (щоб вони не конфліктували).</li>
+                            <li>Тестовий попап успішно відкрився на телефоні та десктопі.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- РОЗДІЛ 2: ДОДАВАННЯ/ВИДАЛЕННЯ ПОЛІВ -->
+        <!-- РОЗДІЛ 2: ОБ'ЄДНАНИЙ - БАЗОВИЙ ПОПАП + ДОДАВАННЯ/ВИДАЛЕННЯ ПОЛІВ + КАСТОМНИЙ ШАБЛОН -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">✏️</span> 2. Як додати або видалити поле у шаблоні</h2>
+                <h2><span class="icon">📦</span> 2. Базовий pop-up: як створити кастомний попап або додати/видалити поле</h2>
             </div>
             <div class="section-content">
                 <div class="step">
-                    <h3>Структура JSON</h3>
-                    <p>Кожне поле описується об'єктом у масиві <code>fields</code>. Ви можете додати нове поле або
-                        видалити непотрібне прямо у редакторі Configuration.</p>
+                    <h3>📌 Як створити попап, якщо готовий шаблон не підходить</h3>
+                    <ul>
+                        <li><strong>Варіант 1 — Використання AI Smartico:</strong> У редакторі створення попапа натисніть кнопку <strong>"Create With AI"</strong> і в промпті детально опишіть свій запит: структуру, кольори, функціонал попапа. AI згенерує базовий HTML/CSS/JS код, який ви зможете доопрацювати.</li>
+                        <li><strong>Варіант 2 — Клонування готового шаблону:</strong> Перейдіть у <strong>Marketing → Templates → Popups</strong>, знайдіть схожий шаблон та натисніть <strong>Clone</strong>. Потім відредагуйте його під свої потреби у вкладці <strong>Body</strong> (HTML/CSS) та <strong>Configuration (JSON)</strong>.</li>
+                        <li><strong>Варіант 3 — Створення з нуля (кастомний HTML/CSS):</strong> Створіть новий Popup-ассет, оберіть тип "Custom HTML" і напишіть власну верстку в полі Body. 
+                            <ul>
+                                <li>Контент попапу має бути всередині <code>&lt;div id="popup"&gt;...&lt;/div&gt;</code> — Smartico автоматично вставляє цю обгортку.</li>
+                                <li>Динамічні значення з JSON вставляються так: <code>{%#o.назва_поля%}</code>.</li>
+                                <li>Стилі пишіть у тегу <code>&lt;style&gt;</code> всередині Body.</li>
+                            </ul>
+                        </li>
+                    </ul>
 
-                    <h3>📌 Додаємо новий текстовий параметр</h3>
-                    <div class="code-block">
-                        <pre>{
+                    <div class="good">
+                        <h4>✅ Рекомендована структура Body для кастомного попапа</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" title="Скопіювати код">📋</button>
+                            <pre>&lt;style&gt;
+  /* ваші CSS-правила */
+&lt;/style&gt;
+
+&lt;!-- HTML-розмітка попапу --&gt;
+&lt;div class="my-popup"&gt;
+  &lt;img src="{%#o.hero_image_url%}"&gt;
+  &lt;h1&gt;{%#o.title_text%}&lt;/h1&gt;
+  &lt;a href="{%#o.button_url%}"&gt;{%#o.button_text%}&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  {{label.script_for_popup_under_modal}}
+&lt;/script&gt;</pre>
+                        </div>
+                    </div>
+
+                    <div class="tip">
+                        <h4>💡 Порада</h4>
+                        <p>Якщо ви не впевнені у своїх навичках верстки або маєте складну логіку — зверніться до <strong>Retention Platform Developer</strong> для професійної допомоги.</p>
+                    </div>
+
+                    <h3>📌 Як додати або видалити поле у шаблоні</h3>
+                    <ul>
+                        <li><strong>Додати поле:</strong> У вкладці <strong>Configuration (JSON)</strong> додайте новий об'єкт у масив <code>fields</code>. Наприклад:
+                            <div class="code-block">
+                                <button class="copy-btn" title="Скопіювати код">📋</button>
+                                <pre>{
     "name": "new_field",
     "type": "text",
     "label": "Мій новий напис",
     "value": "Текст за замовчуванням"
 }</pre>
-                    </div>
-                    <p>Після додавання в JSON, у HTML-коді (Body) використайте змінну <code>{%#o.new_field%}</code> для
-                        виводу її значення.</p>
-
-                    <h3>📌 Видаляємо поле</h3>
-                    <p>Просто приберіть відповідний об'єкт з масиву <code>fields</code> у JSON, а з HTML видаліть рядок,
-                        де ця змінна використовується.</p>
+                            </div>
+                            Потім у HTML-коді (Body) використайте змінну <code>{%#o.new_field%}</code> для виводу значення.
+                        </li>
+                        <li><strong>Видалити поле:</strong> Приберіть відповідний об'єкт з масиву <code>fields</code> у JSON, а з HTML видаліть рядок, де ця змінна використовується.</li>
+                    </ul>
 
                     <div class="warning">
                         <h4>⚠️ Важливо</h4>
-                        <p>Не видаляйте поля, які використовуються у HTML-розмітці, не прибравши їх звідти — це може
-                            зламати відображення.</p>
+                        <p>Не видаляйте поля, які використовуються у HTML-розмітці, не прибравши їх звідти — це може зламати відображення попапа.</p>
                     </div>
                 </div>
             </div>
@@ -480,6 +648,7 @@
                             залишиться для всіх інших мов.</p>
                     </div>
                     <div class="code-block">
+                        <button class="copy-btn" title="Скопіювати код">📋</button>
                         <pre>// JSON варіації (спрощено)
 {
     "title_text": "Votre bonus",
@@ -491,54 +660,10 @@
             </div>
         </div>
 
-        <!-- РОЗДІЛ 4: КАСТОМНИЙ ШАБЛОН -->
+        <!-- РОЗДІЛ 4: СКРИПТ ДЛЯ УНИКНЕННЯ ПЕРЕКРИТТЯ МОДАЛЬНИХ ВІКОН -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">🛠️</span> 4. Створення кастомного попапу з власним HTML/CSS</h2>
-            </div>
-            <div class="section-content">
-                <div class="step">
-                    <p>Щоб повністю контролювати дизайн, використовуйте клонування вже готовіх шаблонів які є в
-                        Smartico. або скористайтесть допомогою AI, і виберіть кнопку "Create With AI" і в промпті
-                        детально опишіть свій запит по попапу з описом структури кольорів і функціоналу папапу. І у
-                        вкладці <strong>Body</strong> ви можете відредагувати неточності або доповнити верстку попапа і
-                        замінити картинки і посилання.</p>
-
-                    <h3>Основні правила</h3>
-                    <ul>
-                        <li>Контент попапу має бути всередині <code>&lt;div id="popup"&gt;...&lt;/div&gt;</code> —
-                            Smartico автоматично вставляє цю обгортку.</li>
-                        <li>Динамічні значення з JSON вставляються так: <code>{%#o.назва_поля%}</code>.</li>
-                        <li>Стилі пишіть у тегу <code>&lt;style&gt;</code> всередині Body.</li>
-                    </ul>
-
-                    <div class="good">
-                        <h4>✅ Рекомендована структура Body</h4>
-                        <div class="code-block">
-                            <pre>&lt;style&gt;
-  /* ваші CSS-правила */
-&lt;/style&gt;
-
-&lt;!-- HTML-розмітка попапу --&gt;
-&lt;div class="my-popup"&gt;
-  &lt;img src="{%#o.hero_image_url%}"&gt;
-  &lt;h1&gt;{%#o.title_text%}&lt;/h1&gt;
-  &lt;a href="{%#o.button_url%}"&gt;{%#o.button_text%}&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-  {{label.script_for_popup_under_modal}}
-&lt;/script&gt;</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- РОЗДІЛ 5: СКРИПТ ДЛЯ УНИКНЕННЯ ПЕРЕКРИТТЯ МОДАЛЬНИХ ВІКОН -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">🚨</span> 5. УВАГА! Попап не має перекривати модальні вікна на сайті</h2>
+                <h2><span class="icon">🚨</span> 4. УВАГА! Попап не має перекривати модальні вікна на сайті</h2>
             </div>
             <div class="section-content">
                 <div class="step">
@@ -581,49 +706,6 @@
             </div>
         </div>
 
-        <!-- РОЗДІЛ 6: НАЛАШТУВАННЯ MASTER TEMPLATE POPUP -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h2><span class="icon">👑</span> 6. Налаштування "Master Template Popup"</h2>
-            </div>
-            <div class="section-content">
-                <div class="step">
-                    <p>Цей шаблон     <a href="https://drive-7.smartico.ai/28063#/resource_template/11620">Master Template Popup</a> є універсальним і дозволяє гнучко налаштовувати кожен елемент без зміни коду. Всі налаштування розбиті на логічні блоки у вкладці <strong>Summary</strong>.</p>
-
-                    <h3>1. Elements content HEADER (Верхня частина)</h3>
-                    <ul>
-                        <li><strong>Context text:</strong> Короткий текст над попапом. Використовуйте тег <code>&lt;strong&gt;текст&lt;/strong&gt;</code> для виділення кольором акценту, або <code>&lt;b&gt;текст&lt;/b&gt;</code> для звичайного жирного шрифту.</li>
-                        <li><strong>Banner:</strong> Фонове зображення верхньої частини (рекомендовано 864x352px, формати .webp, .png).</li>
-                        <li><strong>Banner Link:</strong> Посилання, якщо хочете, щоб весь банер був клікабельним.</li>
-                        <li><strong>Hero Image:</strong> Головне зображення (наприклад, подарунок або персонаж), яке накладається поверх банера. Можна змінювати його розмір у відсотках. Також це зображення можна анімувати увімкнувши відповідний чекбокс з анімацією на вибір.</li>
-                    </ul>
-
-                    <h3>2. Elements content BODY (Основний контент)</h3>
-                    <ul>
-                        <li><strong>Title & Sub title:</strong> Головний заголовок та підзаголовок.</li>
-                        <li><strong>Promo block:</strong> Блок з промокодом. Містить підказку, сам промокод та текст сповіщення при успішному копіюванні.</li>
-                        <li><strong>Timer block:</strong> Таймер зворотного відліку. Вкажіть текст перед таймером, кінцеву дату/час (за UTC 0) та текст, який з'явиться після завершення часу.</li>
-                        <li><strong>CTA Button:</strong> Головна кнопка дії. Вкажіть текст та посилання (URL або Deep link, наприклад <code>dp:ok</code>).</li>
-                        <li><strong>Special Conditions:</strong> Текст з умовами. Обгорніть частину тексту тегом <code>&lt;span&gt;текст&lt;/span&gt;</code>, щоб зробити її клікабельною (посилання вказується в наступному полі).</li>
-                    </ul>
-
-                    <h3>3. Animation for Hero Image (Анімації)</h3>
-                    <p>Виберіть <strong>тільки одну</strong> з доступних анімацій для вашого Hero Image (Pulse, Float, Rotate, Wiggle, Bounce In, Glow, 3D Flip), увімкнувши відповідний чекбокс.</p>
-
-                    <h3>4. Audio track (Звуковий супровід)</h3>
-                    <p>Можна додати фонову музику або звуковий ефект. За замовчуванням звук вимкнений. Якщо користувач увімкне його кнопкою на банері, гучність буде плавно зростати.</p>
-
-                    <h3>5. Styling colors (Кольори)</h3>
-                    <p>Тут ви можете повністю змінити кольорову гаму попапу: фони, кольори текстів, кнопки та колір акценту. Підтримуються як звичайні кольори (HEX), так і градієнти.</p>
-
-                    <div class="tip">
-                        <h4>💡 Порада щодо чекбоксів</h4>
-                        <p>Більшість блоків (таймер, промокод, аудіо, контекстний текст) є опціональними. Якщо вам не потрібен певний елемент, просто <strong>вимкніть чекбокс</strong> біля його назви в конфігураторі, і він автоматично зникне з попапу.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="footer">
             <p>📧 При виникненні питань — зверніться до розробника</p>
             <p>© Smartico.ai – Pop-up Customization Guide</p>
@@ -658,7 +740,7 @@
                 overlay.classList.remove('show');
             }
         });
-        // Кнопка копіювання
+
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
