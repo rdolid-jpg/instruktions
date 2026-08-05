@@ -268,29 +268,29 @@
             }
         }
 
-        .zoom-img {
+         .zoom-img {
             width: 100%;
             max-width: 500px;
             height: auto;
             cursor: zoom-in;
             transition: transform 0.3s ease;
-            border: 2px solid #f5b041;
+            transform-origin: center center;
+            border: 2px solid #0ed6b2;
             border-radius: 8px;
             display: block;
             margin: 10px auto;
         }
 
+        /* Клас, що додається скриптом */
         .zoom-img.zoomed {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1);
+            transform-origin: center center;
+            transform: translate(-50%, -50%) scale(2.0);
             z-index: 1001;
             max-width: 90vw;
             max-height: 90vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
             cursor: zoom-out;
             margin: 0;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
@@ -298,8 +298,7 @@
 
         @media (max-width: 768px) {
             .zoom-img.zoomed {
-                max-width: 95vw;
-                max-height: 95vh;
+                transform: translate(-50%, -50%) scale(1.05);
             }
         }
 
@@ -406,9 +405,13 @@
 
                     <div class="tip">
                         <h4>💡 Порада щодо чекбоксів</h4>
-                        <p>Більшість блоків (таймер, промокод, аудіо, контекстний текст) є опціональними. Якщо вам не потрібен певний елемент, просто <strong>вимкніть чекбокс</strong> біля його назви в конфігураторі, і він автоматично зникне з попапу.</p>
+                        <p>Більшість блоків (таймер, промокод, аудіо, контекстний текст) є опціональними. Якщо вам не потрібен певний елемент, просто <strong>вимкніть чекбокс</strong> біля його назви в конфігураторі, і він автоматично зникне з попапу. Тут можна вимкнути абсолютно всі чекбокси, окерім кнопок CTA і кнопки закриття</p>
+                    <br>
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/1.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-
+                </div>
                     <h3>2. Elements content HEADER (Верхня частина)</h3>
                     <ul>
                         <li>
@@ -435,7 +438,14 @@
                             </ul>
                         </li>
                     </ul>
-
+                <div class="tip">
+                    <h4>💡 Важливо:</h4>
+                    <p>Вистота блоку з банером є фіксованою, висота блоку з головним зображенням приймає вистоту відповідно до вмісту. Тобто якщо потрібно тільки зображення Hero Image і потрібно більше простору для контейнеру з зображенням, то потрібно завантажити баннер з повністю трозирим бекграундом</p><br>
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/2.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
                     <h3>3. Elements content BODY (Основний контент)</h3>
                     <ul>
                         <li>
@@ -482,7 +492,14 @@
                             </ul>
                         </li>
                     </ul>
-
+                <div class="tip">
+                    <h4>💡 Важливо:</h4>
+                    <p>Розмір попапу адаптивний, але він має граничну висоту, саме тому кількість контенту обмежена, на скрині показано як виглядає контент який не поміщається у встановлену по дефолту кількість рядочків з контентом в кожному полі, тобто якщо текст не поміщається, зявляються три крапки в кінці речення, і якщо ви це побачили при заповненні контенту - це сигнал до того що потрібно зменшити кількість символів в кожному полі. Дане обмеження не стосується контенту для кнопки CTA</p><br>
+                    <div style="text-align: center; margin: 5px 0; padding: 0;">
+                        <img src="./media/3.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
                     <h3>4. Animation for Hero Image (Анімації)</h3>
                     <p>Ви можете "оживити" своє Hero Image (головну картинку). Увімкніть <strong>тільки один</strong> чекбокс з потрібною анімацією:</p>
                     <ul>
