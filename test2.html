@@ -1,0 +1,1553 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-weight: 500;
+  line-height: 1.3;
+  
+  --main-bg-color: {%#o.main_bg_color%};
+  --popup-border-color: {%#o.popup_border_color%};
+  --content-section-bg-color: {%#o.content_section_bg_color%};
+  --promo-section-border-color: {%#o.promo_section_border_color%};
+  --promo-bg-color: {%#o.promo_bg_color%};
+  --button-bg-color: {%#o.button_bg_color%};
+  --hover-button-bg-color: {%#o.hover_button_bg_color%};
+  --focus-button-bg-color: {%#o.focus_button_bg_color%};
+  --context-color: {%#o.context_color_text%};
+  --title-color: {%#o.title_color_text%};
+  --sub-title-color: {%#o.sub_title_color_text%};
+  --tip-text-color: {%#o.tip_text_color%};
+  --promo-text-color: {%#o.promo_text_color%};
+  --timer-text-color: {%#o.timer_text_color%};
+  --timer-color: {%#o.timer_color%};
+  --border-timer-color: {%#o.border_timer_color%};
+  --timer-dott-color-active: {%#o.timer_dott_color_active%};
+  --timer-dott-color-expired: {%#o.timer_dott_color_expired%};
+  --button-text-color: {%#o.button_text_color%};
+  --special-text-color: {%#o.special_text_color%};
+  --accent-color: {%#o.accent_color%};
+  --font-family-sans: 'Red Hat Display', sans-serif;
+}
+
+/* ===== ОВЕРЛЕЙ – ПЛАВНЕ ЗАТЕМНЕННЯ (синхронізовано з попапом) ===== */
+div#__overlay {
+  background-color: rgba(35, 28, 56, 0.72);
+  opacity: 0;
+  pointer-events: none;
+}
+div#__overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-container {
+  position: relative;
+  width: 432px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+
+.popup-container.closing .popup-wrapper {
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 0.5s ease;
+}
+
+.popup-wrapper {  
+  background: var(--main-bg-color);
+   border: 2px solid var(--popup-border-color);
+  border-radius: 24px;
+  font-family: var(--font-family-sans);
+  color: #FCFCFC;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  margin: 38px 18px 18px;
+  opacity: 0;
+  transform: translateY(-25px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
+}
+.popup-container.visible .popup-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+.close-circle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.3); */
+}
+
+.close-button.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===== GRAPHIC SECTION ===== */
+.graphic-section {
+  position: relative;
+  /* width: 100%; */
+  width: auto;
+  height: 4rem;
+  min-height: 4rem;
+  max-height: 176px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 56px 16px 0 16px;
+  border-radius: 16px;
+}
+.banner-url{
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  border-radius: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.graphic-section.has-background {
+  height: auto;
+  aspect-ratio: 2.25 / 1;
+  max-height: 11rem;
+  min-height: 4rem;
+}
+.graphic-section.has-hero-only {
+  height: auto;
+  max-height: 11rem;
+  min-height: 4rem;
+  background: none;
+}
+.graphic-section .hero-image {
+  display: block;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  padding: 13px 0;
+}
+.graphic-section.has-background .hero-image {
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+.graphic-section.has-hero-only .hero-image {
+  height: auto;
+  max-height: calc(11rem - 12px);
+  object-fit: contain;
+}
+
+/* ===== АНІМАЦІЇ ===== */
+@-webkit-keyframes bannerPulse {
+  0% { -webkit-transform: scale(1) rotate(0deg); transform: scale(1) rotate(0deg); -webkit-filter: brightness(1); filter: brightness(1); }
+  50% { -webkit-transform: scale(1.1) rotate(10deg); transform: scale(1.1) rotate(10deg); -webkit-filter: brightness(1.1); filter: brightness(1.1); }
+  100% { -webkit-transform: scale(1) rotate(0deg); transform: scale(1) rotate(0deg); -webkit-filter: brightness(1); filter: brightness(1); }
+}
+@keyframes bannerPulse {
+  0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+  50% { transform: scale(1.1) rotate(10deg); filter: brightness(1.1); }
+  100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+}
+.animation-pulse-2 {
+  -webkit-animation: bannerPulse 3s ease-in-out infinite;
+  animation: bannerPulse 3s ease-in-out infinite;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform, filter;
+}
+
+@-webkit-keyframes pulse {
+  0%, 100% { -webkit-transform: scale(0.65); transform: scale(0.65); }
+  50% { -webkit-transform: scale(1.1); transform: scale(1.1); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(0.65); }
+  50% { transform: scale(1.1); }
+}
+.animation-pulse {
+  -webkit-animation: pulse 3s ease-in-out infinite;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes float {
+  0%, 100% { -webkit-transform: translateY(12px); transform: translateY(12px); }
+  50% { -webkit-transform: translateY(-8px); transform: translateY(-8px); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(12px); }
+  50% { transform: translateY(-8px); }
+}
+.animation-float {
+  -webkit-animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes rotate {
+  from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animation-rotate {
+  -webkit-animation: rotate 8s linear infinite;
+  animation: rotate 8s linear infinite;
+}
+
+@-webkit-keyframes wiggle {
+  0%, 100% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  25% { -webkit-transform: rotate(8deg); transform: rotate(8deg); }
+  75% { -webkit-transform: rotate(-8deg); transform: rotate(-8deg); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  75% { transform: rotate(-8deg); }
+}
+.animation-wiggle {
+  -webkit-animation: wiggle 300ms ease-in-out infinite;
+  animation: wiggle 300ms ease-in-out infinite;
+}
+
+@-webkit-keyframes bounceIn {
+  0% { -webkit-transform: scale(0.3); transform: scale(0.3); opacity: 0; }
+  50% { -webkit-transform: scale(1.1); transform: scale(1.1); opacity: 1; }
+  70% { -webkit-transform: scale(0.5); transform: scale(0.5); }
+  100% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  70% { transform: scale(0.5); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animation-bounce-in {
+  -webkit-animation: bounceIn 4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: bounceIn 4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@-webkit-keyframes glow {
+  0%, 100% { -webkit-filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+  50% { -webkit-filter: drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 0 50px rgba(255,255,255,0.4)); filter: drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 0 50px rgba(255,255,255,0.4)); }
+}
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+  50% { filter: drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 0 50px rgba(255,255,255,0.4)); }
+}
+.animation-glow {
+  -webkit-animation: glow 3s ease-in-out infinite;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes flip3d {
+  0%   { -webkit-transform: perspective(400px) rotateY(0deg)   rotateX(0deg); transform: perspective(400px) rotateY(0deg)   rotateX(0deg); }
+  25%  { -webkit-transform: perspective(400px) rotateY(180deg) rotateX(0deg); transform: perspective(400px) rotateY(180deg) rotateX(0deg); }
+  50%  { -webkit-transform: perspective(400px) rotateY(180deg) rotateX(180deg); transform: perspective(400px) rotateY(180deg) rotateX(180deg); }
+  75%  { -webkit-transform: perspective(400px) rotateY(0deg)   rotateX(180deg); transform: perspective(400px) rotateY(0deg)   rotateX(180deg); }
+  100% { -webkit-transform: perspective(400px) rotateY(0deg)   rotateX(0deg); transform: perspective(400px) rotateY(0deg)   rotateX(0deg); }
+}
+@keyframes flip3d {
+  0%   { transform: perspective(400px) rotateY(0deg)   rotateX(0deg); }
+  25%  { transform: perspective(400px) rotateY(180deg) rotateX(0deg); }
+  50%  { transform: perspective(400px) rotateY(180deg) rotateX(180deg); }
+  75%  { transform: perspective(400px) rotateY(0deg)   rotateX(180deg); }
+  100% { transform: perspective(400px) rotateY(0deg)   rotateX(0deg); }
+}
+.animation-flip-3d {
+  -webkit-animation: flip3d 7s ease-in-out infinite;
+  animation: flip3d 7s ease-in-out infinite;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
+.animation-flip-3d:hover {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+/* ===== CONTENT ===== */
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--content-section-bg-color);
+  border-radius: 16px;
+  padding: 0 8px 8px;
+  margin: 16px 8px;
+  position: relative;
+  z-index: 3;
+  /* box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.3); */
+}
+
+.text-clamp-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  padding: 0 0 2px 0;
+}
+.text-clamp-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  padding: 0 0 2px 0;
+}
+.text-clamp-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  padding: 0 0 2px 0;
+}
+.text-clamp-5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  padding: 0 0 2px 0;
+}
+.title-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.main-value {
+  font-family: var(--font-family-sans);
+  font-size: clamp(24px, 3.9vw, 32px);
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--title-color);
+}
+.additional-value {
+  /* font-size: clamp(20px, 2.3vw, 22px); */
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 500;
+  color: var(--sub-title-color);
+}
+
+.promo-section {
+  position: relative;
+  background-color: var(--promo-bg-color);
+  border: 2px solid var(--promo-section-border-color);
+  border-radius: 16px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease;
+}
+.promo-section:active {
+  /* transform: scale(0.99); */
+}
+.promo-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px;
+  /* border: 1px dashed rgba(255, 255, 255, 0.4); */
+  border-radius: 12px;
+}
+.promo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+}
+.promo-tip {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--tip-text-color);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.promo-code {
+  font-family: var(--font-family-sans);
+  font-size: clamp(16px, 3vw, 20px);
+  font-weight: 900;
+  color: var(--promo-text-color);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  cursor: text;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  padding: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.promo-code::selection {
+  background: rgba(74, 71, 234, 0.2);
+  color: var(--promo-text-color);
+}
+
+.copy-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+  flex-shrink: 0;    /* іконка ніколи не стискається */
+}
+
+.copy-icon .copy-svg,
+.copy-icon .tick-svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
+}
+.copy-icon .tick-svg { display: none; }
+.copy-icon.show-tick .copy-svg { display: none; }
+.copy-icon.show-tick .tick-svg { display: block; }
+.copy-icon .copy-svg:active { transform: scale(0.9); }
+
+.copied-toast {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #283795;
+  color: #FCFCFC;
+  padding: 10px 16px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  font-weight: 500;
+}
+.copied-toast::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 4px;
+  background-image: url("https://static7.smr.vc/d5bdae2d33df18a18b85c7-Beak.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 8px 4px;
+  pointer-events: none;
+}
+
+.copied-toast.show {
+  opacity: 1;
+}
+
+.timer-wrapper {
+   position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 4px 8px;
+  border: 2px solid var(--border-timer-color);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 2px;
+  line-height: 1;
+  max-width: calc(100% - 60px);
+}
+.timer-dott {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;  
+}
+@keyframes timerBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+.timer-dott.active {
+  background-color: var(--timer-dott-color-active);
+  animation: timerBlink 1.5s ease-in-out infinite;
+}
+.timer-dott.expired {
+  background-color: var(--timer-dott-color-expired);
+}
+.timer-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex-shrink: 1;
+  color: var(--timer-text-color);
+  margin-left: 4px;
+}
+.countdown-timer {
+  color: var(--timer-color);
+  font-weight: 900;
+  white-space: nowrap;
+  flex-shrink: 0; 
+}
+
+.accent {
+  color: var(--accent-color);
+  font-weight: 900;
+}
+.cta-button {
+  background: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 8px;
+  padding: clamp(8px, 1.2vw, 10px) clamp(12px, 2vw, 16px);
+  font-family: var(--font-family-sans);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  min-height: clamp(40px, 5.5vw, 48px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-button:hover {
+  background: var(--hover-button-bg-color);
+}
+.cta-button:active,
+.cta-button:focus-visible:active {
+  background: var(--focus-button-bg-color);
+}
+.special-conditions {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--special-text-color);
+}
+.special-conditions strong {
+  color: var(--accent-color);
+  font-weight: 900;
+}
+.special-conditions b {
+  font-weight: 900;
+}
+.special-conditions-linck {
+  color: inherit;
+}
+
+.context-offer {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-family-sans);
+  color: var(--context-color);
+  padding: 0;
+  font-size: clamp(14px, 2.4vw, 16px);
+  font-weight: 500;
+  width: max-content;
+  max-width: 90%;
+  z-index: 3;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 80px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
+}
+.popup-container.visible .context-offer {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.popup-container.closing .context-offer {
+  opacity: 0;
+  transform: translate(-50%, 80px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.context-offer strong {
+  color: var(--accent-color);
+  font-weight: 900;
+}
+.context-offer b {
+  font-weight: 900;
+}
+
+/* ===== МОБІЛЬНА АДАПТАЦІЯ ===== */
+@media (max-width: 768px) {
+  .popup-container {
+    width: calc(100vw - 2rem);
+    min-width: 19rem;
+    max-width: 27rem;
+    margin-left: auto;
+    margin-right: auto;
+    /* height: calc(100vh - 2rem); */
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    overflow-x: hidden; 
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .popup-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  .context-offer {
+    white-space: normal;
+    top: 8px;
+  }
+
+.text-clamp-2 {
+  -webkit-line-clamp: 2;
+}
+.text-clamp-3 {
+  -webkit-line-clamp: 3;
+}
+.text-clamp-5 {
+  -webkit-line-clamp: 5;
+}
+}
+
+@media (max-height: 32rem) {
+  .popup-container {
+    transform: none !important;
+    opacity: 1 !important;
+    margin: 16px auto;
+    /* height: calc(100vh - 32px); */
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .popup-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  .graphic-section {
+    /* height: 120px !important; */
+    min-height: 120px !important;
+  }
+  /* .content-section {
+    gap: 12px;
+    padding: 8px;
+  }
+  .main-value {
+    font-size: 28px;
+  }
+  .additional-value {
+    font-size: 18px;
+  } */
+  .context-offer {
+    top: 8px;
+    /* font-size: 16px; */
+  }
+}
+
+.mute-button {
+  position: absolute;
+  top: 12px;
+  right: 56px;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 15px;
+  z-index: 2;
+  box-shadow: 0 0 16px 1px rgba(255, 255, 255, 0.3);
+}
+</style>
+
+<div class="popup-container">
+  {% if (o.context_offer_ui && o.context_offer_ui.checked) { %}
+  <div class="context-offer text-clamp-1">{%#o.context_offer_text%}</div>
+  {% } %}
+  
+  <div class="popup-wrapper" id="popup-wrapper">
+    <!-- АУДІО -->
+    {% if (o.audio_ui && o.audio_ui.checked) { %}
+    <audio id="popup-audio" loop>
+      <source src="{%#o.audio_src%}" type="audio/mpeg">
+    </audio>
+    <button id="mute-btn" class="mute-button">🔇</button>
+    {% } %}
+    <!-- КІНЕЦЬ АУДІО -->
+    
+      
+      {% if (o.timer_ui && o.timer_ui.checked) { %}
+      <div class="timer-wrapper">
+        <div class="timer-dott">&nbsp;</div>
+        <span class="timer-text">{%#o.timer_label_text%}</span> <span id="countdown-timer" class="countdown-timer" data-end-datetime="{%#o.timer_end_datetime%}"></span>
+      </div>
+      {% } %}
+    <button class="close-button" id="close-btn"><span class="close-circle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.71 4.28999C19.32 3.9 18.68 3.89999 18.29 4.29L12 10.59L5.71008 4.29C5.32005 3.90001 4.68005 3.89999 4.29004 4.28999C3.81678 4.76326 3.90005 5.32 4.29008 5.70999L10.59 12L4.29 18.29C3.89999 18.68 3.90007 19.32 4.29 19.71C4.68007 20.1 5.32007 20.1 5.70999 19.71L12 13.41L18.29 19.71C18.6801 20.1 19.3201 20.1 19.71 19.71C20.1001 19.32 20.1001 18.68 19.71 18.29L13.41 12L19.71 5.70999C20.1 5.32 20.1711 4.75112 19.71 4.28999Z" fill="#B6BDCC"/>
+      </svg>
+    </span></button>
+    
+    {% 
+      var hasBackground = (o.background_image_ui && o.background_image_ui.checked && o.background_image_url); 
+      var hasHero = (o.hero_image_ui && o.hero_image_ui.checked && o.hero_image_url); 
+      var heroWidth = o.hero_width || '50%';
+      var hasBannerLink = (o.banner_url_linck && o.banner_url_linck != '');
+    %}
+      
+    <div class="graphic-section 
+         {% if (hasBackground) { %}has-background{% } %}
+         {% if (!hasBackground && hasHero) { %}has-hero-only{% } %}
+         {% if (hasHero) { %}has-hero{% } %}"
+         {% if (hasBackground) { %}
+         style="background-image: url({%#o.background_image_url%});"
+         {% } %}>
+         
+      {% if (hasBannerLink) { %}
+        <a href="{%#o.banner_url_linck%}" class="banner-url" rel="noopener">
+      {% } else { %}
+        <div class="banner-url">
+      {% } %}
+  
+      {% if (hasHero) { %}
+        <img src="{%#o.hero_image_url%}" 
+             alt="Bonus Gift" 
+             class="hero-image 
+             {% if (o.animation_pulse && o.animation_pulse.checked) { %}animation-pulse{% } 
+             else if (o.animation_pulse_2 && o.animation_pulse_2.checked) { %}animation-pulse-2{% }
+             else if (o.animation_float && o.animation_float.checked) { %}animation-float{% } 
+             else if (o.animation_rotate && o.animation_rotate.checked) { %}animation-rotate{% } 
+             else if (o.animation_wiggle && o.animation_wiggle.checked) { %}animation-wiggle{% }
+             else if (o.animation_bounce_in && o.animation_bounce_in.checked) { %}animation-bounce-in{% }
+             else if (o.animation_glow && o.animation_glow.checked) { %}animation-glow{% }
+             else if (o.animation_flip_3d && o.animation_flip_3d.checked) { %}animation-flip-3d{% } else if (o.animation_bounce && o.animation_bounce.checked) { %}animation-bounce{% } %}" style="width: {%#heroWidth%};">
+      {% } %}  
+      
+      {% if (hasBannerLink) { %}
+        </a>
+      {% } else { %}
+        </div>
+      {% } %}
+    </div>
+    
+    <div class="content-section">
+    <div class="title-block">
+      {% if (o.main_value_ui && o.main_value_ui.checked) { %}
+      <div class="main-value text-clamp-3">{%#o.main_value_text%}</div>
+      {% } %}
+      
+      {% if (o.additional_value_ui && o.additional_value_ui.checked) { %}
+      <div class="additional-value text-clamp-5">{%#o.additional_value_text%}</div>
+      {% } %}
+      </div>
+      {% if (o.promo_code_ui && o.promo_code_ui.checked) { %}
+<div class="promo-section" data-promo-code="{%#o.promo_code_text%}">
+  <div class="promo-inner">
+    <div class="promo-content">
+      <div class="promo-tip">{%#o.promo_tip_text%}</div>
+      <span class="promo-code">{%#o.promo_code_text%}</span>
+    </div>
+    <span class="copy-icon">
+      <svg class="copy-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.5263 2.90909C16.5263 2.40701 16.1193 2 15.6172 2H5.78947C4.80526 2 4 2.81818 4 3.81818V15.6507C4 16.1449 4.40059 16.5455 4.89474 16.5455C5.38889 16.5455 5.78947 16.1449 5.78947 15.6507V3.81818H15.6172C16.1193 3.81818 16.5263 3.41117 16.5263 2.90909ZM15.6316 5.63636L21 11.0909V20.1818C21 21.1818 20.1947 22 19.2105 22H9.35947C8.37526 22 7.57895 21.1818 7.57895 20.1818L7.58789 7.45455C7.58789 6.45455 8.38421 5.63636 9.36842 5.63636H15.6316ZM14.7368 12H19.6579L14.7368 7V12Z" fill="var(--promo-text-color)"/>
+      </svg>
+      <svg class="tick-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0005 2.00049C17.5203 2.00075 22.0005 6.48065 22.0005 12.0005C22.0003 17.5202 17.5201 22.0002 12.0005 22.0005C6.48061 22.0005 2.00069 17.5203 2.00049 12.0005C2.00049 6.48049 6.48049 2.00049 12.0005 2.00049ZM16.77 9.06396C16.3795 8.6735 15.7465 8.67359 15.356 9.06396L11.0425 13.3765L8.92139 11.2554C8.53095 10.8651 7.89782 10.8652 7.50732 11.2554C7.11686 11.6458 7.11697 12.2789 7.50732 12.6694L10.3354 15.4985C10.3598 15.5229 10.3855 15.5456 10.4116 15.5669C10.464 15.6096 10.5196 15.6467 10.5776 15.6772C10.6936 15.7382 10.8194 15.7744 10.9468 15.7866C11.0104 15.7927 11.0746 15.7927 11.1382 15.7866C11.2656 15.7745 11.3913 15.7381 11.5073 15.6772C11.5656 15.6466 11.6217 15.6098 11.6743 15.5669L11.7495 15.4985L16.77 10.478C17.1604 10.0875 17.1604 9.45445 16.77 9.06396Z" fill="var(--promo-text-color)"/>
+      </svg>
+    </span>
+  </div>
+  <div id="copied-toast" class="copied-toast">{%#o.copied_toast_text%}</div>
+</div>
+      {% } %}
+      
+      <button class="cta-button" onclick="if (typeof dp !== 'undefined') dp('{%#o.button_url%}');">{%#o.cta_button_text%}</button>
+      
+      <!-- {% if (o.special_conditions_ui && o.special_conditions_ui.checked) { %}
+      <div class="special-conditions text-clamp-2"><a href="{%#o.special_conditions_linck%}" class="special-conditions-linck">{%#o.special_conditions_text%}</a></div>
+      {% } %} -->
+      {% if (o.special_conditions_ui && o.special_conditions_ui.checked) { %}
+  <div class="special-conditions text-clamp-2">
+    {% 
+      var text = o.special_conditions_text || '';
+      var link = o.special_conditions_linck || '';
+      if (o.special_conditions_url && o.special_conditions_url.checked && link) {
+      text = text.replace(/<span([^>]*)>([\s\S]*?)<\/span>/gi,
+  '<a href="' + link + '" class="special-conditions-linck"><span$1>$2</span></a>'
+);
+      }
+    %}
+    {%#text%}
+  </div>
+  {% } %}
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  // ==== ГАРАНТОВАНО ховаємо оверлей до будь-яких маніпуляцій ====
+(function hideOverlayImmediately() {
+  var ov = document.querySelector('div#__overlay') || document.querySelector('.overlay');
+  if (ov) {
+    ov.style.setProperty('transition', 'none', 'important');
+    ov.style.setProperty('opacity', '0', 'important');
+    ov.style.setProperty('pointer-events', 'none', 'important');
+    ov.classList.remove('active');
+  }
+})();
+// ============================================================
+// 0. ГЛОБАЛЬНИЙ CLEANUP ДЛЯ ПОВТОРНОГО РЕНДЕРУ SMARTICO
+// ============================================================
+(function () {
+  if (typeof window.__rpPopupCleanup === 'function') {
+    try { window.__rpPopupCleanup(); } catch (e) { console.warn('[rp] prev cleanup', e); }
+  }
+  window.__rpGen = (window.__rpGen || 0) + 1;
+  window.__rpIntervals = [];
+  window.__rpTimeouts = [];
+  window.__rpRafs = [];
+  window.__rpBounceActive = false;
+
+  window.__rpPopupCleanup = function () {
+    window.__rpBounceActive = false;
+    try {
+      (window.__rpIntervals || []).forEach(function (id) { clearInterval(id); });
+      (window.__rpTimeouts || []).forEach(function (id) { clearTimeout(id); });
+      (window.__rpRafs || []).forEach(function (id) { cancelAnimationFrame(id); });
+    } catch (e) { /* noop */ }
+    window.__rpIntervals = [];
+    window.__rpTimeouts = [];
+    window.__rpRafs = [];
+  };
+})();
+
+var __myGen = window.__rpGen;
+function __rpIsCurrent() { return window.__rpGen === __myGen; }
+
+function __rpSetTimeout(fn, ms) {
+  var id = setTimeout(function () {
+    if (!__rpIsCurrent()) return;
+    fn();
+  }, ms);
+  window.__rpTimeouts.push(id);
+  return id;
+}
+function __rpSetInterval(fn, ms) {
+  var id = setInterval(function () {
+    if (!__rpIsCurrent()) { clearInterval(id); return; }
+    fn();
+  }, ms);
+  window.__rpIntervals.push(id);
+  return id;
+}
+function __rpRaf(fn) {
+  var id = requestAnimationFrame(function (t) {
+    if (!__rpIsCurrent()) return;
+    fn(t);
+  });
+  window.__rpRafs.push(id);
+  return id;
+}
+
+// ============================================================
+// 1. МАСИВ URL-АДРЕС ДЛЯ ПОПЕРЕДНЬОГО ЗАВАНТАЖЕННЯ
+// ============================================================
+var mediaUrls = [
+  {% if (o.background_image_ui && o.background_image_ui.checked && o.background_image_url) { %}
+    "{%#o.background_image_url%}",
+  {% } %}
+  {% if (o.hero_image_ui && o.hero_image_ui.checked && o.hero_image_url) { %}
+    "{%#o.hero_image_url%}",
+  {% } %}
+  {% if (o.audio_ui && o.audio_ui.checked && o.audio_src) { %}
+    "{%#o.audio_src%}",
+  {% } %}
+];
+mediaUrls = mediaUrls.filter(function (url) { return url && url.length > 0; });
+
+// ============================================================
+// 2. ДОПОМІЖНІ ФУНКЦІЇ
+// ============================================================
+function preloadMedia(url) {
+  return new Promise(function (resolve, reject) {
+    var ext = url.split('.').pop().toLowerCase();
+    if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].indexOf(ext) !== -1) {
+      var img = new Image();
+      img.onload = resolve;
+      img.onerror = reject;
+      img.src = url;
+    } else if (['mp3', 'wav', 'ogg'].indexOf(ext) !== -1) {
+      var audio = new Audio();
+      audio.oncanplaythrough = resolve;
+      audio.onerror = reject;
+      audio.src = url;
+      audio.load();
+    } else {
+      resolve();
+    }
+  });
+}
+
+
+// ============================================================
+// 3. ЛОГІКА ПОЯВИ
+// ============================================================
+function getOverlay() {
+  return document.querySelector('div#__overlay') || document.querySelector('.overlay');
+}
+
+
+function showPopupWithDelay() {
+  var popupContainer = document.querySelector('.popup-container');
+  if (!popupContainer) return;
+
+  var overlay = getOverlay();
+
+  // Оверлей прихований, поки попап ще не почав з'являтись
+  if (overlay) {
+    overlay.style.setProperty('opacity', '0', 'important');
+    overlay.style.setProperty('pointer-events', 'none', 'important');
+    overlay.classList.remove('active');
+  }
+
+    __rpSetTimeout(function () {
+    if (!__rpIsCurrent()) return;
+
+    if (overlay) {
+      // 1) Вмикаємо transition — оверлей тепер фейдиться, а не «стрибає»
+      overlay.style.setProperty('transition', 'opacity 0.5s ease', 'important');
+
+      // 2) Форсуємо reflow — браузер мусить зафіксувати opacity 0 як стартовий стан,
+      //    інакше transition не запуститься (буде миттєвий стрибок)
+      void overlay.offsetWidth;
+
+      // 3) Тепер плавно показуємо
+      overlay.style.setProperty('opacity', '1', 'important');
+      overlay.style.setProperty('pointer-events', 'auto', 'important');
+      overlay.classList.add('active');
+    }
+
+    // Попап — та сама тривалість і та сама крива, тому йдуть синхронно
+    popupContainer.classList.add('visible');
+
+    if (typeof startClosingTimer === 'function') startClosingTimer();
+  }, 100);
+
+}
+
+// ============================================================
+// 4. ОЧИЩЕННЯ РЕСУРСІВ ПРИ ЗАКРИТТІ
+// ============================================================
+var timerInterval = null;
+var audioElement = document.getElementById('popup-audio');
+var fadeInterval = null;
+
+function cleanupPopup() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  if (fadeInterval) { clearInterval(fadeInterval); fadeInterval = null; }
+  if (audioElement) {
+    try { audioElement.pause(); audioElement.currentTime = 0; } catch (e) {}
+  }
+}
+// Плавне закриття: спочатку анімація, потім dp('dp:close')
+function closePopupAnimated() {
+  var popupContainer = document.querySelector('.popup-container');
+  var overlay = getOverlay();
+
+  // Оверлей — зникає МИТТЄВО
+  if (overlay) {
+    overlay.style.setProperty('transition', 'none', 'important');
+    overlay.style.setProperty('opacity', '0', 'important');
+    overlay.style.setProperty('pointer-events', 'none', 'important');
+    overlay.classList.remove('active');
+  }
+
+  // Попап — плавно згасає через CSS (0.5s)
+  if (popupContainer) {
+    popupContainer.classList.remove('visible');
+    popupContainer.classList.add('closing');
+  }
+
+  cleanupPopup();
+
+  // Чекаємо завершення CSS-transition попапа (0.5s).
+  // ПЕРЕД dp:close повністю виймаємо контейнер з рендера,
+  // щоб анімація закриття Smartico не могла його показати навіть на 1 кадр.
+  __rpSetTimeout(function () {
+    if (popupContainer) {
+      popupContainer.style.setProperty('display', 'none', 'important');
+    }
+    if (typeof dp !== 'undefined') dp('dp:close');
+  }, 500);
+}
+
+// ============================================================
+// 5. ОБРОБНИКИ ЗАКРИТТЯ
+// ============================================================
+var closeBtn = document.getElementById('close-btn');
+if (closeBtn) {
+  closeBtn.addEventListener('click', function () {
+    closePopupAnimated();
+  });
+}
+
+// ============================================================
+// 6. АУДІО
+// ============================================================
+(function () {
+  var audio = audioElement;
+  var muteBtn = document.getElementById('mute-btn');
+  if (!audio || !muteBtn) return;
+
+  var isMuted = true;
+  audio.muted = true;
+  muteBtn.textContent = '🔇';
+
+  var playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(function () {
+      console.log("Autoplay was prevented.");
+    });
+  }
+
+  function toggleMute() {
+    if (audio.paused) {
+      audio.play().catch(function (e) { console.error("Could not play audio:", e); });
+    }
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    muteBtn.textContent = isMuted ? '🔇' : '🔈';
+
+    if (!isMuted && !fadeInterval) {
+      audio.volume = 0;
+      var startTime = Date.now();
+      var duration = 30000;
+
+      fadeInterval = __rpSetInterval(function () {
+        var elapsed = Date.now() - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        audio.volume = progress * progress * 0.5;
+        if (progress >= 1) {
+          clearInterval(fadeInterval);
+          fadeInterval = null;
+        }
+      }, 100);
+    }
+  }
+
+  muteBtn.addEventListener('click', toggleMute);
+})();
+
+// ============================================================
+// 7. КОПІЮВАННЯ ПРОМОКОДУ
+// ============================================================
+(function () {
+  var promoSection = document.querySelector('.promo-section');
+  var copyTimeout = null;
+  if (!promoSection) return;
+
+  promoSection.addEventListener('click', function () {
+    var icon = this.querySelector('.copy-icon');
+    if (icon && icon.classList.contains('show-tick')) return;
+
+    var promoCode = promoSection.getAttribute('data-promo-code');
+    if (!promoCode) {
+      var promoCodeSpan = promoSection.querySelector('.promo-code');
+      if (promoCodeSpan) promoCode = promoCodeSpan.innerText || '';
+    }
+    if (!promoCode) return;
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+      }
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      var success = false;
+      try { success = document.execCommand('copy'); } catch (err) { console.error('Fallback copy failed:', err); }
+      document.body.removeChild(textarea);
+      return success ? Promise.resolve() : Promise.reject(new Error('Copy failed'));
+    }
+
+    copyText(promoCode).then(function () {
+      var icon = promoSection.querySelector('.copy-icon');
+      if (!icon) return;
+      icon.classList.add('show-tick');
+      var toast = document.getElementById('copied-toast');
+      if (toast) toast.classList.add('show');
+
+      if (copyTimeout) { clearTimeout(copyTimeout); copyTimeout = null; }
+      copyTimeout = __rpSetTimeout(function () {
+        icon.classList.remove('show-tick');
+        if (toast) toast.classList.remove('show');
+        copyTimeout = null;
+      }, 3000);
+    }).catch(function (err) { console.error('Failed to copy text: ', err); });
+  });
+})();
+
+// ============================================================
+// 8. ТАЙМЕР ЗВОРОТНОГО ВІДЛІКУ + СТАН ІНДИКАТОРА (timer-dott)
+// ============================================================
+(function () {
+  var countdownElement = document.getElementById('countdown-timer');
+  if (!countdownElement) return;
+
+  // Знаходимо індикатор (крапку) всередині того ж .timer-wrapper
+  var timerWrapper = countdownElement.closest('.timer-wrapper');
+  var timerDott = timerWrapper ? timerWrapper.querySelector('.timer-dott') : null;
+  if (!timerDott) {
+    timerDott = document.querySelector('.timer-wrapper .timer-dott');
+  }
+
+  // Перемикач стану індикатора: true => active, false => expired (дефолт)
+  function setDottState(isActive) {
+    if (!timerDott) return;
+    if (isActive) {
+      timerDott.classList.remove('expired');
+      timerDott.classList.add('active');
+    } else {
+      timerDott.classList.remove('active');
+      timerDott.classList.add('expired');
+    }
+  }
+
+  var endDateString = countdownElement.getAttribute('data-end-datetime');
+
+  // Немає дати — таймер не запущений => дефолтний (expired) стан
+  if (!endDateString) {
+    setDottState(false);
+    return;
+  }
+
+  endDateString = endDateString.trim();
+  if (!endDateString.endsWith('Z') && !endDateString.match(/[+-]\d{2}:?\d{2}$/)) {
+    endDateString += 'Z';
+  }
+
+  var endDate = new Date(endDateString).getTime();
+
+  // Невалідна дата — вважаємо, що таймер завершено
+  if (isNaN(endDate)) {
+    setDottState(false);
+    countdownElement.innerHTML = '{%#o.timer_end_text%}';
+    return;
+  }
+
+  function updateTimer() {
+    var now = new Date().getTime();
+    var distance = endDate - now;
+
+    if (distance < 0) {
+      // Таймер завершився — зупиняємо інтервал і ставимо дефолтний стан
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      countdownElement.innerHTML = '{%#o.timer_end_text%}';
+      setDottState(false);
+      return;
+    }
+
+    // Таймер активний — крапка пульсує/світиться "active"
+    setDottState(true);
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    var result = "";
+    if (days > 0) result += days + "d ";
+    if (hours > 0 || days > 0) result += hours + "h ";
+    result += minutes + "m " + seconds + "s";
+
+    countdownElement.innerHTML = result;
+  }
+
+  timerInterval = __rpSetInterval(updateTimer, 1000);
+  updateTimer();
+})();
+
+// ============================================================
+// 9. ЛОГІКА ПОЯВИ КНОПКИ ЗАКРИТТЯ
+// ============================================================
+var canClose = false;
+var timerStarted = false;
+
+function enableClosing() {
+  if (canClose) return;
+  canClose = true;
+  var closeButton = document.getElementById('close-btn');
+  if (closeButton) closeButton.classList.add('visible');
+}
+
+function startClosingTimer() {
+  if (timerStarted) return;
+  timerStarted = true;
+  __rpSetTimeout(enableClosing, 3000);
+}
+
+// ============================================================
+// 10. ЗАПУСК
+// ============================================================
+var preloadPromises = mediaUrls.map(preloadMedia);
+
+Promise.all(preloadPromises)
+  .then(function () {
+    console.log('All media preloaded successfully');
+    showPopupWithDelay();
+  })
+  .catch(function (err) {
+    console.warn('Some media failed to preload, but we proceed.', err);
+    showPopupWithDelay();
+  });
+
+// ============================================================
+// 11. ДОДАТКОВІ СКРИПТИ (захищено try/catch)
+// ============================================================
+try {
+  {{label.script_for_popup_under_modal}}
+} catch (e) {
+  console.warn('[rp] script_for_popup_under_modal error:', e);
+}
+
+// ============================================================
+// 12. БЛОКУВАННЯ СКРОЛУ ТА ЗАКРИТТЯ ПО ОВЕРЛЕЮ
+// ============================================================
+(function () {
+  var overlay = document.querySelector('div#__overlay') || document.querySelector('.overlay');
+  var popupContainer = document.querySelector('.popup-container');
+
+  var origBodyOverflow = document.body.style.overflow;
+  var origHtmlOverflow = document.documentElement.style.overflow;
+
+  function lockScroll() {
+    document.body.style.setProperty('overflow', 'hidden', 'important');
+    document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+    if (popupContainer) popupContainer.style.overscrollBehavior = 'contain';
+  }
+
+  function unlockScroll() {
+    document.body.style.overflow = origBodyOverflow;
+    document.documentElement.style.overflow = origHtmlOverflow;
+  }
+
+  lockScroll();
+
+  if (overlay) {
+    var preventOverlayScroll = function (e) {
+      if (e.target === overlay) e.preventDefault();
+    };
+    overlay.addEventListener('touchmove', preventOverlayScroll, { passive: false });
+    overlay.addEventListener('wheel', preventOverlayScroll, { passive: false });
+
+overlay.addEventListener('click', function (e) {
+  if (e.target === overlay && canClose) {
+    unlockScroll();
+    closePopupAnimated();
+  }
+});
+  }
+
+  // closeBtn уже оголошений у секції 5 — НЕ повторюємо var
+  if (closeBtn) closeBtn.addEventListener('click', unlockScroll);
+
+  var ctaButtons = document.querySelectorAll('.cta-button');
+  for (var i = 0; i < ctaButtons.length; i++) {
+    ctaButtons[i].addEventListener('click', unlockScroll);
+  }
+
+  if (typeof window.dp === 'function' && !window.__dpScrollPatched) {
+    var originalDp = window.dp;
+    window.dp = function () {
+      unlockScroll();
+      return originalDp.apply(this, arguments);
+    };
+    window.__dpScrollPatched = true;
+  }
+})();
+
+// ============================================================
+// 13. АНІМАЦІЯ BOUNCE (CHAOTIC) З ОБЕРТАННЯМ
+// ============================================================
+(function () {
+  var heroImage = document.querySelector('.hero-image.animation-bounce');
+  if (!heroImage) return;
+
+  // Захист від повторного запуску
+  if (window.__rpBounceActive) return;
+  window.__rpBounceActive = true;
+
+  var container = heroImage.closest('.graphic-section');
+  if (!container) { window.__rpBounceActive = false; return; }
+
+  container.style.position = 'relative';
+  heroImage.style.position = 'absolute';
+  heroImage.style.top = '0';
+  heroImage.style.left = '0';
+  heroImage.style.transform = 'none';
+
+  var isAnimating = false;
+  var animationFrame = null;
+  var lastTime = 0;
+  var x = 0, y = 0, vx = 0, vy = 0;
+  var containerWidth = 0, containerHeight = 0;
+  var imgWidth = 0, imgHeight = 0;
+  var speed = 0;
+  var PADDING = 10;
+
+  var rotationAngle = 0;
+  var rotationSpeed = 360;
+  var rotationDirection = 1;
+  var rotationTimer = 0;
+  var rotationInterval = 2;
+
+  var resizeTimeout = null;
+
+  function getImageSize() {
+    var rect = heroImage.getBoundingClientRect();
+    return { width: rect.width, height: rect.height };
+  }
+
+  function init(retries) {
+    retries = retries || 0;
+    // ЗАХИСТ: обмежуємо кількість спроб, щоб не крутитися вічно
+    if (retries > 30) {
+      console.warn('[rp] bounce init exceeded retries, aborting');
+      window.__rpBounceActive = false;
+      return;
+    }
+    if (!__rpIsCurrent()) return;
+
+    containerWidth = container.clientWidth;
+    containerHeight = container.clientHeight;
+    if (containerWidth === 0 || containerHeight === 0) {
+      __rpSetTimeout(function () { init(retries + 1); }, 100);
+      return;
+    }
+
+    var size = getImageSize();
+    imgWidth = size.width;
+    imgHeight = size.height;
+    if (imgWidth === 0 || imgHeight === 0) {
+      heroImage.addEventListener('load', function () { init(retries + 1); }, { once: true });
+      return;
+    }
+
+    var maxWidth = containerWidth - 2 * PADDING;
+    var maxHeight = containerHeight - 2 * PADDING;
+    if (imgWidth > maxWidth || imgHeight > maxHeight) {
+      var scaleX = maxWidth / imgWidth;
+      var scaleY = maxHeight / imgHeight;
+      var scale = Math.min(scaleX, scaleY) * 0.9;
+      heroImage.style.width = (imgWidth * scale) + 'px';
+      __rpSetTimeout(function () { init(retries + 1); }, 50);
+      return;
+    }
+
+    if (!isAnimating) {
+      var minX = PADDING;
+      var maxX = containerWidth - imgWidth - PADDING;
+      var minY = PADDING;
+      var maxY = containerHeight - imgHeight - PADDING;
+      x = minX + Math.random() * (maxX - minX);
+      y = minY + Math.random() * (maxY - minY);
+
+      speed = 100 + Math.random() * 150;
+      var angle = Math.random() * 2 * Math.PI;
+      vx = Math.cos(angle) * speed;
+      vy = Math.sin(angle) * speed;
+
+      rotationDirection = Math.random() > 0.5 ? 1 : -1;
+      rotationTimer = 0;
+
+      isAnimating = true;
+      lastTime = performance.now();
+      animationFrame = __rpRaf(animate);
+    } else {
+      var minX2 = PADDING;
+      var maxX2 = containerWidth - imgWidth - PADDING;
+      var minY2 = PADDING;
+      var maxY2 = containerHeight - imgHeight - PADDING;
+      x = Math.min(Math.max(x, minX2), maxX2);
+      y = Math.min(Math.max(y, minY2), maxY2);
+    }
+  }
+
+  function animate(time) {
+    if (!__rpIsCurrent() || !isAnimating || !window.__rpBounceActive) return;
+
+    var dt = (time - lastTime) / 1000;
+    lastTime = time;
+
+    x += vx * dt;
+    y += vy * dt;
+
+    var minX = PADDING;
+    var maxX = containerWidth - imgWidth - PADDING;
+    var minY = PADDING;
+    var maxY = containerHeight - imgHeight - PADDING;
+
+    var bounced = false;
+    if (x < minX) { x = minX; vx = -vx; bounced = true; }
+    else if (x > maxX) { x = maxX; vx = -vx; bounced = true; }
+    if (y < minY) { y = minY; vy = -vy; bounced = true; }
+    else if (y > maxY) { y = maxY; vy = -vy; bounced = true; }
+
+    if (bounced) {
+      var angleShift = (Math.random() - 0.5) * 0.5;
+      var currentSpeed = Math.sqrt(vx * vx + vy * vy);
+      var newAngle = Math.atan2(vy, vx) + angleShift;
+      vx = Math.cos(newAngle) * currentSpeed;
+      vy = Math.sin(newAngle) * currentSpeed;
+      var speedFactor = 0.9 + Math.random() * 0.2;
+      vx *= speedFactor;
+      vy *= speedFactor;
+    }
+
+    var cs = Math.sqrt(vx * vx + vy * vy);
+    if (cs > 300) { vx = (vx / cs) * 300; vy = (vy / cs) * 300; }
+    if (cs < 80 && cs > 0) { vx = (vx / cs) * 80; vy = (vy / cs) * 80; }
+
+    heroImage.style.left = x + 'px';
+    heroImage.style.top = y + 'px';
+
+    rotationTimer += dt;
+    if (rotationTimer >= rotationInterval) {
+      rotationTimer = 0;
+      rotationDirection *= -1;
+    }
+    rotationAngle += rotationSpeed * rotationDirection * dt;
+    if (rotationAngle > 360) rotationAngle -= 360;
+    if (rotationAngle < -360) rotationAngle += 360;
+    heroImage.style.transform = 'rotate(' + rotationAngle + 'deg)';
+
+    animationFrame = __rpRaf(animate);
+  }
+
+  function handleResize() {
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    resizeTimeout = __rpSetTimeout(function () {
+      if (!__rpIsCurrent()) return;
+
+      containerWidth = container.clientWidth;
+      containerHeight = container.clientHeight;
+      var size = getImageSize();
+      imgWidth = size.width;
+      imgHeight = size.height;
+
+      var minX = PADDING;
+      var maxX = containerWidth - imgWidth - PADDING;
+      var minY = PADDING;
+      var maxY = containerHeight - imgHeight - PADDING;
+
+      if (imgWidth > containerWidth - 2 * PADDING || imgHeight > containerHeight - 2 * PADDING) {
+        var scaleX = (containerWidth - 2 * PADDING) / imgWidth;
+        var scaleY = (containerHeight - 2 * PADDING) / imgHeight;
+        var scale = Math.min(scaleX, scaleY) * 0.9;
+        heroImage.style.width = (imgWidth * scale) + 'px';
+        __rpSetTimeout(function () {
+          if (!__rpIsCurrent()) return;
+          var newSize = getImageSize();
+          imgWidth = newSize.width;
+          imgHeight = newSize.height;
+          var minX2 = PADDING;
+          var maxX2 = containerWidth - imgWidth - PADDING;
+          var minY2 = PADDING;
+          var maxY2 = containerHeight - imgHeight - PADDING;
+          x = Math.min(Math.max(x, minX2), maxX2);
+          y = Math.min(Math.max(y, minY2), maxY2);
+        }, 50);
+      } else {
+        x = Math.min(Math.max(x, minX), maxX);
+        y = Math.min(Math.max(y, minY), maxY);
+      }
+      resizeTimeout = null;
+    }, 100);
+  }
+
+  if (heroImage.complete) {
+    init();
+  } else {
+    heroImage.addEventListener('load', function () { init(0); }, { once: true });
+  }
+
+  // Singleton для resize — не накопичуємо обробники
+  if (window.__rpResizeHandler) {
+    window.removeEventListener('resize', window.__rpResizeHandler);
+  }
+  window.__rpResizeHandler = handleResize;
+  window.addEventListener('resize', window.__rpResizeHandler);
+})();
+</script>
