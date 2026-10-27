@@ -385,14 +385,17 @@
                 <div class="step">
                     <p>Універсальні шаблони попапів:<br>
                         <ul>
-                        <li><b>King - <a
-                            href="https://drive-7.smartico.ai/28063#/resource_template/11620">QW Master Template
-                            Popup</a></b></li>
-                        <li><b>ALPA - <a href="https://drive-7.smartico.ai/28063#/resource_template/11776">RP
-                            Master Template Popup</a></b></li>
+                        <li><b>KING - <a
+                            href="https://drive-7.smartico.ai/28063#/resource_template/11620">QW Master Template Popup</a></b></li>
+                        <li><b>ALPA - <a href="https://drive-7.smartico.ai/28063#/resource_template/11776">RP Master Template Popup</a></b></li>
                         <li><b>FELIX - <a
-                            href="https://drive-7.smartico.ai/28062#/resource_template/12502">FELIX Master Template
-                            Popup</a></b></li>
+                            href="https://drive-7.smartico.ai/28062#/resource_template/12502">FELIX Master Template Popup</a></b></li>
+                        <li><b>VEGAS - <a
+                            href="https://drive-7.smartico.ai/28062#/resource_template/12612">VEGAS Master Template Popup</a></b></li>
+                        <li><b>THOR - <a
+                            href="https://drive-7.smartico.ai/28062#/resource_template/12608">THOR Master Template Popup</a></b></li>
+                        <li><b>BOND - <a
+                            href="https://drive-7.smartico.ai/28062#/resource_template/12620">BOND Master Template Popup</a></b></li>
                         </ul>
                         Це потужний інструмент для промо-акцій, турнірів, видачі бонусів та
                         гейміфікації. Він підтримує банери, анімовані елементи, таймери зворотного відліку, промокоди з
@@ -407,7 +410,7 @@
                             хочете створити новий попап (щоб не створювати хаос із сотень клонів у системі).</p>
                         <p style="margin-bottom: 0; color: #856404;">Замість цього, на основі одного темплейту
                             створюються <strong>Ассети (Assets)</strong>. Ассет — це конкретний екземпляр попапа з
-                            вашими унікальними налаштуваннями. Всі зміни з чекбоксами, текстами та картинками потрібно
+                            вашими унікальними налаштуваннями. Всі маніпуляції з текстами та картинками потрібно
                             проводити <strong>саме в Ассеті</strong>. Зміни в Ассеті ніяк не впливають на оригінальний
                             темплейт, і саме тому мастер темплейт можна перевикористовувати в безкінечній кількості
                             ассетів.</p>
@@ -427,18 +430,12 @@
                             (а не сам темплейт).</li>
                     </ul>
 
-                    <p><strong>Щоб увімкнути певний блок контенту в Ассеті, потрібно поставити галочку (чекбокс) біля
-                            його назви.</strong></p>
-
                     <div class="tip">
-                        <h4>💡 Порада щодо чекбоксів</h4>
-                        <p>Більшість блоків (таймер, промокод, аудіо, контекстний текст) є опціональними. Якщо вам не
-                            потрібен певний елемент, просто <strong>вимкніть чекбокс</strong> біля його назви в
-                            конфігураторі, і він автоматично зникне з попапу. Тут можна вимкнути абсолютно всі чекбокси,
-                            окрім кнопок CTA і кнопки закриття</p>
+                        <h4>💡 Щоб увімкнути/вимкнути певний блок контенту в Ассеті, потрібно ввести/видалити текст в полі для введення тексту</h4>
+                        <p>Також звертайте увагу на опис кожного поля (там вказані короткі підказки як працювати саме з цим полем)</p>
                         <br>
                         <div style="text-align: center; margin: 5px 0; padding: 0;">
-                            <img src="./media/1.png" alt="Приклад налаштування флоу" class="zoom-img"
+                            <img src="./media/media11.png" alt="Приклад налаштування флоу" class="zoom-img"
                                 style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                         </div>
                     </div>
@@ -448,7 +445,7 @@
                             <strong>Context text (Контекстний текст):</strong> Невеличкий текст, який "висить" над
                             основним попапом.
                             <ul>
-                                <li><strong>Як юзати:</strong> Увімкніть чекбокс. Введіть текст, наприклад:
+                                <li><strong>Як юзати:</strong> Введіть/вижаліть текст, наприклад:
                                     <code>Твій &lt;strong&gt;Welcome Pack&lt;/strong&gt; готовий!</code></li>
                                 <li><strong>Фішка:</strong> Тег <code>&lt;strong&gt;</code> зробить текст жирним і
                                     пофарбує його в "Accent color" (колір акценту). Тег <code>&lt;b&gt;</code> просто
@@ -523,8 +520,7 @@
                             <ul>
                                 <li><strong>Button Text:</strong> Наприклад, <code>Активувати Бонус</code>.</li>
                                 <li><strong>Deep link or URL:</strong> Куди веде кнопка. Можна використовувати звичайні
-                                    лінки (<code>https://...</code>) або діплінки Smartico (наприклад,
-                                    <code>dp:...</code>).</li>
+                                <li><strong>Button Target:</strong> Введений будь-який символ в цьому полі активує target='_blank' і всі посилання відкриті з цієї кнопки будуть відкриватись в новій вкладці. Пусте поле означає що посилання відкриється в тій же вкладці.</li>
                             </ul>
                         </li>
                         <li>
@@ -543,9 +539,12 @@
                             <code>&lt;span&gt;...&lt;/span&gt;</code>, клікабельним.
                             <ul>
                                 <li><strong>Як юзати:</strong> вставте посилання яке вам необхідне.</li>
-                                <li><strong>Фішка:</strong> якщо чекбокс тут вимкнутий то лінк не працюватиме навіть
+                                <li><strong>Фішка:</strong> якщо це поле пусте то лінк не працюватиме навіть
                                     якщо текст огорнутий тегом <code>&lt;span&gt;...&lt;/span&gt;</code>.</li>
                             </ul>
+                        </li>
+                        <li>
+                            <strong>Special Conditions Link Target:</strong> Введений будь-який символ в цьому полі активує target='_blank' і всі посилання відкриті з цієї лінки будуть відкриватись в новій вкладці. Пусте поле означає що посилання відкриється в тій же вкладці.
                         </li>
                     </ul>
                     <div class="tip">
@@ -562,8 +561,8 @@
                         </div>
                     </div>
                     <h3>4. Animation for Hero Image (Анімації)</h3>
-                    <p>Ви можете "оживити" своє Hero Image (головну картинку). Увімкніть <strong>тільки один</strong>
-                        чекбокс з потрібною анімацією:</p>
+                    <p>Ви можете "оживити" своє Hero Image (головну картинку). Введіть <strong>будь-який символ</strong>
+                        біля потрібної анімації:</p>
                     <ul>
                         <li><strong>Pulse / Pulse 2:</strong> Пульсація (збільшення/зменшення).</li>
                         <li><strong>Float:</strong> Плавне літання вгору-вниз (ефект левітації).</li>
