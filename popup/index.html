@@ -362,6 +362,36 @@
                 font-size: 1.5rem;
             }
         }
+        
+
+   .limits-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    margin: 12px 0;
+  }
+  .limits-row .limits-col {
+    min-width: 0;
+    min-height: 0;
+  }
+  .limits-row .limits-col > div,
+  .limits-row .limits-col > p,
+  .limits-row .limits-col > ul {
+    margin-top: 0;
+  }
+  .limits-row .limits-col img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  @media (max-width: 768px) {
+    .limits-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
     </style>
 </head>
 
@@ -555,10 +585,29 @@
                             три крапки в кінці речення, і якщо ви це побачили при заповненні контенту - це сигнал до
                             того що потрібно зменшити кількість символів в кожному полі. Дане обмеження не стосується
                             контенту для кнопки CTA</p><br>
-                        <div style="text-align: center; margin: 5px 0; padding: 0;">
-                            <img src="./media/3.png" alt="Приклад налаштування флоу" class="zoom-img"
-                                style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                        </div>
+                        <div class="limits-row">
+                              <div class="limits-col">
+    <p>Орієнтовні максимальні ліміти для десктопа:</p>
+    <ul>
+      <li>Контекст — до <b>49</b> символів</li>
+      <li>Таймер текст — до <b>32</b> символів</li>
+      <li>Тайтл — до <b>44</b> символів</li>
+      <li>Субтайтл — до <b>172</b> символів</li>
+      <li>Промо текст — до <b>50</b> символів</li>
+      <li>Промо код — до <b>20</b> символів</li>
+      <li>Спецкондішен — до <b>64</b> символів</li>
+    </ul>
+  </div>
+  <div class="limits-col">
+    <div style="text-align: center; margin: 5px 0; padding: 0;">
+      <img src="./media/3.png" alt="Приклад налаштування флоу" class="zoom-img"
+        style="width: 500px; height: auto; max-width: 100%; border: 1px solid #0ed6b2; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    </div>
+  </div>
+
+
+</div>
+
                     </div>
                     <h3>4. Animation for Hero Image (Анімації)</h3>
                     <p>Ви можете "оживити" своє Hero Image (головну картинку). Введіть <strong>будь-який символ</strong>
