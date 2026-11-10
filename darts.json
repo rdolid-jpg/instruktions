@@ -1,16 +1,18 @@
 {
   "slug": "DARTS_TEST",
+  "info_number_attempts_before_start": "You have <strong>{left} attempts</strong> to win a prize!",
   "popup_attempts_left_text": "Attempts left: <strong>{left} of {max}</strong>",
-  "popup_no_attempts_left_text": "<strong>No attempts left</strong>",
+  "popup_no_attempts_left_text": "No attempts left",
   "limit_popup_title": "Check out promotions",
   "limit_popup_button_title": "Go to Promotions",
   "limit_popup_button_link": "dp:go&url=/promotions/casino",
   "popup_gift_description": "It’s all yours! Visit the Bonuses section, activate it, and start playing",
   "last_attempt_gift_button_title": "Go to Bonuses",
-  "last_attempt_gift_button_link": "dp:go&url=/bonuses",
+  "last_attempt_gift_button_link": "dp:go&url=/users/bonuses",
   "popup_noprize_description": "Check out our promotions and see what’s new",
   "last_attempt_noprize_button_title": "Go to Promotions",
   "last_attempt_noprize_button_link": "dp:go&url=/promotions/casino"
 }
 
 { "short_name": "20 Free Spins" }
+
