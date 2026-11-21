@@ -1,662 +1,587 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Інструкція з Inbox у Smartico — WhiteLabel</title>
-  <style>
-    :root {
-      --primary: #1a56db;
-      --primary-dark: #1e429f;
-      --primary-light: #e1effe;
-      --text: #1f2a37;
-      --text-muted: #4b5563;
-      --bg: #f3f4f6;
-      --card-bg: #ffffff;
-      --border: #e5e7eb;
-      --code-bg: #0f172a;
-      --warning-bg: #fffbeb;
-      --warning-border: #fef3c7;
-      --warning-text: #92400e;
-      --success: #057a55;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція з Inbox у Smartico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #bfdbfe 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #1e293b;
+            line-height: 1.5;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #eff6ff 100%);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 30px 15px;
-      min-height: 100vh;
-    }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-    .container {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
+        .home-btn {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 44px;
+            height: 44px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+            transition: transform 0.2s;
+            z-index: 10;
+        }
 
-    /* Верхня навігація */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      padding: 12px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
+        .home-btn:hover {
+            transform: scale(1.08);
+        }
 
-    .home-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary-dark);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      background: var(--primary-light);
-      transition: all 0.2s;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-top: 5px;
+        }
 
-    .home-link:hover {
-      background: #c3ddfd;
-      transform: translateY(-1px);
-    }
+        .header h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
 
-    .tools-group {
-      display: flex;
-      gap: 10px;
-    }
+        .header .subtitle {
+            font-size: 1.05rem;
+            color: #3b82f6;
+            font-weight: 500;
+        }
 
-    .tool-btn {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+        .tools-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
 
-    .tool-btn:hover {
-      background: var(--bg);
-      color: var(--text);
-      border-color: #cbd5e1;
-    }
+        .tool-btn {
+            background: #ffffff;
+            border: 1px solid #bfdbfe;
+            color: #1d4ed8;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-    /* Банер заголовка */
-    .header-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 25px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border);
-      border-left: 6px solid var(--primary);
-    }
+        .tool-btn:hover {
+            background: #1d4ed8;
+            color: #ffffff;
+        }
 
-    .header-card h1 {
-      font-size: 26px;
-      color: var(--text);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .accordion-item {
+            margin-bottom: 14px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.06);
+            background: #ffffff;
+        }
 
-    .header-card p {
-      color: var(--text-muted);
-      font-size: 15px;
-    }
+        .accordion-header {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: #ffffff;
+            padding: 16px 22px;
+            text-align: left;
+            border: none;
+            cursor: pointer;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Секції-акордеони */
-    .section-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
 
-    .section-header {
-      padding: 18px 24px;
-      background: linear-gradient(90deg, #1e429f 0%, #1a56db 100%);
-      color: #ffffff;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-    }
+        .accordion-header .arrow {
+            transition: transform 0.25s;
+        }
 
-    .section-header h2 {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
+        .accordion-item.active .arrow {
+            transform: rotate(180deg);
+        }
 
-    .toggle-icon {
-      font-size: 14px;
-      transition: transform 0.3s;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 50%;
-    }
+        .accordion-content {
+            display: none;
+            padding: 24px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
 
-    .section-card.collapsed .toggle-icon {
-      transform: rotate(-90deg);
-    }
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
 
-    .section-content {
-      padding: 24px;
-      display: block;
-    }
+        .tip {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            color: #1e293b;
+        }
 
-    .section-card.collapsed .section-content {
-      display: none;
-    }
+        .tip-warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+            color: #92400e;
+        }
 
-    /* Таблиці та текст */
-    h3 {
-      font-size: 16px;
-      margin: 18px 0 10px 0;
-      color: var(--primary-dark);
-    }
+        .tip-danger {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+            color: #991b1b;
+        }
 
-    p, li {
-      font-size: 14px;
-      color: #374151;
-      margin-bottom: 10px;
-    }
+        .tip strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
 
-    ul {
-      padding-left: 20px;
-      margin-bottom: 15px;
-    }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 14px 0;
+        }
 
-    li {
-      margin-bottom: 6px;
-    }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            .accordion-content {
+                padding: 16px;
+            }
+        }
 
-    .alert-box {
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
-      border-left: 4px solid #f59e0b;
-      padding: 14px 18px;
-      border-radius: 8px;
-      color: var(--warning-text);
-      font-size: 13.5px;
-      margin: 15px 0;
-    }
+        .card-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px;
+        }
 
-    .alert-info {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-left: 4px solid #3b82f6;
-      color: #1e40af;
-    }
+        .card-box h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #1e3a8a;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 15px 0 20px 0;
-      font-size: 13.5px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
 
-    th, td {
-      padding: 10px 14px;
-      text-align: left;
-      vertical-align: top;
-    }
+        li {
+            margin-bottom: 6px;
+            font-size: 0.93rem;
+        }
 
-    th {
-      background: #f8fafc;
-      font-weight: 600;
-      color: #334155;
-      border-bottom: 2px solid var(--border);
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+        }
 
-    tr:nth-child(even) {
-      background: #f8fafc;
-    }
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
 
-    td {
-      border-bottom: 1px solid var(--border);
-    }
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
 
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 12.5px;
-      background: #e2e8f0;
-      color: #0f172a;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
+        .code-container {
+            position: relative;
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 10px 0;
+        }
 
-    /* Шаблони в Секції 4 */
-    .template-card {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 30px;
-    }
+        .code-block {
+            color: #38bdf8;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
 
-    .template-card:last-child {
-      margin-bottom: 10px;
-    }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #334155;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
 
-    .template-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #e2e8f0;
-    }
+        .inline-code {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
 
-    .template-badge {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--primary-dark);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
 
-    /* Сітка: ліва колонка менша, права під прев'ю ширша */
-    .builder-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 390px;
-      gap: 20px;
-      align-items: start;
-    }
+        /* ===== Section 4: Templates ===== */
+        .template-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
 
-    @media (max-width: 1024px) {
-      .builder-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+        .template-card:last-child {
+            margin-bottom: 4px;
+        }
 
-    /* Редактор коду без горизонтального скролу */
-    .code-box {
-      background: var(--code-bg);
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #334155;
-    }
+        .template-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
 
-    .code-bar {
-      background: #1e293b;
-      padding: 8px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #334155;
-    }
+        .template-badge {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e3a8a;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    .code-bar span {
-      color: #94a3b8;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+        .builder-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 390px;
+            gap: 20px;
+            align-items: start;
+        }
 
-    .copy-btn {
-      background: var(--primary);
-      border: none;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
+        @media (max-width: 1024px) {
+            .builder-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    .copy-btn:hover {
-      background: #2563eb;
-    }
+        .code-box {
+            background: #0f172a;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
 
-    .copy-btn.copied {
-      background: var(--success);
-    }
+        .code-bar {
+            background: #1e293b;
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
 
-    pre.code-view {
-      margin: 0;
-      padding: 14px;
-      height: 480px;
-      overflow-y: auto;
-      overflow-x: hidden; /* Жодного горизонтального скролу */
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 11.5px;
-      line-height: 1.5;
-      color: #e2e8f0;
-      white-space: pre-wrap; /* Автоматичний перенос рядків */
-      word-break: break-word;
-    }
+        .code-bar span {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    /* Прев'ю віджета */
-    .preview-box {
-      background: #ffffff;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 12px;
-    }
+        .tmpl-copy-btn {
+            background: #1d4ed8;
+            border: none;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
-    .preview-header {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+        .tmpl-copy-btn:hover {
+            background: #2563eb;
+        }
 
-    .widget-mockup {
-      width: 100%;
-      background: #262A34;
-      border-radius: 12px;
-      padding: 8px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      border: 1px solid #374151;
-    }
+        .tmpl-copy-btn.copied {
+            background: #16a34a;
+        }
 
-    .widget-iframe {
-      width: 100%;
-      height: 480px;
-      border: none;
-      border-radius: 8px;
-      background: #262A34;
-      display: block;
-    }
+        pre.code-view {
+            margin: 0;
+            padding: 14px;
+            height: 480px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-family: monospace;
+            font-size: 11.5px;
+            line-height: 1.5;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
 
-    /* Футер */
-    footer {
-      margin-top: 35px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 20px 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-    }
-  </style>
+        .preview-box {
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+        }
+
+        .preview-header {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .widget-mockup {
+            width: 100%;
+            background: #262A34;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: 1px solid #374151;
+        }
+
+        .widget-iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+            border-radius: 8px;
+            background: #262A34;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
+    <a href="../index.html" class="home-btn" title="На головну">🏠</a>
 
-  <!-- Верхня навігація -->
-  <div class="top-bar">
-    <a href="../index.html" class="home-link">
-      <span>🏠</span> До всіх інструкцій
-    </a>
-    <div class="tools-group">
-      <button class="tool-btn" id="btn-expand-all">
-        <span>➕</span> Розгорнути всі
-      </button>
-      <button class="tool-btn" id="btn-collapse-all">
-        <span>➖</span> Згорнути всі
-      </button>
+    <div class="header">
+        <h1>📬 Inbox у Smartico</h1>
+        <div class="subtitle">Практична інструкція: формати, налаштування та специфіка аналітики</div>
     </div>
-  </div>
 
-  <!-- Банер -->
-  <div class="header-card">
-    <h1>📬 Inbox у Smartico — Інструкція для CRM-менеджерів</h1>
-    <p>Повний практичний посібник: типи повідомлень, налаштування полів бек-офісу, системні Deep Links, статистика доставлення та готові шаблони.</p>
-  </div>
-
-  <!-- Секція 1 -->
-  <div class="section-card">
-    <div class="section-header">
-      <h2>1. Базова концепція: Що таке Inbox та як він влаштований</h2>
-      <div class="toggle-icon">▲</div>
+    <div class="tools-bar">
+        <button class="tool-btn" onclick="expandAll()">Розгорнути всі</button>
+        <button class="tool-btn" onclick="collapseAll()">Згорнути всі</button>
     </div>
-    <div class="section-content">
-      <p><b>Inbox (Центр сповіщень)</b> — це внутрішній поштовий канал бренду. На відміну від спливаючих Pop-up чи зовнішніх Push/Email, сповіщення Inbox зберігаються у віджеті дзвоника гравця на сайті та доступні для повторного перегляду.</p>
-      
-      <h3>Simple Inbox vs Rich Body Inbox</h3>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%;">Параметр</th>
-            <th style="width: 40%;">Simple Inbox (Простий)</th>
-            <th style="width: 40%;">Rich Body Inbox (Кастомний)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><b>Візуальний вигляд</b></td>
-            <td>Тільки стандартна плашка: іконка, короткий заголовок та прев'ю-текст.</td>
-            <td>Повноцінний гарний банер із кастомним HTML-оформленням у розгорнутому вікні.</td>
-          </tr>
-          <tr>
-            <td><b>Поведінка кліку</b></td>
-            <td>Одразу перенаправляє гравця за посиланням або Deep Link (поле <code>Deep link or URL</code>).</td>
-            <td>Клік відкриває картку сповіщення всередині віджета з детальним HTML-вмістом та CTA-кнопками.</td>
-          </tr>
-          <tr>
-            <td><b>Action у Smartico</b></td>
-            <td>Вказується конкретний URL або лінк (наприклад, <code>dp:go&url=/deposit</code>).</td>
-            <td><b>ОБОВ'ЯЗКОВО</b> обирається <code>dp:inbox</code> (інакше віджет платформи відкине HTML-код та кнопки).</td>
-          </tr>
-          <tr>
-            <td><b>Кнопки дії (CTA)</b></td>
-            <td>Не підтримуються (клік по всій плашці).</td>
-            <td>До 2 нативних інтерактивних кнопок (Primary та Secondary) із персональними посиланнями.</td>
-          </tr>
-        </tbody>
-      </table>
 
-      <div class="alert-box alert-info">
-        💡 <b>Поведінка спливаючого прев'ю (Toast):</b> якщо гравець онлайн на сайті в момент відправки і увімкнено опцію <i>Show preview of the message for a short period if user is online</i>, у кутку екрана показується невелике спливаюче сповіщення. За замовчуванням тривалість показу — 7 секунд. Якщо потрібно показувати 10 секунд, додайте у поле <b>Extra parameters</b> JSON: <code>{"visibility_period_sec": 10}</code>.
-      </div>
-    </div>
-  </div>
+    <!-- РОЗДІЛ 1: ФОРМАТИ -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>1. Що таке Inbox і різниця між Simple та Rich</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+            <p><strong>Inbox</strong> — це внутрішній центр сповіщень сайту (іконка дзвіночка). На відміну від попапу, він з'являється у кутку екрана у вигляді спливаючого тосту, не перериває гру в слотах і залишається у списку повідомлень у віджеті.</p>
 
-  <!-- Секція 2 -->
-  <div class="section-card">
-    <div class="section-header">
-      <h2>2. Налаштування полів у BackOffice Smartico</h2>
-      <div class="toggle-icon">▲</div>
-    </div>
-    <div class="section-content">
-      <p>Покроковий довідник із заповнення полів форми при створенні сповіщення (розділ <b>Communications → Inbox</b>):</p>
-      
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 25%;">Поле у BackOffice</th>
-            <th style="width: 35%;">Призначення</th>
-            <th style="width: 40%;">Рекомендоване значення для WhiteLabel</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><b>Name</b></td>
-            <td>Внутрішня системна назва повідомлення для пошуку в списку.</td>
-            <td><code>[IB] Retention_Bonus_10FS_v1</code></td>
-          </tr>
-          <tr>
-            <td><b>Status</b></td>
-            <td>Статус ресурсу.</td>
-            <td><code>Active</code> (тільки активні ресурси надсилаються гравцям).</td>
-          </tr>
-          <tr>
-            <td><b>Message expiration period</b></td>
-            <td>Скільки часу повідомлення живе у віджеті користувача після відправки.</td>
-            <td>Рекомендовано <b>7–14 днів</b> (за замовчуванням стоїть 30 днів; максимум 365).</td>
-          </tr>
-          <tr>
-            <td><b>Title</b></td>
-            <td>Заголовок інбокс-повідомлення у списку віджета.</td>
-            <td>Короткий текст до 30–40 символів (наприклад, <i>«Daily bonus»</i>).</td>
-          </tr>
-          <tr>
-            <td><b>Short preview for body</b></td>
-            <td>Текст прев'ю, який гравець бачить у списку сповіщень та у спливаючому тості.</td>
-            <td>До 70–80 символів. Має зацікавити розгорнути сповіщення.</td>
-          </tr>
-          <tr>
-            <td><b>Inbox message type</b></td>
-            <td>Тип поведінки повідомлення.</td>
-            <td><b>Rich body (HTML)</b> для банерів або <b>Simple</b> для швидких переходів.</td>
-          </tr>
-          <tr>
-            <td><b>Deep link or URL</b></td>
-            <td>Цільове посилання для відкриття.</td>
-            <td>Для Rich body <b>завжди</b> <code>dp:inbox</code>. Для Simple — потрібний Deep Link.</td>
-          </tr>
-          <tr>
-            <td><b>CTA Primary Button Text</b></td>
-            <td>Текст головної кнопки дії (жовта акцентна кнопка).</td>
-            <td>Наприклад: <code>Deposit</code> або <code>Activate bonus</code>.</td>
-          </tr>
-          <tr>
-            <td><b>Deep link for Primary Button</b></td>
-            <td>Куди переходить гравець при натисканні головної кнопки.</td>
-            <td><code>dp:go&url=/deposit#cashbox</code> або <code>dp:go&url=/profile/gifts</code>.</td>
-          </tr>
-          <tr>
-            <td><b>CTA Secondary Button Text</b></td>
-            <td>Текст другої допоміжної кнопки (сіра кнопка).</td>
-            <td>Заповнюється лише за потреби (наприклад, <code>Deposit</code>).</td>
-          </tr>
-          <tr>
-            <td><b>Deep link for Secondary Button</b></td>
-            <td>Посилання для другої кнопки.</td>
-            <td>Системний Deep Link (наприклад, <code>dp:go&url=/deposit#cashbox</code>).</td>
-          </tr>
-          <tr>
-            <td><b>Extra parameters</b></td>
-            <td>Додаткові системні налаштування у форматі JSON.</td>
-            <td>Вкажіть <code>{"visibility_period_sec": 10}</code> для тосту на 10 секунд.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="alert-box">
-        ⚠️ <b>КРИТИЧНО ПРО ПОСИЛАННЯ:</b> Усередині HTML-коду Rich Body <b>НЕ МОЖНА</b> використовувати звичайні теги <code>&lt;a href="..."&gt;</code>, оскільки пісочниця iframe віджета блокує зовнішні переходи через обмеження CSP браузера. <b>Усі кліки гравця мають відбуватися ВИКЛЮЧНО через CTA-кнопки бек-офісу!</b>
-      </div>
-    </div>
-  </div>
-
-  <!-- Секція 3 -->
-  <div class="section-card">
-    <div class="section-header">
-      <h2>3. Системні Deep Links та логіка статистики Inbox</h2>
-      <div class="toggle-icon">▲</div>
-    </div>
-    <div class="section-content">
-      <h3>Формат перенаправлення (dp:go&url=)</h3>
-      <p>Для переходу на сторінки проєкту використовується спеціальний внутрішній протокол Smartico: <code>dp:go&url=</code>. Параметр <code>url=</code> завжди розміщується останнім. Для відкриття в новій вкладці можна додати параметр: <code>dp:go&target=_blank&url=...</code>.</p>
-      
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 30%;">Цільова дія гравця</th>
-            <th style="width: 45%;">Значення для поля Deep Link</th>
-            <th style="width: 25%;">Примітка</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><b>Каса / Депозит</b></td>
-            <td><code>dp:go&url=/deposit#cashbox</code></td>
-            <td>Відкриває модальне вікно внесення депозиту.</td>
-          </tr>
-          <tr>
-            <td><b>Бонуси / Подарунки</b></td>
-            <td><code>dp:go&url=/profile/gifts</code></td>
-            <td>Розділ активації бонусів профілю.</td>
-          </tr>
-          <tr>
-            <td><b>Розділ Місій</b></td>
-            <td><code>dp:gf_missions</code></td>
-            <td>Гейміфікація Smartico (список завдань).</td>
-          </tr>
-          <tr>
-            <td><b>Магазин балів</b></td>
-            <td><code>dp:gf_store</code></td>
-            <td>Gamification Store з призами.</td>
-          </tr>
-          <tr>
-            <td><b>Турніри</b></td>
-            <td><code>dp:gf_tournaments</code></td>
-            <td>Турнірні таблиці та активні змагання.</td>
-          </tr>
-          <tr>
-            <td><b>Колеса фортуни / Міні-ігри</b></td>
-            <td><code>dp:go&url=/minigames</code></td>
-            <td>Сторінка промо або розваг.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Як рахується статистика Inbox у звітах Smartico BI</h3>
-      <p>Оскільки Inbox — це внутрішній віджет платформи без зовнішнього поштового провайдера чи мобільного оператора, статуси працюють за спеціальною схемою:</p>
-      <ul>
-        <li><b>Sent (Надіслано):</b> фіксується в момент спрацьовування кроку кампанії. Повідомлення миттєво записується у базу віджета користувача (незалежно від того, онлайн гравець чи офлайн).</li>
-        <li><b>Delivered (Доставлено) = Impression:</b> технічного статусу доставки через шлюз в Inbox не існує. У звітах BI метрика <i>Delivered</i> прирівнюється до <i>Impression</i>. Для онлайн-гравців Impression зараховується в момент появи спливаючого тосту на екрані. Для офлайн-гравців повідомлення чекає у списку, і факт зараховується при вході на сайт та відкритті віджета.</li>
-        <li><b>Clicked (Клік):</b> фіксується у системі, коли користувач натискає на одну з інтерактивних CTA-кнопок.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Секція 4: Три шаблони один під одним -->
-  <div class="section-card">
-    <div class="section-header">
-      <h2>4. Готові еталонні шаблони (Чистий код та Live Preview)</h2>
-      <div class="toggle-icon">▲</div>
-    </div>
-    <div class="section-content">
-
-      <!-- ШАБЛОН 1 -->
-      <div class="template-card">
-        <div class="template-card-header">
-          <div class="template-badge">
-            <span>🏷️</span> Шаблон ID: 274311 (v1_template_for_RP_simple — Без кнопок CTA)
-          </div>
-        </div>
-
-        <div class="builder-grid">
-          <!-- Ліва колонка: Код -->
-          <div class="code-box">
-            <div class="code-bar">
-              <span>HTML-код для поля Rich Body</span>
-              <button class="copy-btn" data-target="code-1">📋 Копіювати код</button>
+            <div class="grid-2">
+                <div class="card-box">
+                    <h3>Simple Inbox</h3>
+                    <ul>
+                        <li><strong>Склад:</strong> Іконка + Заголовок + Короткий текст (прев'ю).</li>
+                        <li><strong>Клік:</strong> Одразу переводить користувача за вказаним лінком без відкриття віджета.</li>
+                        <li><strong>Застосування:</strong> Короткі тригерні новини на 1 клік («Депозит зараховано», «Нараховано 20 FS»).</li>
+                    </ul>
+                </div>
+                <div class="card-box">
+                    <h3>Rich Body Inbox</h3>
+                    <ul>
+                        <li><strong>Склад:</strong> Прев'ю + Повноцінний HTML-опис (банери, правила, умови) + до 2 кнопок дій (CTA).</li>
+                        <li><strong>Клік:</strong> Розгортає вікно повідомлення у віджеті, де користувач читає умови та обирає кнопку.</li>
+                        <li><strong>Застосування:</strong> Промо-акції, турніри, депозитні бонуси, де потрібен опис та банер.</li>
+                    </ul>
+                </div>
             </div>
-            <pre class="code-view"><code id="code-1">&lt;!DOCTYPE html&gt;
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 2: ПОКРОКОВЕ НАЛАШТУВАННЯ ТА ЛІНКИ -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>2. Покрокове налаштування шаблону (Чеклист, лінки та кнопки)</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+            <ol>
+                <li><strong>Створення:</strong> Перейдіть у <code>Marketing &rarr; Inbox &rarr; New Inbox</code>.</li>
+                <li><strong>Базові поля (General):</strong>
+                    <ul>
+                        <li><strong>Name:</strong> Назва шаблону (наприклад: <code>[Trigger] FS_Welcome_Ukr</code>).</li>
+                        <li><strong>Message expiration period:</strong> Термін життя сповіщення в скриньці (за замовчуванням <strong>30 днів</strong>; для тимчасових акцій ставте <strong>7–14 днів</strong>).</li>
+                        <li><strong>Title:</strong> Короткий заголовок (до 40 символів).</li>
+                        <li><strong>Short preview for body:</strong> Текст прев'ю тосту (до 80 символів).</li>
+                        <li><strong>Icon:</strong> Квадратне зображення 128×128 px.</li>
+                    </ul>
+                </li>
+                <li><strong>Налаштування кнопок дій (CTA) та лінків:</strong>
+                    <div class="tip tip-danger">
+                        <strong>Увага: Не вставляйте лінки через &lt;a href="..."&gt; всередину Rich HTML!</strong>
+                        Тіло інбоксу рендериться в ізольованому Sandboxed-фреймі із захистом CSP. Будь-які посилання всередині HTML блокуються браузером і не відкриються. Всі кнопки налаштовуються <strong>виключно в окремих полях BackOffice</strong>!
+                    </div>
+                    <ul>
+                        <li><strong>Для Simple:</strong> поле <code>Deep link or URL</code>.</li>
+                        <li><strong>Для Rich:</strong> поля <code>CTA Primary Button Text</code> + <code>Deep link for Primary Button</code> (та за потреби Secondary).</li>
+                    </ul>
+                    <div class="tip tip-warning">
+                        <strong>Правило посилань: використовуйте ТІЛЬКИ відносні шляхи зі слешем <code>/</code>!</strong>
+                        Ніколи не пишіть <code>https://whitelabel.com/deposit</code> (це ламає авторизацію при грі на дзеркалах сайту).
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Розділ</th>
+                                <th>❌ Неправильно</th>
+                                <th>✅ Правильно для поля Deep link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Каса / Депозит</td>
+                                <td>https://site.com/deposit</td>
+                                <td><span class="inline-code">/deposit</span></td>
+                            </tr>
+                            <tr>
+                                <td>Бонуси</td>
+                                <td>https://site.com/bonuses</td>
+                                <td><span class="inline-code">/bonuses</span></td>
+                            </tr>
+                            <tr>
+                                <td>Місії (гейміфікація)</td>
+                                <td>—</td>
+                                <td><span class="inline-code">dp:gf_missions</span></td>
+                            </tr>
+                            <tr>
+                                <td>Турніри (гейміфікація)</td>
+                                <td>—</td>
+                                <td><span class="inline-code">dp:gf_tournaments</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li><strong>Тривалість показу тосту на сайті (Custom Data):</strong>
+                    <p>Оскільки віджет інтегровано через API, для збільшення часу показу тосту (щоб він не зникав за 5 сек) у блоці <strong>Additional settings</strong> знайдіть поле <strong>Extra parameters</strong> та вставте:</p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Копіювати</button>
+                        <div class="code-block">{"visibility_period_sec":10}</div>
+                    </div>
+                </li>
+                <li><strong>Перемикач прев'ю:</strong> Переконайтеся, що чекбокс <em>Show preview of the message for a short period if user is online</em> <strong>увімкнено</strong>.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 3: АНАЛІТИКА ТА ОФЛАЙН -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>3. Аналітика та DWH: Як працює доставка офлайн-гравцям і чому Delivered = Impression</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+            <h3 style="color: #1e3a8a; margin-bottom: 8px;">Специфіка каналу Inbox у Smartico:</h3>
+            <ul>
+                <li>На відміну від Email або SMS, для Inbox немає зовнішніх операторів зв'язку, тому окремий статус технічної доставки (<strong>Delivered, код 6</strong>) для цього каналу не формується.</li>
+                <li>В аналітичних BI-звітах та агрегованій статистиці комунікацій метрика <strong>Delivered для інбоксів автоматично прирівнюється до метрики Impression (показ)</strong>.</li>
+            </ul>
+
+            <h3 style="color: #1e3a8a; margin: 16px 0 8px 0;">Як фіксується доставка та показ (Онлайн vs Офлайн):</h3>
+            <ul>
+                <li><strong>Збереження (Sent):</strong> При спрацьовуванні кроку кампанії повідомлення <strong>миттєво записується в базу даних</strong> у віджеті Inbox (notification center) користувача зі статусом <code>Sent</code> — це відбувається як для онлайн-, так і для офлайн-гравців.</li>
+                <li><strong>Онлайн-гравці:</strong> Спливаюче прев'ю повідомлення (тост) відображається лише тим користувачам, які перебувають онлайн у момент відправки. <strong>Саме для них одразу реєструється факт Impression</strong> (і в звіт йде Delivered).</li>
+                <li><strong>Офлайн-гравці:</strong> Повідомлення залишається в їхній скриньці (якщо в налаштуваннях кроку кампанії вимкнено параметр <code>expire_on_timeout</code>, тобто повідомлення не згорає через таймаут). <strong>Статус Impression для них фіксується поступово</strong> — в момент, коли користувачі повертаються на сайт і відкривають сторінку або віджет повідомлень.</li>
+            </ul>
+
+            <div class="tip">
+                <strong>Де дивитися правильні дані:</strong>
+                <ul style="margin: 4px 0 0 16px;">
+                    <li><strong>Sent (Надіслано):</strong> показує загальний пул гравців, яким повідомлення було успішно згенеровано і записано в скриньку.</li>
+                    <li><strong>Delivered / Impression (Доставлено/Показ):</strong> показує реальну кількість гравців, які фізично побачили повідомлення (онлайн у момент пушу + ті офлайн-гравці, які повернулися пізніше).</li>
+                    <li><strong>Clicks:</strong> фіксує кліки по окремих CTA-кнопках шаблону через системну подію <code>reportClickEvent</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 4: ГОТОВІ ШАБЛОНИ -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>4. Готові еталонні шаблони (Чистий код та Live Preview)</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+
+            <!-- ШАБЛОН 1 -->
+            <div class="template-card">
+                <div class="template-card-header">
+                    <div class="template-badge">
+                        <span>🏷️</span> Шаблон ID: 274311 (v1_template_for_RP_simple — Без кнопок CTA)
+                    </div>
+                </div>
+
+                <div class="builder-grid">
+                    <div class="code-box">
+                        <div class="code-bar">
+                            <span>HTML-код для поля Rich Body</span>
+                            <button class="tmpl-copy-btn" data-target="code-1">📋 Копіювати код</button>
+                        </div>
+                        <pre class="code-view"><code id="code-1">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -689,34 +614,32 @@
   &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-          </div>
+                    </div>
 
-          <!-- Права колонка: Симуляція віджета -->
-          <div class="preview-box">
-            <div class="preview-header">📱 Live Render шаблону</div>
-            <div class="widget-mockup">
-              <iframe id="frame-1" class="widget-iframe"></iframe>
+                    <div class="preview-box">
+                        <div class="preview-header">📱 Live Render шаблону</div>
+                        <div class="widget-mockup">
+                            <iframe id="frame-1" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- ШАБЛОН 2 -->
-      <div class="template-card">
-        <div class="template-card-header">
-          <div class="template-badge">
-            <span>🏷️</span> Шаблон ID: 274312 (v3_template_for_RP_1button — Saturday Bonus)
-          </div>
-        </div>
+            <!-- ШАБЛОН 2 -->
+            <div class="template-card">
+                <div class="template-card-header">
+                    <div class="template-badge">
+                        <span>🏷️</span> Шаблон ID: 274312 (v3_template_for_RP_1button — Saturday Bonus)
+                    </div>
+                </div>
 
-        <div class="builder-grid">
-          <!-- Ліва колонка: Код -->
-          <div class="code-box">
-            <div class="code-bar">
-              <span>HTML-код для поля Rich Body</span>
-              <button class="copy-btn" data-target="code-2">📋 Копіювати код</button>
-            </div>
-            <pre class="code-view"><code id="code-2">&lt;!DOCTYPE html&gt;
+                <div class="builder-grid">
+                    <div class="code-box">
+                        <div class="code-bar">
+                            <span>HTML-код для поля Rich Body</span>
+                            <button class="tmpl-copy-btn" data-target="code-2">📋 Копіювати код</button>
+                        </div>
+                        <pre class="code-view"><code id="code-2">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -787,34 +710,32 @@
   &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-          </div>
+                    </div>
 
-          <!-- Права колонка: Симуляція віджета -->
-          <div class="preview-box">
-            <div class="preview-header">📱 Live Render шаблону</div>
-            <div class="widget-mockup">
-              <iframe id="frame-2" class="widget-iframe"></iframe>
+                    <div class="preview-box">
+                        <div class="preview-header">📱 Live Render шаблону</div>
+                        <div class="widget-mockup">
+                            <iframe id="frame-2" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- ШАБЛОН 3 -->
-      <div class="template-card">
-        <div class="template-card-header">
-          <div class="template-badge">
-            <span>🏷️</span> Шаблон ID: 274306 (v2_template_for_RP_2button — SPACE Promo)
-          </div>
-        </div>
+            <!-- ШАБЛОН 3 -->
+            <div class="template-card">
+                <div class="template-card-header">
+                    <div class="template-badge">
+                        <span>🏷️</span> Шаблон ID: 274306 (v2_template_for_RP_2button — SPACE Promo)
+                    </div>
+                </div>
 
-        <div class="builder-grid">
-          <!-- Ліва колонка: Код -->
-          <div class="code-box">
-            <div class="code-bar">
-              <span>HTML-код для поля Rich Body</span>
-              <button class="copy-btn" data-target="code-3">📋 Копіювати код</button>
-            </div>
-            <pre class="code-view"><code id="code-3">&lt;!DOCTYPE html&gt;
+                <div class="builder-grid">
+                    <div class="code-box">
+                        <div class="code-bar">
+                            <span>HTML-код для поля Rich Body</span>
+                            <button class="tmpl-copy-btn" data-target="code-3">📋 Копіювати код</button>
+                        </div>
+                        <pre class="code-view"><code id="code-3">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -846,85 +767,86 @@
   &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-          </div>
+                    </div>
 
-          <!-- Права колонка: Симуляція віджета -->
-          <div class="preview-box">
-            <div class="preview-header">📱 Live Render шаблону</div>
-            <div class="widget-mockup">
-              <iframe id="frame-3" class="widget-iframe"></iframe>
+                    <div class="preview-box">
+                        <div class="preview-header">📱 Live Render шаблону</div>
+                        <div class="widget-mockup">
+                            <iframe id="frame-3" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-      </div>
-
     </div>
-  </div>
 
-  <!-- Футер -->
-  <footer>
-    <p>📧 При виникненні технічних питань або помилок — зверніться до відділу Retention Platform Development.</p>
-    <p style="margin-top: 5px; opacity: 0.8;">© Smartico.ai – Інструкція з налаштування Inbox для WhiteLabel</p>
-  </footer>
-
+    <div class="footer">
+        <p>📧 При виникненні питань — зверніться до відділу Retention Platform Development</p>
+        <p style="margin-top: 4px; color: #94a3b8;">© Smartico.ai – Inbox Guide for WhiteLabel</p>
+    </div>
 </div>
 
-<!-- Скрипти -->
 <script>
-  // 1. Акордеон
-  document.querySelectorAll('.section-header').forEach(header => {
-    header.addEventListener('click', () => {
-      header.parentElement.classList.toggle('collapsed');
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.parentElement.classList.toggle('active');
+        });
     });
-  });
 
-  const btnExpand = document.getElementById('btn-expand-all');
-  const btnCollapse = document.getElementById('btn-collapse-all');
-
-  if (btnExpand) {
-    btnExpand.addEventListener('click', () => {
-      document.querySelectorAll('.section-card').forEach(card => card.classList.remove('collapsed'));
-    });
-  }
-
-  if (btnCollapse) {
-    btnCollapse.addEventListener('click', () => {
-      document.querySelectorAll('.section-card').forEach(card => card.classList.add('collapsed'));
-    });
-  }
-
-  // 2. Копіювання коду
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      const codeEl = document.getElementById(targetId);
-      if (!codeEl) return;
-      navigator.clipboard.writeText(codeEl.textContent.trim()).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '✅ Скопійовано!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    });
-  });
-
-  // 3. Заповнення live preview iframe чистим HTML шаблону
-  [1, 2, 3].forEach(num => {
-    const codeEl = document.getElementById('code-' + num);
-    const frame = document.getElementById('frame-' + num);
-    if (codeEl && frame) {
-      // Підставляємо ім'я для тегів Smartico під час попереднього перегляду
-      let htmlToRender = codeEl.textContent
-        .replace(/\{\{state\.core_username\|Bro\}\}/g, 'Alex')
-        .replace(/\{\{username\}\}/g, 'Alex');
-      
-      frame.srcdoc = htmlToRender;
+    function expandAll() {
+        document.querySelectorAll('.accordion-item').forEach(item => item.classList.add('active'));
     }
-  });
+
+    function collapseAll() {
+        document.querySelectorAll('.accordion-item').forEach(item => item.classList.remove('active'));
+    }
+
+    function copyCode(btn) {
+        const text = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const old = btn.innerText;
+            btn.innerText = 'Скопійовано!';
+            btn.style.background = '#16a34a';
+            setTimeout(() => {
+                btn.innerText = old;
+                btn.style.background = '#334155';
+            }, 2000);
+        });
+    }
+
+    // 4. Копіювання коду шаблонів (секція 4)
+    document.querySelectorAll('.tmpl-copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const codeEl = document.getElementById(targetId);
+            if (!codeEl) return;
+            navigator.clipboard.writeText(codeEl.textContent.trim()).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Скопійовано!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    });
+
+    // 5. Рендер Live Preview у iframe для секції 4
+    [1, 2, 3].forEach(num => {
+        const codeEl = document.getElementById('code-' + num);
+        const frame = document.getElementById('frame-' + num);
+        if (codeEl && frame) {
+            let htmlToRender = codeEl.textContent
+                .replace(/\{\{state\.core_username\|Bro\}\}/g, 'Alex')
+                .replace(/\{\{username\}\}/g, 'Alex');
+
+            frame.srcdoc = htmlToRender;
+        }
+    });
 </script>
 
 </body>
 </html>
+
