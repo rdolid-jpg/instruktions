@@ -1,5 +1,5 @@
 {
-  "slug": "DARTS_TEST",
+  "slug": "DARTS",
   "info_number_attempts_before_start": "You have <strong>{left} attempts</strong> to win a prize!",
   "popup_attempts_left_text": "Attempts left: <strong>{left} of {max}</strong>",
   "popup_no_attempts_left_text": "No attempts left",
@@ -15,4 +15,7 @@
 }
 
 { "short_name": "20 Free Spins" }
+
+
+
 

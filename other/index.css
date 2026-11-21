@@ -1,0 +1,18 @@
+.coin-flip-container .game-subtitle {
+    color: #FCFCFC !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+}
+.coin-flip-container .saw-game-cost {
+    color: #fff;
+    font-size: 16px;
+    display: none !important;
+}
+.saw-modal-container-new .saw-modal-body-content {
+    color: #FFF;
+    max-width: 268px !important;
+}
+
+

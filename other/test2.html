@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція з Inbox у Smartico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #bfdbfe 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 44px;
+            height: 44px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+            transition: transform 0.2s;
+            z-index: 10;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-top: 5px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header .subtitle {
+            font-size: 1.05rem;
+            color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .tools-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .tool-btn {
+            background: #ffffff;
+            border: 1px solid #bfdbfe;
+            color: #1d4ed8;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tool-btn:hover {
+            background: #1d4ed8;
+            color: #ffffff;
+        }
+
+        .accordion-item {
+            margin-bottom: 14px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.06);
+            background: #ffffff;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: #ffffff;
+            padding: 16px 22px;
+            text-align: left;
+            border: none;
+            cursor: pointer;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
+
+        .accordion-header .arrow {
+            transition: transform 0.25s;
+        }
+
+        .accordion-item.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 24px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        .tip {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            color: #1e293b;
+        }
+
+        .tip-warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .tip-danger {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .tip strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 14px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            .accordion-content {
+                padding: 16px;
+            }
+        }
+
+        .card-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .card-box h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #1e3a8a;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 0.93rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+
+        .code-container {
+            position: relative;
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 10px 0;
+        }
+
+        .code-block {
+            color: #38bdf8;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #334155;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .inline-code {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../index.html" class="home-btn" title="На головну">🏠</a>
+
+    <div class="header">
+        <h1>📬 Inbox у Smartico</h1>
+        <div class="subtitle">Практична інструкція: формати, налаштування та специфіка аналітики</div>
+    </div>
+
+    <div class="tools-bar">
+        <button class="tool-btn" onclick="expandAll()">Розгорнути всі</button>
+        <button class="tool-btn" onclick="collapseAll()">Згорнути всі</button>
+    </div>
+
+    <!-- РОЗДІЛ 1: ФОРМАТИ -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>1. Що таке Inbox і різниця між Simple та Rich</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+            <p><strong>Inbox</strong> — це внутрішній центр сповіщень сайту (іконка дзвіночка). На відміну від попапу, він з'являється у кутку екрана у вигляді спливаючого тосту, не перериває гру в слотах і залишається у списку повідомлень у віджеті.</p>
+
+            <div class="grid-2">
+                <div class="card-box">
+                    <h3>Simple Inbox</h3>
+                    <ul>
+                        <li><strong>Склад:</strong> Іконка + Заголовок + Короткий текст (прев'ю).</li>
+                        <li><strong>Клік:</strong> Одразу переводить користувача за вказаним лінком без відкриття віджета.</li>
+                        <li><strong>Застосування:</strong> Короткі тригерні новини на 1 клік («Депозит зараховано», «Нараховано 20 FS»).</li>
+                    </ul>
+                </div>
+                <div class="card-box">
+                    <h3>Rich Body Inbox</h3>
+                    <ul>
+                        <li><strong>Склад:</strong> Прев'ю + Повноцінний HTML-опис (банери, правила, умови) + до 2 кнопок дій (CTA).</li>
+                        <li><strong>Клік:</strong> Розгортає вікно повідомлення у віджеті, де користувач читає умови та обирає кнопку.</li>
+                        <li><strong>Застосування:</strong> Промо-акції, турніри, депозитні бонуси, де потрібен опис та банер.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 2: ПОКРОКОВЕ НАЛАШТУВАННЯ ТА ЛІНКИ -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>2. Покрокове налаштування шаблону (Чеклист, лінки та кнопки)</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+            <ol>
+                <li><strong>Створення:</strong> Перейдіть у <code>Marketing &rarr; Inbox &rarr; New Inbox</code>.</li>
+                <li><strong>Базові поля (General):</strong>
+                    <ul>
+                        <li><strong>Name:</strong> Назва шаблону (наприклад: <code>[Trigger] FS_Welcome_Ukr</code>).</li>
+                        <li><strong>Message expiration period:</strong> Термін життя сповіщення в скриньці (за замовчуванням <strong>30 днів</strong>; для тимчасових акцій ставте <strong>7–14 днів</strong>).</li>
+                        <li><strong>Title:</strong> Короткий заголовок (до 40 символів).</li>
+                        <li><strong>Short preview for body:</strong> Текст прев'ю тосту (до 80 символів).</li>
+                        <li><strong>Icon:</strong> Квадратне зображення 128×128 px.</li>
+                    </ul>
+                </li>
+                <li><strong>Налаштування кнопок дій (CTA) та лінків:</strong>
+                    <div class="tip tip-danger">
+                        <strong>Увага: Не вставляйте лінки через &lt;a href="..."&gt; всередину Rich HTML!</strong>
+                        Тіло інбоксу рендериться в ізольованому Sandboxed-фреймі із захистом CSP. Будь-які посилання всередині HTML блокуються браузером і не відкриються. Всі кнопки налаштовуються <strong>виключно в окремих полях BackOffice</strong>!
+                    </div>
+                    <ul>
+                        <li><strong>Для Simple:</strong> поле <code>Deep link or URL</code>.</li>
+                        <li><strong>Для Rich:</strong> поля <code>CTA Primary Button Text</code> + <code>Deep link for Primary Button</code> (та за потреби Secondary).</li>
+                    </ul>
+                    <div class="tip tip-warning">
+                        <strong>Правило посилань: використовуйте ТІЛЬКИ відносні шляхи зі слешем <code>/</code>!</strong>
+                        Ніколи не пишіть <code>https://whitelabel.com/deposit</code> (це ламає авторизацію при грі на дзеркалах сайту).
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Розділ</th>
+                                <th>❌ Неправильно</th>
+                                <th>✅ Правильно для поля Deep link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Каса / Депозит</td>
+                                <td>https://site.com/deposit</td>
+                                <td><span class="inline-code">/deposit</span></td>
+                            </tr>
+                            <tr>
+                                <td>Бонуси</td>
+                                <td>https://site.com/bonuses</td>
+                                <td><span class="inline-code">/bonuses</span></td>
+                            </tr>
+                            <tr>
+                                <td>Місії (гейміфікація)</td>
+                                <td>—</td>
+                                <td><span class="inline-code">dp:gf_missions</span></td>
+                            </tr>
+                            <tr>
+                                <td>Турніри (гейміфікація)</td>
+                                <td>—</td>
+                                <td><span class="inline-code">dp:gf_tournaments</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li><strong>Тривалість показу тосту на сайті (Custom Data):</strong>
+                    <p>Оскільки віджет інтегровано через API, для збільшення часу показу тосту (щоб він не зникав за 5 сек) у блоці <strong>Additional settings</strong> знайдіть поле <strong>Extra parameters</strong> та вставте:</p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Копіювати</button>
+                        <div class="code-block">{"visibility_period_sec":10}</div>
+                    </div>
+                </li>
+                <li><strong>Перемикач прев'ю:</strong> Переконайтеся, що чекбокс <em>Show preview of the message for a short period if user is online</em> <strong>увімкнено</strong>.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 3: АНАЛІТИКА ТА ОФЛАЙН -->
+    <div class="accordion-item active">
+        <button class="accordion-header">
+            <span>3. Аналітика та DWH: Як працює доставка офлайн-гравцям і чому Delivered = Impression</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="accordion-content">
+            <h3 style="color: #1e3a8a; margin-bottom: 8px;">Специфіка каналу Inbox у Smartico:</h3>
+            <ul>
+                <li>На відміну від Email або SMS, для Inbox немає зовнішніх операторів зв'язку, тому окремий статус технічної доставки (<strong>Delivered, код 6</strong>) для цього каналу не формується.</li>
+                <li>В аналітичних BI-звітах та агрегованій статистиці комунікацій метрика <strong>Delivered для інбоксів автоматично прирівнюється до метрики Impression (показ)</strong>.</li>
+            </ul>
+
+            <h3 style="color: #1e3a8a; margin: 16px 0 8px 0;">Як фіксується доставка та показ (Онлайн vs Офлайн):</h3>
+            <ul>
+                <li><strong>Збереження (Sent):</strong> При спрацьовуванні кроку кампанії повідомлення <strong>миттєво записується в базу даних</strong> у віджеті Inbox (notification center) користувача зі статусом <code>Sent</code> — це відбувається як для онлайн-, так і для офлайн-гравців.</li>
+                <li><strong>Онлайн-гравці:</strong> Спливаюче прев'ю повідомлення (тост) відображається лише тим користувачам, які перебувають онлайн у момент відправки. <strong>Саме для них одразу реєструється факт Impression</strong> (і в звіт йде Delivered).</li>
+                <li><strong>Офлайн-гравці:</strong> Повідомлення залишається в їхній скриньці (якщо в налаштуваннях кроку кампанії вимкнено параметр <code>expire_on_timeout</code>, тобто повідомлення не згорає через таймаут). <strong>Статус Impression для них фіксується поступово</strong> — в момент, коли користувачі повертаються на сайт і відкривають сторінку або віджет повідомлень.</li>
+            </ul>
+
+            <div class="tip">
+                <strong>Де дивитися правильні дані:</strong>
+                <ul style="margin: 4px 0 0 16px;">
+                    <li><strong>Sent (Надіслано):</strong> показує загальний пул гравців, яким повідомлення було успішно згенеровано і записано в скриньку.</li>
+                    <li><strong>Delivered / Impression (Доставлено/Показ):</strong> показує реальну кількість гравців, які фізично побачили повідомлення (онлайн у момент пушу + ті офлайн-гравці, які повернулися пізніше).</li>
+                    <li><strong>Clicks:</strong> фіксує кліки по окремих CTA-кнопках шаблону через системну подію <code>reportClickEvent</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📧 При виникненні питань — зверніться до відділу Retention Platform Development</p>
+        <p style="margin-top: 4px; color: #94a3b8;">© Smartico.ai – Inbox Guide for WhiteLabel</p>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.parentElement.classList.toggle('active');
+        });
+    });
+
+    function expandAll() {
+        document.querySelectorAll('.accordion-item').forEach(item => item.classList.add('active'));
+    }
+
+    function collapseAll() {
+        document.querySelectorAll('.accordion-item').forEach(item => item.classList.remove('active'));
+    }
+
+    function copyCode(btn) {
+        const text = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const old = btn.innerText;
+            btn.innerText = 'Скопійовано!';
+            btn.style.background = '#16a34a';
+            setTimeout(() => {
+                btn.innerText = old;
+                btn.style.background = '#334155';
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>

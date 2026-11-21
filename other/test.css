@@ -1,0 +1,117 @@
+/* ========== PRIZES POSITIONING STYLES (25 DAYS MAP) ========== */
+
+/* Desktop positioning for prizes (під розмір 1835x3895 px) */
+.desktop-prize-1  { top: 15.9% !important; left: 46.3% !important; right: auto !important; }
+.desktop-prize-2  { top: 20.1% !important; left: 57.2% !important; right: auto !important; }
+.desktop-prize-3  { top: 24.0% !important; left: 46.9% !important; right: auto !important; }
+.desktop-prize-4  { top: 26.6% !important; left: 35.1% !important; right: auto !important; }
+.desktop-prize-5  { top: 30.9% !important; left: 41.5% !important; right: auto !important; }
+.desktop-prize-6  { top: 34.0% !important; left: 56.7% !important; right: auto !important; }
+.desktop-prize-7  { top: 37.7% !important; left: 66.3% !important; right: auto !important; }
+.desktop-prize-8  { top: 41.5% !important; left: 57.6% !important; right: auto !important; }
+.desktop-prize-9  { top: 44.0% !important; left: 45.1% !important; right: auto !important; }
+.desktop-prize-10 { top: 45.6% !important; left: 34.0% !important; right: auto !important; }
+.desktop-prize-11 { top: 50% !important; left: 26.3% !important; right: auto !important; }
+.desktop-prize-12 { top: 52.7% !important; left: 37.2% !important; right: auto !important; }
+.desktop-prize-13 { top: 55.6% !important; left: 49.4% !important; right: auto !important; }
+.desktop-prize-14 { top: 58.1% !important; left: 61.1% !important; right: auto !important; }
+.desktop-prize-15 { top: 62.0% !important; left: 67.3% !important; right: auto !important; }
+.desktop-prize-16 { top: 65.1% !important; left: 56.3% !important; right: auto !important; }
+.desktop-prize-17 { top: 67.6% !important; left: 47.2% !important; right: auto !important; }
+.desktop-prize-18 { top: 69.5% !important; left: 35.4% !important; right: auto !important; }
+.desktop-prize-19 { top: 72.5% !important; left: 24.3% !important; right: auto !important; }
+.desktop-prize-20 { top: 76.1% !important; left: 33.0% !important; right: auto !important; }
+.desktop-prize-21 { top: 80.0% !important; left: 43.0% !important; right: auto !important; }
+.desktop-prize-22 { top: 83.1% !important; left: 55.6% !important; right: auto !important; }
+.desktop-prize-23 { top: 86.5% !important; left: 64.2% !important; right: auto !important; }
+.desktop-prize-24 { top: 91.4% !important; left: 65.1% !important; right: auto !important; }
+.desktop-prize-25 { top: 96.5% !important; left: 63.2% !important; right: auto !important; }
+
+/* Mobile positioning for prizes (під розмір 527x3260 px) */
+.mobile-prize-1  { top: 53em !important;    left: 27em !important; right: auto !important; }
+.mobile-prize-2  { top: 71em !important;    left: 53em !important; right: auto !important; }
+.mobile-prize-3  { top: 94em !important;    left: 33em !important; right: auto !important; }
+.mobile-prize-4  { top: 130em !important;   left: 38em !important; right: auto !important; }
+.mobile-prize-5  { top: 161em !important;   left: 56em !important; right: auto !important; }
+.mobile-prize-6  { top: 186em !important;   left: 75em !important; right: auto !important; }
+.mobile-prize-7  { top: 210em !important;   left: 59em !important; right: auto !important; }
+.mobile-prize-8  { top: 233em !important;   left: 38em !important; right: auto !important; }
+.mobile-prize-9  { top: 257em !important;   left: 24em !important; right: auto !important; }
+.mobile-prize-10 { top: 281em !important;   left: 43em !important; right: auto !important; }
+.mobile-prize-11 { top: 300em !important;   left: 65em !important; right: auto !important; }
+.mobile-prize-12 { top: 325em !important;   left: 77em !important; right: auto !important; }
+.mobile-prize-13 { top: 348em !important;   left: 57em !important; right: auto !important; }
+.mobile-prize-14 { top: 365em !important;   left: 35em !important; right: auto !important; }
+.mobile-prize-15 { top: 386em !important;   left: 23em !important; right: auto !important; }
+.mobile-prize-16 { top: 411em !important;   left: 49em !important; right: auto !important; }
+.mobile-prize-17 { top: 436em !important;   left: 68em !important; right: auto !important; }
+.mobile-prize-18 { bottom: 159em !important; left: 81em !important; right: auto !important; }
+.mobile-prize-19 { bottom: 137em !important; left: 67em !important; right: auto !important; }
+.mobile-prize-20 { bottom: 116em !important; left: 44em !important; right: auto !important; }
+.mobile-prize-21 { bottom: 92em !important;  left: 28em !important; right: auto !important; }
+.mobile-prize-22 { bottom: 67em !important;  left: 48em !important; right: auto !important; }
+.mobile-prize-23 { bottom: 47em !important;  left: 68em !important; right: auto !important; }
+.mobile-prize-24 { bottom: 26em !important;  left: 82em !important; right: auto !important; }
+.mobile-prize-25 { bottom: 8em !important;   left: 63em !important; right: auto !important; }
+
+
+
+
+
+
+/* ========== PRIZES POSITIONING STYLES ========== */
+/* Prizes position, each starts from 1 */
+/* Max cap 7 prizes if Lootbox is Weekly and up to 31 for Lootbox Daily */
+/* 1. ПОЗИЦІОНУВАННЯ 25 СКРИНЬ (DESKTOP: 1835x3895 px) */
+.desktop-prize-1  { top: 18% !important; left: 47% !important; right: auto !important; }
+.desktop-prize-2  { top: 21% !important; left: 56% !important; right: auto !important; }
+.desktop-prize-3  { top: 24.0% !important; left: 46.9% !important; right: auto !important; }
+.desktop-prize-4  { top: 27% !important; left: 36% !important; right: auto !important; }
+.desktop-prize-5  { top: 30.9% !important; left: 41.5% !important; right: auto !important; }
+.desktop-prize-6  { top: 34.0% !important; left: 56.7% !important; right: auto !important; }
+.desktop-prize-7  { top: 37.0% !important; left: 66.3% !important; right: auto !important; }
+.desktop-prize-8  { top: 41.5% !important; left: 57.6% !important; right: auto !important; }
+.desktop-prize-9  { top: 44.0% !important; left: 45.1% !important; right: auto !important; }
+.desktop-prize-10 { top: 45.6% !important; left: 34.0% !important; right: auto !important; }
+.desktop-prize-11 { top: 49.6% !important; left: 25.3% !important; right: auto !important; }
+.desktop-prize-12 { top: 52.7% !important; left: 37.2% !important; right: auto !important; }
+.desktop-prize-13 { top: 54.6% !important; left: 52.8% !important; right: auto !important; }
+.desktop-prize-14 { top: 58.1% !important; left: 61.1% !important; right: auto !important; }
+.desktop-prize-15 { top: 61.0% !important; left: 69.3% !important; right: auto !important; }
+.desktop-prize-16 { top: 65.1% !important; left: 56.3% !important; right: auto !important; }
+.desktop-prize-17 { top: 68.0% !important; left: 49.7% !important; right: auto !important; }
+.desktop-prize-18 { top: 69.5% !important; left: 35.4% !important; right: auto !important; }
+.desktop-prize-19 { top: 72.5% !important; left: 24.3% !important; right: auto !important; }
+.desktop-prize-20 { top: 76.1% !important; left: 33.0% !important; right: auto !important; }
+.desktop-prize-21 { top: 80.0% !important; left: 42.0% !important; right: auto !important; }
+.desktop-prize-22 { top: 83.1% !important; left: 55.6% !important; right: auto !important; }
+.desktop-prize-23 { top: 86.5% !important; left: 64.2% !important; right: auto !important; }
+.desktop-prize-24 { top: 90.4% !important; left: 69.1% !important; right: auto !important; }
+.desktop-prize-25 { top: 96.5% !important; left: 63.2% !important; right: auto !important; }
+
+/* 2. ПОЗИЦІОНУВАННЯ 25 СКРИНЬ (MOBILE: 527x3260 px) */
+.mobile-prize-1  { top: 69em !important;    left: 26em !important; right: auto !important; }
+.mobile-prize-2  { top: 91em !important;    left: 42em !important; right: auto !important; }
+.mobile-prize-3  { top: 120em !important;    left: 33em !important; right: auto !important; }
+.mobile-prize-4  { top: 144em !important;   left: 37em !important; right: auto !important; }
+.mobile-prize-5  { top: 161em !important;   left: 56em !important; right: auto !important; }
+.mobile-prize-6  { top: 184em !important;   left: 65em !important; right: auto !important; }
+.mobile-prize-7  { top: 209em !important;   left: 53em !important; right: auto !important; }
+.mobile-prize-8  { top: 228em !important;   left: 34em !important; right: auto !important; }
+.mobile-prize-9  { top: 257em !important;   left: 36em !important; right: auto !important; }
+.mobile-prize-10 { top: 274em !important;   left: 53em !important; right: auto !important; }
+.mobile-prize-11 { top: 296em !important;   left: 67em !important; right: auto !important; }
+.mobile-prize-12 { top: 322em !important;   left: 55em !important; right: auto !important; }
+.mobile-prize-13 { top: 341em !important;   left: 36em !important; right: auto !important; }
+.mobile-prize-14 { top: 367em !important;   left: 33em !important; right: auto !important; }
+.mobile-prize-15 { top: 389em !important;   left: 50em !important; right: auto !important; }
+.mobile-prize-16 { top: 429em !important;   left: 75em !important; right: auto !important; }
+.mobile-prize-17 { top: 436em !important;   left: 68em !important; right: auto !important; }
+.mobile-prize-18 { bottom: 137em !important; left: 64em !important; right: auto !important; }
+.mobile-prize-19 { bottom: 121em !important; left: 47em !important; right: auto !important; }
+.mobile-prize-20 { bottom: 104em !important; left: 31em !important; right: auto !important; }
+.mobile-prize-21 { bottom: 81em !important;  left: 32em !important; right: auto !important; }
+.mobile-prize-22 { bottom: 66em !important;  left: 47em !important; right: auto !important; }
+.mobile-prize-23 { bottom: 51em !important;  left: 63em !important; right: auto !important; }
+.mobile-prize-24 { bottom: 32em !important;  left: 75em !important; right: auto !important; }
+.mobile-prize-25 { bottom: 13em !important;   left: 64em !important; right: auto !important; }
