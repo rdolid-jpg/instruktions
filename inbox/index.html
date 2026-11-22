@@ -935,55 +935,6 @@
                         </div>
                     </div>
                     <pre style="display:none;"><code id="s5-code-2">
-<!-- &lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="UTF-8"&gt;
-&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-&lt;title&gt;Kingroom Promo&lt;/title&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-  body, .inbox-card {
-    margin: 0;
-    padding: 0;
-    background-color: #FFFFFF;
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    color: #5D6175;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-  }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body style="margin:0;padding:0;background-color:#FFFFFF;"&gt;
-&lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#FFFFFF;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#5D6175;overflow:hidden;"&gt;
-  &lt;!-- Header card (image + gradient banner) --&gt;
-  &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 14px 24px -4px rgba(67,53,214,0.16);"&gt;
-    &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeGlaRFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2c07aa36231ed6ab93e308d6af9fab86743a3d01/achievement_jyl.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
-    &lt;div style="padding:16px;background:linear-gradient(180deg,#EEEEFD 0%,#E8E8FC 100%);"&gt;
-      &lt;h1 style="margin:0;font-size:20px;font-weight:600;line-height:24px;color:#181926;"&gt;
-        Hi {{state.core_username|Bro}},
-      &lt;/h1&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;!-- Body content --&gt;
-  &lt;div style="padding:24px 16px 0;"&gt;
-    &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;color:#5D6175;"&gt;
-      Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:
-    &lt;/p&gt;
-    &lt;p style="margin:0 0 12px;font-size:16px;font-weight:600;line-height:23px;color:#3F32CE;"&gt;
-      x740 by Liya&lt;br&gt;
-      x538 by Maya&lt;br&gt;
-      x390 by Nick
-    &lt;/p&gt;
-    &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;color:#5D6175;"&gt;
-      Want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨
-    &lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt; -->
-
-
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -1272,9 +1223,6 @@
 .ib-code-sec{padding:24px 0;box-sizing:border-box;width:100%}
 .ib-code__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .ib-code__card{position:relative;box-sizing:border-box;padding:14px 36px 14px 12px;text-align:center;border-radius:14px;border:2px dashed #ffc83d;background:#1e0516;flex:1 1 100%;max-width:100%}
-.ib-code__copy{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:8px;border:1px solid rgba(255,200,61,.35);background:rgba(255,255,255,.06);color:#ffc83d;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease}
-.ib-code__copy:hover{background:rgba(255,200,61,.18);border-color:#ffc83d;transform:scale(1.05)}
-.ib-code__copy.is-copied{background:rgba(22,163,74,.25);border-color:#22c55e;color:#4ade80}
 .ib-code__label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#b79fc2;font-weight:600}
 .ib-code__value{display:inline-block;margin-top:4px;font-size:24px;font-weight:900;letter-spacing:.16em;color:#ffc83d;text-shadow:0 0 14px rgba(255,200,61,.6);animation:ib-code-pulse 2s ease-in-out infinite}
 .ib-code__hint{margin-top:4px;font-size:11px;color:#a595b3}
@@ -1282,8 +1230,7 @@
 
 <section class="ib-code-sec">
   <div class="ib-code__grid">
-    <div class="ib-code__card">
-      <button type="button" class="ib-code__copy" title="Copy promo code" aria-label="Copy promo code" onclick="(function(btn){var card=btn.closest('.ib-code__card');var valEl=card&&card.querySelector('.ib-code__value');var text=valEl?valEl.textContent.trim():'';if(!text)return;var done=function(){var prev=btn.innerHTML;btn.innerHTML='✓';btn.classList.add('is-copied');setTimeout(function(){btn.innerHTML=prev;btn.classList.remove('is-copied');},1600);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(function(){});}else{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}})(this)">📋</button>
+    <div class="ib-code__card">      
       <div class="ib-code__label">Your promo code</div>
       <div class="ib-code__value">BOOST200</div>
       <div class="ib-code__hint">Enter at deposit · valid 72 hours</div>
@@ -1410,9 +1357,9 @@
 .ib-timeline{position:relative;list-style:none;padding-left:0}
 .ib-timeline__step{position:relative;padding:0 0 8px 44px}
 .ib-timeline__step:last-child{padding-bottom:0}
-.ib-timeline__step::after{content:"";position:absolute;left:14px;top:19px;height: 100%;width:2px;z-index: -1;background:linear-gradient(180deg,rgba(255, 160, 0, 0.8), rgba(255, 255, 123, 0.5),transparent)}
+.ib-timeline__step::after{content:"";position:absolute;left:14px;top:19px;height: 100%;width:2px;z-index:0;background:linear-gradient(180deg,rgba(255, 160, 0, 0.8), rgba(255, 255, 123, 0.5),transparent)}
 .ib-timeline__step:last-child::after{content:none}
-.ib-timeline__num{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FFA000,#FFFF7B);color:#000a12;font-weight:900;text-align:center;line-height:33px;font-size:13px;box-shadow:0 0 10px rgba(255,160,0,.4)}
+.ib-timeline__num{position:absolute;z-index:1;left:0;top:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FFA000,#FFFF7B);color:#000a12;font-weight:900;text-align:center;line-height:33px;font-size:13px;box-shadow:0 0 10px rgba(255,160,0,.4)}
 .ib-timeline__title{display:block;color:#fff;font-size:13px;font-weight:700}
 .ib-timeline__desc{font-size:12px;color:#b9a8c6}
 </style>
@@ -1634,9 +1581,6 @@
 .ib-code-sec{padding:24px 0;box-sizing:border-box;width:100%}
 .ib-code__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .ib-code__card{position:relative;box-sizing:border-box;padding:14px 36px 14px 12px;text-align:center;border-radius:14px;border:1px dashed #E89AB6;background:#FDF0F5;flex:1 1 100%;max-width:100%}
-.ib-code__copy{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:8px;border:1px solid #E89AB6;background:#FFFFFF;color:#D8316C;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease}
-.ib-code__copy:hover{background:#FDF0F5;border-color:#D8316C;transform:scale(1.05)}
-.ib-code__copy.is-copied{background:rgba(75,227,172,.2);border-color:#4BE3AC;color:#181926}
 .ib-code__label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#8E93A6;font-weight:600}
 .ib-code__value{display:inline-block;margin-top:4px;font-size:24px;font-weight:900;letter-spacing:.16em;color:#D8316C;animation:ib-code-pulse 2s ease-in-out infinite}
 .ib-code__hint{margin-top:4px;font-size:11px;color:#8E93A6}
@@ -1645,7 +1589,6 @@
 <section class="ib-code-sec">
   <div class="ib-code__grid">
     <div class="ib-code__card">
-      <button type="button" class="ib-code__copy" title="Copy promo code" aria-label="Copy promo code" onclick="(function(btn){var card=btn.closest('.ib-code__card');var valEl=card&&card.querySelector('.ib-code__value');var text=valEl?valEl.textContent.trim():'';if(!text)return;var done=function(){var prev=btn.innerHTML;btn.innerHTML='✓';btn.classList.add('is-copied');setTimeout(function(){btn.innerHTML=prev;btn.classList.remove('is-copied');},1600);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(function(){});}else{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}})(this)">📋</button>
       <div class="ib-code__label">Your promo code</div>
       <div class="ib-code__value">BOOST200</div>
       <div class="ib-code__hint">Enter at deposit · valid 72 hours</div>
@@ -1772,9 +1715,9 @@
 .ib-timeline{position:relative;list-style:none;padding-left:0}
 .ib-timeline__step{position:relative;padding:0 0 8px 44px}
 .ib-timeline__step:last-child{padding-bottom:0}
-.ib-timeline__step::after{content:"";position:absolute;left:14px;top:19px;height: 100%;width:2px;z-index: -1;background:linear-gradient(180deg,#4335D6,#6e2cf27d,transparent)}
+.ib-timeline__step::after{content:"";position:absolute;left:14px;top:19px;height: 100%;width:2px;z-index:0;background:linear-gradient(180deg,#4335D6,#6e2cf27d,transparent)}
 .ib-timeline__step:last-child::after{content:none}
-.ib-timeline__num{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#3A2AD8,#6E2CF2);color:#FFFFFF;font-weight:900;text-align:center;line-height:30px;font-size:13px;box-shadow:0 4px 10px rgba(67,53,214,.25)}
+.ib-timeline__num{position:absolute;z-index:1;left:0;top:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#3A2AD8,#6E2CF2);color:#FFFFFF;font-weight:900;text-align:center;line-height:30px;font-size:13px;box-shadow:0 4px 10px rgba(67,53,214,.25)}
 .ib-timeline__title{display:block;color:#181926;font-size:13px;font-weight:700}
 .ib-timeline__desc{font-size:12px;color:#5D6175}
 </style>
@@ -1808,7 +1751,7 @@
 <section class="ib-vip-prog-sec">
   <div class="ib-vip-prog">
     <div class="ib-vip-prog__head">
-      <img class="ib-vip-prog__badge" src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeGlaRFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2c07aa36231ed6ab93e308d6af9fab86743a3d01/achievement_jyl.png" alt="VIP Badge">
+      <img class="ib-vip-prog__badge" src="https://static7.smr.vc/b0af233e4084cab28bdf96-Icons_Status_Diamond_512.webp" alt="VIP Badge">
       <div><h3 class="ib-vip-prog__title">VIP Gold → Diamond</h3><p class="ib-vip-prog__sub">Earn Season Points toward <b style="color:#181926;">Diamond</b> status! 💎</p></div>
     </div>
     <div class="ib-vip-prog__bar-box"><div class="ib-vip-prog__meta"><span>Season Points</span><b style="color:#181926;">7 450 / 10 000</b></div><div class="ib-vip-prog__track"><div class="ib-vip-prog__fill" style="width:74%;"></div></div></div>
