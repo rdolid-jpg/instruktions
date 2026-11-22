@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція з Inbox у Smartico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #bfdbfe 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 44px;
+            height: 44px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+            transition: transform 0.2s;
+            z-index: 10;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-top: 5px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header .subtitle {
+            font-size: 1.05rem;
+            color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .tools-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .tool-btn {
+            background: #ffffff;
+            border: 1px solid #bfdbfe;
+            color: #1d4ed8;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tool-btn:hover {
+            background: #1d4ed8;
+            color: #ffffff;
+        }
+
+        .accordion-item {
+            margin-bottom: 14px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.06);
+            background: #ffffff;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: #ffffff;
+            padding: 16px 22px;
+            text-align: left;
+            border: none;
+            cursor: pointer;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
+
+        .accordion-header .arrow {
+            transition: transform 0.25s;
+            font-size: 1.8rem;
+        }
+
+        .accordion-item.active .arrow {
+            transform: rotate(135deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 24px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        .tip {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            color: #1e293b;
+        }
+
+        .tip-warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .tip-danger {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .tip strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 14px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            .accordion-content {
+                padding: 16px;
+            }
+        }
+
+        .card-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .card-box h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #1e3a8a;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 0.93rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+
+        .code-container {
+            position: relative;
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 10px 0;
+        }
+
+        .code-block {
+            color: #d1ff05;
+            font-family: monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #334155;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .inline-code {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        /* ===== Секція 4: Прев'ю шаблонів у ряд ===== */
+        .templates-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .templates-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .template-preview-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            gap: 8px;
+        }
+
+        .template-badge {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            line-height: 1.3;
+        }
+
+        .tmpl-copy-btn {
+            background: #1d4ed8;
+            border: none;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .tmpl-copy-btn:hover {
+            background: #2563eb;
+        }
+
+        .tmpl-copy-btn.copied {
+            background: #16a34a;
+        }
+
+        .preview-box {
+            background: #ffffff;
+            padding: 10px;
+            flex: 1;
+        }
+
+        .widget-mockup {
+            width: 100%;
+            background: #262A34;
+            border-radius: 10px;
+            padding: 6px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #374151;
+        }
+
+        .widget-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 6px;
+            background: #262A34;
+            display: block;
+        }
+
+        /* ===== Дівайдер між шаблонами та фрагментами ===== */
+        .fragments-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 32px 0 22px;
+        }
+
+        .fragments-divider__line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #93c5fd, transparent);
+        }
+
+        .fragments-divider__label {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        /* ===== Ряд фрагментів (по 3) ===== */
+        .fragments-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .fragments-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Прев'ю фрагмента має меншу висоту, бо блоки компактніші */
+        .fragments-row .widget-iframe {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../index.html" class="home-btn" title="На головну">🏠</a>
+
+    <div class="header">
+        <h1>📬 Inbox у Smartico</h1>
+        <div class="subtitle">Практична інструкція: формати, налаштування та специфіка аналітики</div>
+    </div>
+
+    <div class="tools-bar">
+        <button class="tool-btn" onclick="expandAll()">Розгорнути всі</button>
+        <button class="tool-btn" onclick="collapseAll()">Згорнути всі</button>
+    </div>
+
+    <!-- РОЗДІЛ 1: ФОРМАТИ -->
+    <div class="accordion-item">
+        <button class="accordion-header">
+            <span>1. Що таке Inbox і різниця між Simple та Rich</span>
+            <span class="arrow">+</span>
+        </button>
+        <div class="accordion-content">
+            <p><strong>Inbox</strong> — це внутрішній центр сповіщень сайту (іконка дзвіночка). На відміну від попапу, він з'являється у кутку екрана у вигляді спливаючого тосту, не перериває гру в слотах і залишається у списку повідомлень у віджеті.</p>
+
+            <div class="grid-2">
+                <div class="card-box">
+                    <h3>Simple Inbox</h3>
+                    <ul>
+                        <li><strong>Склад:</strong> Іконка + Заголовок + Короткий текст (прев'ю).</li>
+                        <li><strong>Клік:</strong> Одразу переводить користувача за вказаним лінком без відкриття віджета.</li>
+                        <li><strong>Застосування:</strong> Короткі тригерні новини на 1 клік («Депозит зараховано», «Нараховано 20 FS»).</li>
+                    </ul>
+                </div>
+                <div class="card-box">
+                    <h3>Rich Body Inbox</h3>
+                    <ul>
+                        <li><strong>Склад:</strong> Прев'ю + Повноцінний HTML-опис (банери, правила, умови) + до 2 кнопок дій (CTA).</li>
+                        <li><strong>Клік:</strong> Розгортає вікно повідомлення у віджеті, де користувач читає умови та обирає кнопку.</li>
+                        <li><strong>Застосування:</strong> Промо-акції, турніри, депозитні бонуси, де потрібен опис та банер.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 2: ПОКРОКОВЕ НАЛАШТУВАННЯ ТА ЛІНКИ -->
+    <div class="accordion-item">
+        <button class="accordion-header">
+            <span>2. Покрокове налаштування шаблону (Чеклист, лінки та кнопки)</span>
+            <span class="arrow">+</span>
+        </button>
+        <div class="accordion-content">
+            <ol>
+                <li><strong>Створення:</strong> Перейдіть у <code>Marketing &rarr; Inbox &rarr; New Inbox</code>.</li>
+                <li><strong>Базові поля (General):</strong>
+                    <ul>
+                        <li><strong>Name:</strong> Назва шаблону (наприклад: <code>[Trigger] FS_Welcome_Ukr</code>).</li>
+                        <li><strong>Message expiration period:</strong> Термін життя сповіщення в скриньці (за замовчуванням <strong>30 днів</strong>; для тимчасових акцій ставте <strong>7–14 днів</strong>).</li>
+                        <li><strong>Title:</strong> Короткий заголовок (до 40 символів).</li>
+                        <li><strong>Short preview for body:</strong> Текст прев'ю тосту (до 80 символів).</li>
+                        <li><strong>Icon:</strong> Квадратне зображення 128×128 px.</li>
+                    </ul>
+                </li>
+                <li><strong>Налаштування кнопок дій (CTA) та лінків:</strong>
+                    <div class="tip tip-danger">
+                        <strong>Увага: Не вставляйте лінки через &lt;a href="..."&gt; всередину Rich HTML!</strong>
+                        Тіло інбоксу рендериться в ізольованому Sandboxed-фреймі із захистом CSP. Будь-які посилання всередині HTML блокуються браузером і не відкриються. Всі кнопки налаштовуються <strong>виключно в окремих полях BackOffice!</strong>
+                    </div>
+                    <ul>
+                        <li><strong>Для Simple:</strong> поле <code>Deep link or URL</code>.</li>
+                        <li><strong>Для Rich:</strong> поля <code>CTA Primary Button Text</code> + <code>Deep link for Primary Button</code> (та за потреби Secondary).</li>
+                    </ul>
+                    <div class="tip tip-warning">
+                        <strong>Правило посилань: використовуйте ТІЛЬКИ відносні шляхи зі слешем <code>/</code>!</strong>
+                        Ніколи не пишіть <code>https://whitelabel.com/deposit</code> (це ламає авторизацію при грі на дзеркалах сайту).
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Розділ</th>
+                                <th>❌ Неправильно</th>
+                                <th>✅ Правильно для поля Deep link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Каса / Депозит</td>
+                                <td>https://site.com/deposit#cashbox</td>
+                                <td><span class="inline-code">dp:go&url=/deposit#cashbox</span></td>
+                            </tr>
+                            <tr>
+                                <td>Бонуси</td>
+                                <td>https://site.com/profile/gifts</td>
+                                <td><span class="inline-code">dp:go&url=/profile/gifts</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li><strong>Тривалість показу тосту на сайті:</strong>
+                    <p>Оскільки віджет інтегровано через API, для збільшення часу показу тосту (щоб він не зникав за 7 сек) у блоці <strong>Additional settings</strong> знайдіть поле <strong>Custom Data</strong> та вставте:</p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Копіювати</button>
+                        <div class="code-block">{"visibility_period_sec":10}</div>
+                    </div>
+                    <p>При цьому параметр 10 - це кількість секунд яскільки буде показаний тост, і його можна змінити на необхідний відмінний від дефолтних 7 сек)</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 3: АНАЛІТИКА ТА ОФЛАЙН -->
+    <div class="accordion-item">
+        <button class="accordion-header">
+            <span>3. Аналітика та DWH: Як працює доставка офлайн-гравцям і чому Delivered = Impression</span>
+            <span class="arrow">+</span>
+        </button>
+        <div class="accordion-content">
+            <h3 style="color: #1e3a8a; margin-bottom: 8px;">Специфіка каналу Inbox у Smartico:</h3>
+            <ul>
+                <li>На відміну від Email або SMS, для Inbox немає зовнішніх операторів зв'язку, тому окремий статус технічної доставки (<strong>Delivered</strong>) для цього каналу не формується.</li>
+                <li>В аналітичних BI-звітах та агрегованій статистиці комунікацій метрика <strong>Delivered для інбоксів автоматично прирівнюється до метрики Impression (показ)</strong>.</li>
+            </ul>
+
+            <h3 style="color: #1e3a8a; margin: 16px 0 8px 0;">Як фіксується доставка та показ (Онлайн vs Офлайн):</h3>
+            <ul>
+                <li><strong>Збереження (Sent):</strong> При спрацьовуванні кроку кампанії повідомлення <strong>миттєво записується в базу даних</strong> у віджеті Inbox (notification center) користувача зі статусом <code>Sent</code> — це відбувається як для онлайн-, так і для офлайн-гравців.</li>
+                <li><strong>Онлайн-гравці:</strong> Спливаюче прев'ю повідомлення (тост) відображається лише тим користувачам, які перебувають онлайн у момент відправки. <strong>Саме для них одразу реєструється факт Impression</strong> (і в звіт йде Delivered).</li>
+                <li><strong>Офлайн-гравці:</strong> Повідомлення залишається в їхній скриньці (якщо в налаштуваннях кроку кампанії вимкнено параметр <code>expire_on_timeout</code>, тобто повідомлення не згорає через таймаут). <strong>Статус Impression для них фіксується поступово</strong> — в момент, коли користувачі повертаються на сайт і відкривають сторінку або віджет повідомлень.</li>
+            </ul>
+
+            <div class="tip">
+                <strong>Де дивитися правильні дані:</strong>
+                <ul style="margin: 4px 0 0 16px;">
+                    <li><strong>Sent (Надіслано):</strong> показує загальний пул гравців, яким повідомлення було успішно згенеровано і записано в скриньку.</li>
+                    <li><strong>Delivered / Impression (Доставлено/Показ):</strong> показує реальну кількість гравців, які фізично побачили повідомлення (онлайн у момент пушу + ті офлайн-гравці, які повернулися пізніше).</li>
+                    <li><strong>Clicks:</strong> фіксує кліки по окремих CTA-кнопках шаблону через системну подію <code>reportClickEvent</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- РОЗДІЛ 4: ГОТОВІ ШАБЛОНИ (ПРЕВ'Ю В РЯД) -->
+    <div class="accordion-item">
+        <button class="accordion-header">
+            <span>4. Готові шаблони та фрагменти для вставки в шаблон ALPA</span>
+            <span class="arrow">+</span>
+        </button>
+        <div class="accordion-content">
+
+            <div class="templates-row">
+                <!-- ШАБЛОН 1 -->
+                <div class="template-preview-card">
+                    <div class="preview-header-row">
+                        <div class="template-badge">
+                            🏷️ Шаблон I
+                        </div>
+                        <button class="tmpl-copy-btn" data-target="code-1">📋 Копіювати код</button>
+                    </div>
+                    <div class="preview-box">
+                        <div class="widget-mockup">
+                            <iframe id="frame-1" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                    <pre style="display:none;"><code id="code-1">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Saturday Bonus&lt;/title&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
+  &lt;style&gt;
+    body, .inbox-card {
+      margin: 0;
+      padding: 0;
+      background-color: #262A34;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      color: #B6BDCC;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="margin:0;padding:0;background-color:#262A34;"&gt;
+  &lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#B6BDCC;overflow:hidden;"&gt;
+
+    &lt;!-- Header card (image) --&gt;
+    &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 17px 23px -4px rgba(253,216,53,0.20);"&gt;
+      &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOEdCRFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--db86b113ae505ad04c731ef9ed537a2d814c1f78/mail_live_tide_bonus.jpg" width="308" alt="Saturday Bonus gift box" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Body content --&gt;
+    &lt;div style="padding:24px 16px 0;"&gt;
+
+      &lt;h1 style="margin:0 0 12px;font-size:20px;font-weight:600;line-height:24px;color:#FFFFFF;"&gt;
+        Boost your deposit with exclusive bonuses!
+      &lt;/h1&gt;
+
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Make a deposit and get an extra bonus on top. The more you deposit, the more you get.
+      &lt;/p&gt;
+
+      &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Choose the offer that suits you best:
+      &lt;/p&gt;
+
+      &lt;ul style="margin:0 0 16px;padding:0 0 0 20px;font-size:14px;font-weight:400;line-height:20px;"&gt;
+        &lt;li style="margin:0 0 16px;"&gt;
+          &lt;p style="margin:0 0 2px;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
+            30% bonus on &lt;b&gt;150 EUR&lt;/b&gt; deposit
+          &lt;/p&gt;
+          &lt;p style="margin:0;font-size:14px;line-height:20px;"&gt;
+            Claim it with your next deposit.
+          &lt;/p&gt;
+        &lt;/li&gt;
+
+        &lt;li style="margin:0 0 16px;"&gt;
+          &lt;p style="margin:0 0 2px;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
+            25% bonus on &lt;b&gt;50 EUR&lt;/b&gt; deposit
+          &lt;/p&gt;
+          &lt;p style="margin:0;font-size:14px;line-height:20px;"&gt;
+            Claim it with your next deposit.
+          &lt;/p&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+
+      &lt;p style="margin:0 0 16px;font-size:14px;font-weight:400;line-height:20px;"&gt;
+        Don't miss your chance. Deposit now and start playing!
+      &lt;/p&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </code></pre>
+                </div>
+
+                <!-- ШАБЛОН 2 -->
+                <div class="template-preview-card">
+                    <div class="preview-header-row">
+                        <div class="template-badge">
+                            🏷️ Шаблон II
+                        </div>
+                        <button class="tmpl-copy-btn" data-target="code-2">📋 Копіювати код</button>
+                    </div>
+                    <div class="preview-box">
+                        <div class="widget-mockup">
+                            <iframe id="frame-2" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                    <pre style="display:none;"><code id="code-2">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Kingroom Promo&lt;/title&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
+  &lt;style&gt;
+    body, .inbox-card {
+      margin: 0;
+      padding: 0;
+      background-color: #262A34;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      color: #B6BDCC;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="margin:0;padding:0;background-color:#262A34;"&gt;
+  &lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#B6BDCC;overflow:hidden;"&gt;
+
+    &lt;!-- Header card (image + gradient banner) --&gt;
+    &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 17px 23px -4px rgba(253,216,53,0.20);"&gt;
+      &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkRoREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--11f0f9131e4ab703e673629a7b83514d2198e105/Bonus_01_push_1024x512.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
+      
+      &lt;div style="padding:16px;background:linear-gradient(180deg,#3A3F52 0%,#262A34 100%);"&gt;
+        &lt;h1 style="margin:0;font-size:20px;font-weight:600;line-height:24px;color:#FFFFFF;"&gt;
+          Hi {{state.core_username|Bro}},
+        &lt;/h1&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Body content --&gt;
+    &lt;div style="padding:24px 16px 0;"&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:
+      &lt;/p&gt;
+
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        x740 by Liya&lt;br&gt;
+        x538 by Maya&lt;br&gt;
+        x390 by Nick
+      &lt;/p&gt;
+
+      &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨
+      &lt;/p&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </code></pre>
+                </div>
+
+                <!-- ШАБЛОН 3 -->
+                <div class="template-preview-card">
+                    <div class="preview-header-row">
+                        <div class="template-badge">
+                            🏷️ Шаблон III
+                        </div>
+                        <button class="tmpl-copy-btn" data-target="code-3">📋 Копіювати код</button>
+                    </div>
+                    <div class="preview-box">
+                        <div class="widget-mockup">
+                            <iframe id="frame-3" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                    <pre style="display:none;"><code id="code-3">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;SPACE Promo&lt;/title&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
+  &lt;style&gt;
+    body, .inbox-card {
+      margin: 0;
+      padding: 0;
+      background-color: #262A34;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      color: #B6BDCC;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="margin:0;padding:0;background-color:#262A34;"&gt;
+  &lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#B6BDCC;overflow:hidden;"&gt;
+    
+    &lt;!-- Header card (image only) --&gt;
+    &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 17px 23px -4px rgba(253,216,53,0.20);"&gt;
+      &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkRoREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--11f0f9131e4ab703e673629a7b83514d2198e105/Bonus_01_push_1024x512.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Body content --&gt;
+    &lt;div style="padding:24px 16px 0;"&gt;
+      &lt;h1 style="margin:0 0 8px;font-size:20px;font-weight:600;line-height:24px;color:#FFFFFF;"&gt;
+        BIGGEST EVER PROMO IS COMING TO SPACE!
+      &lt;/h1&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Hey {{state.core_username|Bro}},
+      &lt;/p&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:
+      &lt;/p&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        x740 by Liya&lt;br&gt;
+        x538 by Maya&lt;br&gt;
+        x390 by Nick
+      &lt;/p&gt;
+      &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        {{state.core_username|Bro}}, want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨
+      &lt;/p&gt;
+    &lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </code></pre>
+                </div>
+            </div>
+
+            <!-- ДІВАЙДЕР між повними шаблонами та фрагментами -->
+            <div class="fragments-divider">
+                <span class="fragments-divider__line"></span>
+                <span class="fragments-divider__label">🧩 Фрагменти блоків</span>
+                <span class="fragments-divider__line"></span>
+            </div>
+
+            <!-- КОНТЕЙНЕР ДЛЯ ФРАГМЕНТІВ (заповнюється через JS) -->
+            <div id="fragments-container"></div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📧 При виникненні питань — зверніться до відділу Retention Platform Development</p>
+        <p style="margin-top: 4px; color: #94a3b8;">© Smartico.ai – Inbox Guide for WhiteLabel</p>
+    </div>
+</div>
+
+<!-- ===================================================================
+     БЕЗПЕЧНІ HTML-ФРАГМЕНТИ У ТЕГАХ <script type="text/html">
+     Браузер не парсить їх як JS, тому жодні символи чи лапки
+     не можуть обірвати основний скрипт сторінки.
+     =================================================================== -->
+
+<script type="text/html" id="tpl-base-head">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__TITLE__</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}body{background:#262A34;font-family:'Poppins',Arial,sans-serif;color:#FFF;padding:0 0 24px;-webkit-font-smoothing:antialiased}.ib-container{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:0}</style>
+</head>
+<body><div class="ib-container">
+</script>
+
+<script type="text/html" id="tpl-base-foot">
+</div></body>
+</html>
+</script>
+
+<script type="text/html" id="frag-hero" data-title="🔥 Hero Banner"><style>
+@keyframes ib-hero-float{0%,100%{transform:scale(1.04) translateY(0)}50%{transform:scale(1.04) translateY(-5px)}}
+@keyframes ib-hero-tag-glow{0%,100%{box-shadow:0 0 8px rgba(255,61,154,.35)}50%{box-shadow:0 0 20px rgba(255,61,154,.8)}}
+@keyframes ib-hero-title-gradient{from{background-position:0% 50%}to{background-position:200% 50%}}
+.ib-hero-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-hero{position:relative;border-radius:20px;overflow:hidden;border:1px solid #5b2a52;background:#240318}
+.ib-hero__img{display:block;width:100%;height:auto;aspect-ratio:12/5;object-fit:cover;animation:ib-hero-float 6s ease-in-out infinite}
+.ib-hero__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,0,12,0) 30%,rgba(23,0,12,.95) 100%);pointer-events:none}
+.ib-hero__tag{position:absolute;z-index:3;top:12px;left:12px;padding:4px 10px;border-radius:20px;background:linear-gradient(90deg,#ff3d9a,#8a5cf0);color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;animation:ib-hero-tag-glow 2s ease-in-out infinite}
+.ib-hero__body{position:relative;z-index:3;margin-top:-50px;padding:0 16px 16px;text-align:center}
+.ib-hero__title{margin:0;font-size:22px;font-weight:900;line-height:1.2;text-transform:uppercase;color:transparent;background:linear-gradient(90deg,#fff,#ffc83d,#fff,#ff3d9a,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:ib-hero-title-gradient 5s linear infinite}
+.ib-hero__subtitle{margin:6px 0 0;color:#f0e6f6;font-size:13px;line-height:1.4}
+</style>
+
+<section class="ib-hero-sec">
+  <div class="ib-hero">
+    <img class="ib-hero__img" src="https://static7.smr.vc/webstudio-ai/28112/1793125603548-6d00c198778f-inbox-igaming-hero-banner.webp" alt="Hero Banner">
+    <div class="ib-hero__shade"></div>
+    <span class="ib-hero__tag">🔥 Limited offer</span>
+    <div class="ib-hero__body">
+      <h1 class="ib-hero__title">Choose your jackpot boost</h1>
+      <p class="ib-hero__subtitle">Two mega welcome-back rewards. One pick. Zero limits.</p>
+    </div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-welcome" data-title="💌 Welcome & Promo"><style>
+.ib-text-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-text{color:#d9d2e3;font-size:14px;line-height:1.5}
+.ib-text p{margin-bottom:10px}
+.ib-text b{color:#fff}
+.ib-text__highlight{color:#ffc83d;font-weight:800}
+.ib-text__tip{padding:10px 12px;border-radius:10px;border-left:3px solid #ffc83d;background:rgba(255,200,61,.08);font-size:12px;color:#ebdcb2}
+</style>
+
+<section class="ib-text-sec">
+  <div class="ib-text">
+    <p>We missed you at the tables! To say thanks for being part of the community, we've unlocked <b>two exclusive rewards</b> — but you can activate only <span class="ib-text__highlight">one</span>. Slots lover or sports fan? The choice is yours.</p>
+    <div class="ib-text__tip"><i>Tip:</i> both rewards can be combined with your <b>VIP cashback</b> and loyalty points.</div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-promo" data-title="🏷️ Promo Code Box"><style>
+@keyframes ib-code-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.ib-code-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-code__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.ib-code__card{position:relative;box-sizing:border-box;padding:14px 36px 14px 12px;text-align:center;border-radius:14px;border:2px dashed #ffc83d;background:#1e0516;flex:1 1 100%;max-width:100%}
+.ib-code__copy{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:8px;border:1px solid rgba(255,200,61,.35);background:rgba(255,255,255,.06);color:#ffc83d;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease}
+.ib-code__copy:hover{background:rgba(255,200,61,.18);border-color:#ffc83d;transform:scale(1.05)}
+.ib-code__copy.is-copied{background:rgba(22,163,74,.25);border-color:#22c55e;color:#4ade80}
+.ib-code__label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#b79fc2;font-weight:600}
+.ib-code__value{display:inline-block;margin-top:4px;font-size:24px;font-weight:900;letter-spacing:.16em;color:#ffc83d;text-shadow:0 0 14px rgba(255,200,61,.6);animation:ib-code-pulse 2s ease-in-out infinite}
+.ib-code__hint{margin-top:4px;font-size:11px;color:#a595b3}
+</style>
+
+<section class="ib-code-sec">
+  <div class="ib-code__grid">
+    <div class="ib-code__card">
+      <button type="button" class="ib-code__copy" title="Copy promo code" aria-label="Copy promo code" onclick="(function(btn){var card=btn.closest('.ib-code__card');var valEl=card&&card.querySelector('.ib-code__value');var text=valEl?valEl.textContent.trim():'';if(!text)return;var done=function(){var prev=btn.innerHTML;btn.innerHTML='✓';btn.classList.add('is-copied');setTimeout(function(){btn.innerHTML=prev;btn.classList.remove('is-copied');},1600);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(function(){});}else{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}})(this)">📋</button>
+      <div class="ib-code__label">Your promo code</div>
+      <div class="ib-code__value">BOOST200</div>
+      <div class="ib-code__hint">Enter at deposit · valid 72 hours</div>
+    </div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-offers" data-title="🎁 Offer Cards"><style>
+@keyframes ib-card-shine{0%{left:-60%}60%,100%{left:130%}}
+@keyframes ib-card-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+@keyframes ib-card-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.ib-offers-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-offers__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.ib-offers__card{position:relative;overflow:hidden;padding:16px 8px 14px;border-radius:16px;text-align:center;color:#fff;box-sizing:border-box;flex:1 1 calc(50% - 6px);max-width:calc(50% - 6px)}
+.ib-offers__card--slots{background:linear-gradient(145deg,#7a2cff,#d1246f)}
+.ib-offers__card--sports{background:linear-gradient(145deg,#ff8a00,#e8325a)}
+.ib-offers__shine{position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);pointer-events:none;animation:ib-card-shine 3.5s ease-in-out infinite}
+.ib-offers__icon{display:inline-block;font-size:26px;line-height:1.2;animation:ib-card-wiggle 2.5s ease-in-out infinite}
+.ib-offers__val{display:block;margin:4px 0 2px;font-size:28px;font-weight:900;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.3);animation:ib-card-pulse 2.2s ease-in-out infinite}
+.ib-offers__name{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.ib-offers__desc{display:block;margin-top:4px;font-size:10px;opacity:.9}
+</style>
+
+<section class="ib-offers-sec">
+  <div class="ib-offers__grid">
+    <article class="ib-offers__card ib-offers__card--slots">
+      <span class="ib-offers__shine"></span>
+      <span class="ib-offers__icon">🎰</span>
+      <span class="ib-offers__val">200%</span>
+      <span class="ib-offers__name">Slots Bonus</span>
+      <span class="ib-offers__desc">Up to €500 + 100 FS</span>
+    </article>
+    <article class="ib-offers__card ib-offers__card--sports">
+      <span class="ib-offers__shine" style="animation-delay:1.2s;"></span>
+      <span class="ib-offers__icon" style="animation-delay:.4s;">⚽</span>
+      <span class="ib-offers__val" style="animation-delay:.4s;">25%</span>
+      <span class="ib-offers__name">Freebet</span>
+      <span class="ib-offers__desc">Up to €250 on any sport</span>
+    </article>
+  </div>
+</section>
+</script>
+
+
+<script type="text/html" id="frag-stats" data-title="📊 Key Statistics"><style>
+.ib-stats-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-stats__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.ib-stats__card{box-sizing:border-box;padding:12px 6px;text-align:center;border-radius:14px;border:1px solid #3b1633;background:#2a0a22;flex:1 1 calc(33.333% - 6px);max-width:calc(33.333% - 6px);min-width:90px}
+.ib-stats__val{display:block;font-size:18px;font-weight:900;line-height:1.2;color:#ffc83d}
+.ib-stats__lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#b79fc2;font-weight:600}
+</style>
+
+<section class="ib-stats-sec">
+  <div class="ib-stats__grid">
+    <div class="ib-stats__card"><span class="ib-stats__val">3 500+</span><span class="ib-stats__lbl">Games</span></div>
+    <div class="ib-stats__card"><span class="ib-stats__val">15 min</span><span class="ib-stats__lbl">Payouts</span></div>
+    <div class="ib-stats__card"><span class="ib-stats__val">24/7</span><span class="ib-stats__lbl">Support</span></div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-hot-games" data-title="🎮 Hot Games"><style>
+.ib-games-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-games__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.ib-game-card{position:relative;display:block;text-decoration:none;padding:14px 4px 8px;border-radius:12px;text-align:center;color:#fff;font-size:11px;font-weight:700;background:linear-gradient(145deg,#6a2cff,#2a1180);overflow:hidden;box-sizing:border-box;flex:0 0 calc((100% - 16px) / 3);max-width:calc((100% - 16px) / 3);transition:transform .2s ease}
+.ib-game-card:hover{transform:translateY(-3px)}
+.ib-game-card--hot{background:linear-gradient(145deg,#e8325a,#7a1038)}
+.ib-game-card--live{background:linear-gradient(145deg,#0fa97a,#075a45)}
+.ib-game-card__badge{position:absolute;top:4px;right:4px;padding:1px 5px;border-radius:6px;background:rgba(0,0,0,.45);font-size:8px;text-transform:uppercase}
+.ib-game-card__icon{display:block;margin-bottom:2px;font-size:24px;line-height:1.2}
+.ib-game-card__meta{display:block;font-size:9px;font-weight:400;opacity:.8}
+</style>
+
+<section class="ib-games-sec">
+  <div class="ib-games__grid">
+    <div class="ib-game-card"><span class="ib-game-card__badge">Hot</span><span class="ib-game-card__icon">📖</span>Book of Fortune<span class="ib-game-card__meta">Slots · 96.2%</span></div>
+    <div class="ib-game-card ib-game-card--hot"><span class="ib-game-card__badge">New</span><span class="ib-game-card__icon">🍒</span>Fruit Mania<span class="ib-game-card__meta">Slots · 95.8%</span></div>
+    <div class="ib-game-card ib-game-card--live"><span class="ib-game-card__badge">Live</span><span class="ib-game-card__icon">🃏</span>Blackjack VIP<span class="ib-game-card__meta">Live · 99.5%</span></div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-good-to-know" data-title="💡 Good To Know"><style>
+.ib-info-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-info-box{padding:14px 16px;border-radius:14px;border:1px solid #FFFF7B;background:linear-gradient(145deg,#1f0b2b,#15051e)}
+.ib-info-box__title{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#ffc83d;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.ib-info-box__list{margin:0;padding-left:18px;color:#c8b8dc;font-size:12px;line-height:1.5}
+.ib-info-box__list li{margin-bottom:4px}
+.ib-info-box__list li:last-child{margin-bottom:0}
+.ib-info-box__list b{color:#fff}
+</style>
+
+<section class="ib-info-sec">
+  <div class="ib-info-box">
+    <div class="ib-info-box__title"><span>💡</span> Good to know</div>
+    <ul class="ib-info-box__list">
+      <li>Bonuses are credited instantly upon successful qualifying deposit.</li>
+      <li>Free spins winnings carry <b>no wagering requirements</b>.</li>
+      <li>This exclusive offer is valid for <b>72 hours</b> from receipt.</li>
+    </ul>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-checklist" data-title="✅ Benefits Checklist"><style>
+.ib-checklist-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-checklist{list-style:none;display:flex;flex-direction:column;gap:6px;padding:0}
+.ib-checklist__item{position:relative;padding:10px 10px 10px 38px;border-radius:12px;border:1px solid #3b1633;background:#2a0a22;color:#d9d2e3;font-size:13px;line-height:1.4}
+.ib-checklist__mark{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#2fe39a,#12a76f);color:#04281a;font-size:12px;font-weight:900;text-align:center;line-height:20px}
+.ib-checklist__item b{color:#fff}
+</style>
+
+<section class="ib-checklist-sec">
+  <ul class="ib-checklist">
+    <li class="ib-checklist__item"><span class="ib-checklist__mark">✓</span><b>200% bonus</b> on your next deposit, up to €500</li>
+    <li class="ib-checklist__item"><span class="ib-checklist__mark">✓</span><b>100 free spins</b> on Book of Fortune — no wagering on spins</li>
+    <li class="ib-checklist__item"><span class="ib-checklist__mark">✓</span><b>25% Freebet</b> on any pre-match or live bet</li>
+  </ul>
+</section>
+</script>
+
+<script type="text/html" id="frag-timeline" data-title="🚀 Claim Steps"><style>
+.ib-timeline-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-timeline{position:relative;list-style:none;padding-left:0}
+.ib-timeline__step{position:relative;padding:0 0 8px 44px}
+.ib-timeline__step:last-child{padding-bottom:0}
+.ib-timeline__step::after{content:"";position:absolute;left:14px;top:19px;height: 100%;width:2px;z-index: -1;background:linear-gradient(180deg,rgba(255, 160, 0, 0.8), rgba(255, 255, 123, 0.5),transparent)}
+.ib-timeline__step:last-child::after{content:none}
+.ib-timeline__num{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FFA000,#FFFF7B);color:#000a12;font-weight:900;text-align:center;line-height:33px;font-size:13px;box-shadow:0 0 10px rgba(255,160,0,.4)}
+.ib-timeline__title{display:block;color:#fff;font-size:13px;font-weight:700}
+.ib-timeline__desc{font-size:12px;color:#b9a8c6}
+</style>
+
+<section class="ib-timeline-sec">
+  <ol class="ib-timeline">
+    <li class="ib-timeline__step"><span class="ib-timeline__num">1</span><span class="ib-timeline__title">Log in to your account</span><span class="ib-timeline__desc">Use your regular credentials or biometrics.</span></li>
+    <li class="ib-timeline__step"><span class="ib-timeline__num">2</span><span class="ib-timeline__title">Make a deposit of €20+</span><span class="ib-timeline__desc">Cards, crypto, e-wallets — all methods count.</span></li>
+    <li class="ib-timeline__step"><span class="ib-timeline__num">3</span><span class="ib-timeline__title">Pick your reward</span><span class="ib-timeline__desc">Slots bonus or Freebet in the Bonuses section.</span></li>
+  </ol>
+</section>
+</script>
+
+<script type="text/html" id="frag-vip-progress" data-title="👑 VIP Progress"><style>
+@keyframes ib-bar-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes ib-bar-shimmer{from{background-position:0% 50%}to{background-position:200% 50%}}
+@keyframes ib-bar-glow{0%,100%{box-shadow:0 0 6px rgba(255,61,154,.3)}50%{box-shadow:0 0 14px rgba(255,200,61,.7)}}
+.ib-vip-prog-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-vip-prog{padding:14px;border-radius:16px;border:1px solid #FFFF7B;background:linear-gradient(160deg,#2b0d3f,#1b0420)}
+.ib-vip-prog__head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.ib-vip-prog__badge{width:50px;height:50px;object-fit:contain;flex-shrink:0}
+.ib-vip-prog__title{margin:0;font-size:15px;font-weight:900;color:#fff}
+.ib-vip-prog__sub{margin:2px 0 0;font-size:11px;color:#c8b8dc;line-height:1.3}
+.ib-vip-prog__bar-box{margin-bottom:10px}
+.ib-vip-prog__bar-box:last-child{margin-bottom:0}
+.ib-vip-prog__meta{display:flex;justify-content:space-between;margin-bottom:4px;font-size:11px;color:#d9d2e3}
+.ib-vip-prog__track{height:11px;border-radius:8px;border:1px solid #4a2a66;background:#12031a;overflow:hidden}
+.ib-vip-prog__fill{height:100%;border-radius:8px;transform-origin:left center;background:linear-gradient(90deg,#8a5cf0,#ff3d9a,#ffc83d,#8a5cf0);background-size:200% 100%;animation:ib-bar-fill 1.4s ease-out both,ib-bar-shimmer 3s linear infinite,ib-bar-glow 2.5s ease-in-out infinite}
+</style>
+
+<section class="ib-vip-prog-sec">
+  <div class="ib-vip-prog">
+    <div class="ib-vip-prog__head">
+      <img class="ib-vip-prog__badge" src="https://static7.smr.vc/webstudio-ai/28112/1793123790507-8f0e00c788ed-highway-vip-badge.webp" alt="VIP Badge">
+      <div><h3 class="ib-vip-prog__title">VIP Gold → Diamond</h3><p class="ib-vip-prog__sub">Earn Season Points toward <b>Diamond</b> status! 💎</p></div>
+    </div>
+    <div class="ib-vip-prog__bar-box"><div class="ib-vip-prog__meta"><span>Season Points</span><b style="color:#fff;">7 450 / 10 000</b></div><div class="ib-vip-prog__track"><div class="ib-vip-prog__fill" style="width:74%;"></div></div></div>
+    <div class="ib-vip-prog__bar-box"><div class="ib-vip-prog__meta"><span>Weekly wager goal</span><b style="color:#fff;">€320 / €500</b></div><div class="ib-vip-prog__track"><div class="ib-vip-prog__fill" style="width:64%;animation-delay:.3s;"></div></div></div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-vip-levels" data-title="🏆 VIP Levels"><style>
+@keyframes ib-ticker-glide{0%,8%{transform:translateX(0)}92%,100%{transform:translateX(calc(-100% + 100vw - 32px))}}
+@media (min-width:480px){@keyframes ib-ticker-glide{0%,8%{transform:translateX(0)}92%,100%{transform:translateX(calc(-100% + 448px))}}}
+.ib-levels-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-ticker-wrap{position:relative;overflow-x:auto;overflow-y:hidden;width:100%;padding:4px 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ib-ticker-wrap::-webkit-scrollbar{display:none}
+.ib-ticker-track{display:flex;gap:10px;width:max-content;animation:ib-ticker-glide 12s ease-in-out infinite alternate}
+.ib-ticker-track:hover{animation-play-state:paused}
+.ib-ticker-card{flex:0 0 105px;padding:12px 6px;text-align:center;border-radius:14px;border:1px solid #3b1633;background:#2a0a22}
+.ib-ticker-card__icon{display:block;font-size:24px;line-height:1.2}
+.ib-ticker-card__name{display:block;margin-top:4px;color:#fff;font-size:12px;font-weight:700}
+.ib-ticker-card__perk{font-size:10px;color:#b79fc2}
+</style>
+
+<section class="ib-levels-sec">
+  <div class="ib-ticker-wrap">
+    <div class="ib-ticker-track">
+      <div class="ib-ticker-card"><span class="ib-ticker-card__icon">🥉</span><span class="ib-ticker-card__name">Bronze</span><span class="ib-ticker-card__perk">3% cashback</span></div>
+      <div class="ib-ticker-card"><span class="ib-ticker-card__icon">🥈</span><span class="ib-ticker-card__name">Silver</span><span class="ib-ticker-card__perk">5% cashback</span></div>
+      <div class="ib-ticker-card"><span class="ib-ticker-card__icon">🥇</span><span class="ib-ticker-card__name">Gold</span><span class="ib-ticker-card__perk">9% cashback</span></div>
+      <div class="ib-ticker-card"><span class="ib-ticker-card__icon">💎</span><span class="ib-ticker-card__name">Diamond</span><span class="ib-ticker-card__perk">12% cashback</span></div>
+      <div class="ib-ticker-card"><span class="ib-ticker-card__icon">👑</span><span class="ib-ticker-card__name">Legend</span><span class="ib-ticker-card__perk">15% cashback</span></div>
+    </div>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-compare" data-title="📋 Compare Rewards"><style>
+@keyframes ib-row-highlight{0%,100%{background-color:rgba(255,61,154,.25)}50%{background-color:rgba(138,92,240,.4)}}
+.ib-table-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:14px;border:1px solid #5b2a52;font-size:12px}
+.ib-table th{padding:9px 8px;background:linear-gradient(90deg,#4a1450,#3a1068);color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.ib-table td{padding:8px;border-top:1px solid #3b1633;background:#2a0a22;color:#e4dcec}
+.ib-table td:first-child{font-weight:700;color:#fff;text-align:left}
+.ib-table td:not(:first-child){text-align:center}
+.ib-table tr:nth-child(even) td{background:#230a1c}
+.ib-table tr.ib-table__hl td{background-color:rgba(255,61,154,.25);color:#fff;font-weight:700;animation:ib-row-highlight 2.4s ease-in-out infinite}
+</style>
+
+<section class="ib-table-sec">
+  <table class="ib-table">
+    <thead><tr><th style="text-align:left;">Perk</th><th>Slots</th><th>Freebet</th></tr></thead>
+    <tbody>
+      <tr><td>Bonus size</td><td>200%</td><td>25%</td></tr>
+      <tr><td>Min deposit</td><td>€20</td><td>€10</td></tr>
+      <tr class="ib-table__hl"><td>Wagering</td><td>x35</td><td>x5</td></tr>
+      <tr><td>Valid for</td><td>7 days</td><td>3 days</td></tr>
+    </tbody>
+  </table>
+</section>
+</script>
+
+
+<script type="text/html" id="frag-faq" data-title="❓ FAQ Accordion"><style>
+.ib-faq-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-faq{display:flex;flex-direction:column;gap:8px}
+.ib-faq__item{border-radius:12px;border:1px solid #3b1633;background:#2a0a22;overflow:hidden}
+.ib-faq__item[open]{border-color:#FFFF7B;background:#2f0b26}
+.ib-faq__summary{list-style:none;padding:12px 14px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.ib-faq__summary::-webkit-details-marker{display:none}
+.ib-faq__icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;font-size:20px;font-weight:700;line-height:1;color:#FFA000;transition:transform .3s cubic-bezier(.4,0,.2,1),color .3s ease;transform-origin:center center;flex-shrink:0}
+.ib-faq__item[open] .ib-faq__icon{transform:rotate(45deg);color:#FFFF7B}
+.ib-faq__content{padding:0 14px 12px;font-size:12px;line-height:1.45;color:#ffffff}
+</style>
+
+<section class="ib-faq-sec">
+  <div class="ib-faq">
+    <details class="ib-faq__item">
+      <summary class="ib-faq__summary"><span>How do I claim my bonus?</span><span class="ib-faq__icon">+</span></summary>
+      <div class="ib-faq__content">Make a deposit of €20 or more and enter promo code <b>BOOST200</b>.</div>
+    </details>
+    <details class="ib-faq__item">
+      <summary class="ib-faq__summary"><span>Can I claim both offers?</span><span class="ib-faq__icon">+</span></summary>
+      <div class="ib-faq__content">You can choose only one of the two rewards (Slots or Freebet).</div>
+    </details>
+    <details class="ib-faq__item">
+      <summary class="ib-faq__summary"><span>What is the wagering requirement?</span><span class="ib-faq__icon">+</span></summary>
+      <div class="ib-faq__content">The Slots bonus requires 35x wagering, while the Sports Freebet!</div>
+    </details>
+  </div>
+</section>
+</script>
+
+<script type="text/html" id="frag-divider-left" data-title="➖ Section Divider (Left)">
+<style>
+.ib-div-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-header{display:flex;align-items:center;gap:8px}
+.ib-header__icon{font-size:18px;line-height:1}
+.ib-header__title{margin:0;font-size:16px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+.ib-header__line{flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,rgb(255, 160, 0),rgb(255, 255, 123),transparent)}
+</style>
+<section class="ib-div-sec">
+  <div class="ib-header"><span class="ib-header__icon">📋</span><h2 class="ib-header__title">Section title</h2><span class="ib-header__line"></span></div>
+</section>
+</script>
+
+<script type="text/html" id="frag-divider-center" data-title="➖ Section Divider (Center)">
+<style>
+.ib-div-center-sec{padding:24px 0;box-sizing:border-box;width:100%}
+.ib-header-center{display:flex;align-items:center;gap:12px}
+.ib-header-center__icon{font-size:20px;line-height:1;flex-shrink:0}
+.ib-header-center__line--left{flex:1;height:2px;border-radius:2px;background:linear-gradient(270deg,rgb(255, 160, 0),rgb(255, 255, 123),transparent)}
+.ib-header-center__line--right{flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,rgb(255, 160, 0),rgb(255, 255, 123),transparent)}
+</style>
+<section class="ib-div-center-sec">
+  <div class="ib-header-center"><span class="ib-header-center__line--left"></span><span class="ib-header-center__icon">✦</span><span class="ib-header-center__line--right"></span></div>
+</section>
+</script>
+
+<script>
+    /* ============ Акордеон ============ */
+    document.querySelectorAll('.accordion-header').forEach(function(header) {
+        header.addEventListener('click', function() {
+            header.parentElement.classList.toggle('active');
+        });
+    });
+
+    function expandAll() {
+        document.querySelectorAll('.accordion-item').forEach(function(item) {
+            item.classList.add('active');
+        });
+    }
+
+    function collapseAll() {
+        document.querySelectorAll('.accordion-item').forEach(function(item) {
+            item.classList.remove('active');
+        });
+    }
+
+    /* ============ Копіювання JSON-блоку (Розділ 2) ============ */
+    function copyCode(btn) {
+        var text = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            var old = btn.innerText;
+            btn.innerText = 'Скопійовано!';
+            btn.style.background = '#16a34a';
+            setTimeout(function() {
+                btn.innerText = old;
+                btn.style.background = '#334155';
+            }, 2000);
+        });
+    }
+
+    /* ============ Копіювання повних шаблонів (Розділ 4, 3 шт.) ============ */
+    document.querySelectorAll('.tmpl-copy-btn').forEach(function(btn) {
+        var targetId = btn.getAttribute('data-target');
+        if (!targetId || targetId.indexOf('frag-') === 0) return;
+
+        btn.addEventListener('click', function() {
+            var codeEl = document.getElementById(targetId);
+            if (!codeEl) return;
+            navigator.clipboard.writeText(codeEl.textContent.trim()).then(function() {
+                var originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Скопійовано!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    });
+
+    /* ============ Рендер Live Preview для 3-х шаблонів ============ */
+    [1, 2, 3].forEach(function(num) {
+        var codeEl = document.getElementById('code-' + num);
+        var frame = document.getElementById('frame-' + num);
+        if (codeEl && frame) {
+            var htmlToRender = codeEl.textContent
+                .replace(/\{\{state\.core_username\|Bro\}\}/g, 'Alex')
+                .replace(/\{\{username\}\}/g, 'Alex');
+            frame.srcdoc = htmlToRender;
+        }
+    });
+
+    /* ===================================================================
+       ЗБІРКА ФРАГМЕНТІВ ІЗ ТЕГІВ <script type="text/html">
+       Без жодних зворотних апострофів у JS.
+       =================================================================== */
+    function buildFragments() {
+        var container = document.getElementById('fragments-container');
+        var headEl = document.getElementById('tpl-base-head');
+        var footEl = document.getElementById('tpl-base-foot');
+        if (!container || !headEl || !footEl) return;
+
+        var baseHead = headEl.textContent.trim();
+        var baseFoot = footEl.textContent.trim();
+        var fragmentNodes = Array.prototype.slice.call(
+            document.querySelectorAll('script[type="text/html"][id^="frag-"]')
+        );
+
+        var blocks = fragmentNodes.map(function(node) {
+            var title = node.getAttribute('data-title') || node.id;
+            var cleanTitle = title.replace(/^[^\wЀ-ӿ]+\s*/, '');
+            var middleHtml = node.textContent.trim();
+            var fullHtml = baseHead.replace('__TITLE__', cleanTitle) + '\n' + middleHtml + '\n' + baseFoot;
+
+            return {
+                id: node.id,
+                title: title,
+                middleHtml: middleHtml,
+                fullHtml: fullHtml
+            };
+        });
+
+        for (var i = 0; i < blocks.length; i += 3) {
+            var row = document.createElement('div');
+            row.className = 'fragments-row';
+            var chunk = blocks.slice(i, i + 3);
+
+            chunk.forEach(function(block) {
+                var card = document.createElement('div');
+                card.className = 'template-preview-card';
+
+                var headerRow = document.createElement('div');
+                headerRow.className = 'preview-header-row';
+
+                var badge = document.createElement('div');
+                badge.className = 'template-badge';
+                badge.textContent = '🏷️ ' + block.title;
+
+                var copyBtn = document.createElement('button');
+                copyBtn.className = 'tmpl-copy-btn';
+                copyBtn.setAttribute('data-target', block.id);
+                copyBtn.textContent = '📋 Копіювати код';
+
+                headerRow.appendChild(badge);
+                headerRow.appendChild(copyBtn);
+
+                var previewBox = document.createElement('div');
+                previewBox.className = 'preview-box';
+
+                var mockup = document.createElement('div');
+                mockup.className = 'widget-mockup';
+
+                var iframe = document.createElement('iframe');
+                iframe.id = 'frame-' + block.id;
+                iframe.className = 'widget-iframe';
+                iframe.srcdoc = block.fullHtml;
+
+                mockup.appendChild(iframe);
+                previewBox.appendChild(mockup);
+
+                card.appendChild(headerRow);
+                card.appendChild(previewBox);
+                row.appendChild(card);
+
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(block.middleHtml).then(function() {
+                        var original = copyBtn.textContent;
+                        copyBtn.textContent = '✅ Скопійовано!';
+                        copyBtn.classList.add('copied');
+                        setTimeout(function() {
+                            copyBtn.textContent = original;
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    });
+                });
+            });
+
+            container.appendChild(row);
+        }
+    }
+
+    buildFragments();
+</script>
+
+</body>
+</html>
