@@ -280,12 +280,26 @@
             margin-top: 10px;
         }
 
-        @media (max-width: 1024px) {
+        /* @media (max-width: 1024px) {
             .templates-row {
                 grid-template-columns: 1fr;
             }
+        } */
+        @media (max-width: 768px) {
+            .templates-row {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
         }
 
+        /* .template-preview-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        } */
         .template-preview-card {
             background: #f8fafc;
             border: 1px solid #cbd5e1;
@@ -293,7 +307,17 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            width: 100%;
         }
+
+        @media (max-width: 768px) {
+            .template-preview-card {
+                max-width: 360px;
+            }
+        }
+
+
+
 
         .preview-header-row {
             display: flex;
@@ -403,12 +427,17 @@
             margin-bottom: 16px;
         }
 
-        @media (max-width: 1024px) {
+        /* @media (max-width: 1024px) {
             .fragments-row {
                 grid-template-columns: 1fr;
             }
+        } */
+        @media (max-width: 768px) {
+            .fragments-row {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
         }
-
         /* Прев'ю фрагмента має меншу висоту, бо блоки компактніші */
         .fragments-row .widget-iframe {
             height: 300px;
@@ -1201,11 +1230,11 @@
 .ib-hero-sec{padding:24px 0;box-sizing:border-box;width:100%}
 .ib-hero{position:relative;border-radius:20px;overflow:hidden;border:1px solid #5b2a52;background:#240318}
 .ib-hero__img{display:block;width:100%;height:auto;aspect-ratio:12/5;object-fit:cover;animation:ib-hero-float 6s ease-in-out infinite}
-.ib-hero__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,0,12,0) 30%,rgba(23,0,12,.95) 100%);pointer-events:none}
+.ib-hero__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,0,12,0) 30%,rgba(23,0,12,.95) 100%);z-index:-1;pointer-events:none}
 .ib-hero__tag{position:absolute;z-index:3;top:12px;left:12px;padding:4px 10px;border-radius:20px;background:linear-gradient(90deg,#ff3d9a,#8a5cf0);color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;animation:ib-hero-tag-glow 2s ease-in-out infinite}
 .ib-hero__body{position:relative;z-index:3;margin-top:-50px;padding:0 16px 16px;text-align:center}
-.ib-hero__title{margin:0;font-size:22px;font-weight:900;line-height:1.2;text-transform:uppercase;color:transparent;background:linear-gradient(90deg,#fff,#ffc83d,#fff,#ff3d9a,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:ib-hero-title-gradient 5s linear infinite}
-.ib-hero__subtitle{margin:6px 0 0;color:#f0e6f6;font-size:13px;line-height:1.4}
+.ib-hero__title{margin:0;font-size:22px;font-weight:900;line-height:1.2;text-transform:uppercase;color:transparent;background:linear-gradient(90deg,#5D6175,#ffc83d,#fff,#ff3d9a,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:ib-hero-title-gradient 5s linear infinite}
+.ib-hero__subtitle{margin:6px 0 0;color:#5D6175;font-size:13px;line-height:1.4}
 </style>
 
 <section class="ib-hero-sec">
