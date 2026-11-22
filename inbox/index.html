@@ -119,10 +119,11 @@
 
         .accordion-header .arrow {
             transition: transform 0.25s;
+            font-size: 1.8rem;
         }
 
         .accordion-item.active .arrow {
-            transform: rotate(180deg);
+            transform: rotate(135deg);
         }
 
         .accordion-content {
@@ -234,9 +235,10 @@
         }
 
         .code-block {
-            color: #38bdf8;
+            color: #d1ff05;
             font-family: monospace;
             font-size: 0.9rem;
+            font-weight: 700;
         }
 
         .copy-btn {
@@ -270,84 +272,61 @@
             font-size: 0.85rem;
         }
 
-        /* ===== Section 4: Templates ===== */
-        .template-card {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-
-        .template-card:last-child {
-            margin-bottom: 4px;
-        }
-
-        .template-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .template-badge {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1e3a8a;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .builder-grid {
+        /* ===== Секція 4: Прев'ю шаблонів у ряд ===== */
+        .templates-row {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 390px;
-            gap: 20px;
-            align-items: start;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 10px;
         }
 
         @media (max-width: 1024px) {
-            .builder-grid {
+            .templates-row {
                 grid-template-columns: 1fr;
             }
         }
 
-        .code-box {
-            background: #0f172a;
-            border-radius: 10px;
+        .template-preview-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
         }
 
-        .code-bar {
-            background: #1e293b;
-            padding: 8px 14px;
+        .preview-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #334155;
+            padding: 10px 14px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            gap: 8px;
         }
 
-        .code-bar span {
-            color: #94a3b8;
+        .template-badge {
             font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 700;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            line-height: 1.3;
         }
 
         .tmpl-copy-btn {
             background: #1d4ed8;
             border: none;
             color: #ffffff;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 5px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             cursor: pointer;
+            white-space: nowrap;
             transition: background 0.2s;
+            flex-shrink: 0;
         }
 
         .tmpl-copy-btn:hover {
@@ -358,51 +337,26 @@
             background: #16a34a;
         }
 
-        pre.code-view {
-            margin: 0;
-            padding: 14px;
-            height: 480px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            font-family: monospace;
-            font-size: 11.5px;
-            line-height: 1.5;
-            color: #e2e8f0;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
         .preview-box {
             background: #ffffff;
-            border-radius: 10px;
-            border: 1px solid #cbd5e1;
-            padding: 12px;
-        }
-
-        .preview-header {
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
-            margin-bottom: 10px;
+            padding: 10px;
+            flex: 1;
         }
 
         .widget-mockup {
             width: 100%;
             background: #262A34;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 6px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             border: 1px solid #374151;
         }
 
         .widget-iframe {
             width: 100%;
-            height: 480px;
+            height: 600px; /* Збільшено для уникнення вертикального скролу */
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             background: #262A34;
             display: block;
         }
@@ -427,7 +381,7 @@
     <div class="accordion-item active">
         <button class="accordion-header">
             <span>1. Що таке Inbox і різниця між Simple та Rich</span>
-            <span class="arrow">▼</span>
+            <span class="arrow">+</span>
         </button>
         <div class="accordion-content">
             <p><strong>Inbox</strong> — це внутрішній центр сповіщень сайту (іконка дзвіночка). На відміну від попапу, він з'являється у кутку екрана у вигляді спливаючого тосту, не перериває гру в слотах і залишається у списку повідомлень у віджеті.</p>
@@ -457,7 +411,7 @@
     <div class="accordion-item active">
         <button class="accordion-header">
             <span>2. Покрокове налаштування шаблону (Чеклист, лінки та кнопки)</span>
-            <span class="arrow">▼</span>
+            <span class="arrow">+</span>
         </button>
         <div class="accordion-content">
             <ol>
@@ -474,7 +428,7 @@
                 <li><strong>Налаштування кнопок дій (CTA) та лінків:</strong>
                     <div class="tip tip-danger">
                         <strong>Увага: Не вставляйте лінки через &lt;a href="..."&gt; всередину Rich HTML!</strong>
-                        Тіло інбоксу рендериться в ізольованому Sandboxed-фреймі із захистом CSP. Будь-які посилання всередині HTML блокуються браузером і не відкриються. Всі кнопки налаштовуються <strong>виключно в окремих полях BackOffice</strong>!
+                        Тіло інбоксу рендериться в ізольованому Sandboxed-фреймі із захистом CSP. Будь-які посилання всередині HTML блокуються браузером і не відкриються. Всі кнопки налаштовуються <strong>виключно в окремих полях BackOffice!</strong>
                     </div>
                     <ul>
                         <li><strong>Для Simple:</strong> поле <code>Deep link or URL</code>.</li>
@@ -495,35 +449,25 @@
                         <tbody>
                             <tr>
                                 <td>Каса / Депозит</td>
-                                <td>https://site.com/deposit</td>
-                                <td><span class="inline-code">/deposit</span></td>
+                                <td>https://site.com/deposit#cashbox</td>
+                                <td><span class="inline-code">dp:go&url=/deposit#cashbox</span></td>
                             </tr>
                             <tr>
                                 <td>Бонуси</td>
-                                <td>https://site.com/bonuses</td>
-                                <td><span class="inline-code">/bonuses</span></td>
-                            </tr>
-                            <tr>
-                                <td>Місії (гейміфікація)</td>
-                                <td>—</td>
-                                <td><span class="inline-code">dp:gf_missions</span></td>
-                            </tr>
-                            <tr>
-                                <td>Турніри (гейміфікація)</td>
-                                <td>—</td>
-                                <td><span class="inline-code">dp:gf_tournaments</span></td>
+                                <td>https://site.com/profile/gifts</td>
+                                <td><span class="inline-code">dp:go&url=/profile/gifts</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </li>
-                <li><strong>Тривалість показу тосту на сайті (Custom Data):</strong>
-                    <p>Оскільки віджет інтегровано через API, для збільшення часу показу тосту (щоб він не зникав за 5 сек) у блоці <strong>Additional settings</strong> знайдіть поле <strong>Extra parameters</strong> та вставте:</p>
+                <li><strong>Тривалість показу тосту на сайті:</strong>
+                    <p>Оскільки віджет інтегровано через API, для збільшення часу показу тосту (щоб він не зникав за 7 сек) у блоці <strong>Additional settings</strong> знайдіть поле <strong>Custom Data</strong> та вставте:</p>
                     <div class="code-container">
                         <button class="copy-btn" onclick="copyCode(this)">Копіювати</button>
                         <div class="code-block">{"visibility_period_sec":10}</div>
                     </div>
+                    <p>При цьому параметр 10 - це кількість секунд яскільки буде показаний тост, і його можна змінити на необхідний відмінний від дефолтних 7 сек)</p>
                 </li>
-                <li><strong>Перемикач прев'ю:</strong> Переконайтеся, що чекбокс <em>Show preview of the message for a short period if user is online</em> <strong>увімкнено</strong>.</li>
             </ol>
         </div>
     </div>
@@ -532,12 +476,12 @@
     <div class="accordion-item active">
         <button class="accordion-header">
             <span>3. Аналітика та DWH: Як працює доставка офлайн-гравцям і чому Delivered = Impression</span>
-            <span class="arrow">▼</span>
+            <span class="arrow">+</span>
         </button>
         <div class="accordion-content">
             <h3 style="color: #1e3a8a; margin-bottom: 8px;">Специфіка каналу Inbox у Smartico:</h3>
             <ul>
-                <li>На відміну від Email або SMS, для Inbox немає зовнішніх операторів зв'язку, тому окремий статус технічної доставки (<strong>Delivered, код 6</strong>) для цього каналу не формується.</li>
+                <li>На відміну від Email або SMS, для Inbox немає зовнішніх операторів зв'язку, тому окремий статус технічної доставки (<strong>Delivered</strong>) для цього каналу не формується.</li>
                 <li>В аналітичних BI-звітах та агрегованій статистиці комунікацій метрика <strong>Delivered для інбоксів автоматично прирівнюється до метрики Impression (показ)</strong>.</li>
             </ul>
 
@@ -559,222 +503,242 @@
         </div>
     </div>
 
-    <!-- РОЗДІЛ 4: ГОТОВІ ШАБЛОНИ -->
+    <!-- РОЗДІЛ 4: ГОТОВІ ШАБЛОНИ (ПРЕВ'Ю В РЯД) -->
     <div class="accordion-item active">
         <button class="accordion-header">
-            <span>4. Готові еталонні шаблони (Чистий код та Live Preview)</span>
-            <span class="arrow">▼</span>
+            <span>4. Готові шаблони та фрагменти для вставки в шаблон</span>
+            <span class="arrow">+</span>
         </button>
         <div class="accordion-content">
 
-            <!-- ШАБЛОН 1 -->
-            <div class="template-card">
-                <div class="template-card-header">
-                    <div class="template-badge">
-                        <span>🏷️</span> Шаблон ID: 274311 (v1_template_for_RP_simple — Без кнопок CTA)
+            <div class="templates-row">
+                <!-- ШАБЛОН 1 -->
+                <div class="template-preview-card">
+                    <div class="preview-header-row">
+                        <div class="template-badge">
+                            🏷️ Шаблон I
+                        </div>
+                        <button class="tmpl-copy-btn" data-target="code-1">📋 Копіювати код</button>
                     </div>
+                    <div class="preview-box">
+                        <div class="widget-mockup">
+                            <iframe id="frame-1" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                    <!-- Прихований код для копіювання -->
+                    <pre style="display:none;"><code id="code-1">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Saturday Bonus&lt;/title&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
+  &lt;style&gt;
+    body, .inbox-card {
+      margin: 0;
+      padding: 0;
+      background-color: #262A34;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      color: #B6BDCC;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="margin:0;padding:0;background-color:#262A34;"&gt;
+  &lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#B6BDCC;overflow:hidden;"&gt;
+
+    &lt;!-- Header card (image) --&gt;
+    &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 17px 23px -4px rgba(253,216,53,0.20);"&gt;
+      &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOEdCRFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--db86b113ae505ad04c731ef9ed537a2d814c1f78/mail_live_tide_bonus.jpg" width="308" alt="Saturday Bonus gift box" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Body content --&gt;
+    &lt;div style="padding:24px 16px 0;"&gt;
+
+      &lt;h1 style="margin:0 0 12px;font-size:20px;font-weight:600;line-height:24px;color:#FFFFFF;"&gt;
+        Boost your deposit with exclusive bonuses!
+      &lt;/h1&gt;
+
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Make a deposit and get an extra bonus on top. The more you deposit, the more you get.
+      &lt;/p&gt;
+
+      &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Choose the offer that suits you best:
+      &lt;/p&gt;
+
+      &lt;ul style="margin:0 0 16px;padding:0 0 0 20px;font-size:14px;font-weight:400;line-height:20px;"&gt;
+        &lt;li style="margin:0 0 16px;"&gt;
+          &lt;p style="margin:0 0 2px;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
+            30% bonus on &lt;b&gt;150 EUR&lt;/b&gt; deposit
+          &lt;/p&gt;
+          &lt;p style="margin:0;font-size:14px;line-height:20px;"&gt;
+            Claim it with your next deposit.
+          &lt;/p&gt;
+        &lt;/li&gt;
+
+        &lt;li style="margin:0 0 16px;"&gt;
+          &lt;p style="margin:0 0 2px;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
+            25% bonus on &lt;b&gt;50 EUR&lt;/b&gt; deposit
+          &lt;/p&gt;
+          &lt;p style="margin:0;font-size:14px;line-height:20px;"&gt;
+            Claim it with your next deposit.
+          &lt;/p&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+
+      &lt;p style="margin:0 0 16px;font-size:14px;font-weight:400;line-height:20px;"&gt;
+        Don't miss your chance. Deposit now and start playing!
+      &lt;/p&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+                    </code></pre>
                 </div>
 
-                <div class="builder-grid">
-                    <div class="code-box">
-                        <div class="code-bar">
-                            <span>HTML-код для поля Rich Body</span>
-                            <button class="tmpl-copy-btn" data-target="code-1">📋 Копіювати код</button>
+                <!-- ШАБЛОН 2 -->
+                <div class="template-preview-card">
+                    <div class="preview-header-row">
+                        <div class="template-badge">
+                            🏷️ Шаблон II
                         </div>
-                        <pre class="code-view"><code id="code-1">&lt;!DOCTYPE html&gt;
+                        <button class="tmpl-copy-btn" data-target="code-2">📋 Копіювати код</button>
+                    </div>
+                    <div class="preview-box">
+                        <div class="widget-mockup">
+                            <iframe id="frame-2" class="widget-iframe"></iframe>
+                        </div>
+                    </div>
+                    <pre style="display:none;"><code id="code-2">
+&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
   &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
   &lt;title&gt;Kingroom Promo&lt;/title&gt;
-  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
   &lt;style&gt;
-    html, body {
+    body, .inbox-card {
+      margin: 0;
+      padding: 0;
       background-color: #262A34;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      color: #B6BDCC;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
   &lt;/style&gt;
 &lt;/head&gt;
-&lt;body style="width:100%;margin:0;padding:0;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;"&gt;
-  &lt;div role="article" style="width:100%;background-color:#262A34;"&gt;
-    &lt;div style="width:100%;margin:0 auto;background-color:#262A34;overflow:hidden;"&gt;
-      &lt;div style="margin:3px 12px 0;border:2px solid #262A34;border-radius:24px;overflow:hidden;box-shadow:0 4px 16px 0 rgba(253,216,53,0.20);"&gt;
-        &lt;div style="width:100%;line-height:0;font-size:0;"&gt;
-          &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkRoREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--11f0f9131e4ab703e673629a7b83514d2198e105/Bonus_01_push_1024x512.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;text-decoration:none;"&gt;
-        &lt;/div&gt;
-        &lt;div style="padding:16px;background:linear-gradient(180deg,#3A3F52 0%,#262A34 100%);"&gt;
-          &lt;h1 style="margin:0;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:20px;font-weight:600;line-height:24px;letter-spacing:-0.05px;color:#FFFFFF;"&gt;Hi {{state.core_username|Bro}},&lt;/h1&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div style="padding:24px 16px 0 16px;"&gt;
-        &lt;p style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:&lt;/p&gt;
-        &lt;p style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;x740 by Liya&lt;br&gt;x538 by Maya&lt;br&gt;x390 by Nick&lt;/p&gt;
-        &lt;p style="margin:0 0 16px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;Want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                    </div>
+&lt;body style="margin:0;padding:0;background-color:#262A34;"&gt;
+  &lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#B6BDCC;overflow:hidden;"&gt;
 
-                    <div class="preview-box">
-                        <div class="preview-header">📱 Live Render шаблону</div>
-                        <div class="widget-mockup">
-                            <iframe id="frame-1" class="widget-iframe"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ШАБЛОН 2 -->
-            <div class="template-card">
-                <div class="template-card-header">
-                    <div class="template-badge">
-                        <span>🏷️</span> Шаблон ID: 274312 (v3_template_for_RP_1button — Saturday Bonus)
-                    </div>
-                </div>
-
-                <div class="builder-grid">
-                    <div class="code-box">
-                        <div class="code-bar">
-                            <span>HTML-код для поля Rich Body</span>
-                            <button class="tmpl-copy-btn" data-target="code-2">📋 Копіювати код</button>
-                        </div>
-                        <pre class="code-view"><code id="code-2">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-  &lt;meta name="x-apple-disable-message-reformatting"&gt;
-  &lt;title&gt;Saturday Bonus&lt;/title&gt;
-  &lt;!--[if mso]&gt;&lt;style&gt;body,table,td,p,h1,h2{font-family:Arial,sans-serif!important;}&lt;/style&gt;&lt;![endif]--&gt;
-  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
-&lt;/head&gt;
-&lt;body style="width:100%;margin:0;padding:0;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;"&gt;
-  &lt;div role="article" aria-roledescription="email" aria-label="Saturday Bonus" style="width:100%;background-color:#262A34;"&gt;
-    &lt;div style="width:100%;margin:0 auto;background-color:#262A34;overflow:hidden;"&gt;
-      &lt;!-- Header card (image only) --&gt;
-      &lt;div style="margin:3px 12px 0;border:2px solid #262A34;border-radius:24px;overflow:hidden;box-shadow:0 4px 16px 0 rgba(253,216,53,0.20);"&gt;
-        &lt;div style="width:100%;line-height:0;font-size:0;"&gt;
-          &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOEdCRFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--db86b113ae505ad04c731ef9ed537a2d814c1f78/mail_live_tide_bonus.jpg" width="308" alt="Saturday Bonus gift box" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;text-decoration:none;"&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-
-      &lt;!-- Body --&gt;
-      &lt;div style="padding:24px 16px 0 16px;"&gt;
-        &lt;h1 style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:20px;font-weight:600;line-height:24px;letter-spacing:-0.05px;color:#FFFFFF;"&gt;
-          Boost your deposit with exclusive bonuses!
+    &lt;!-- Header card (image + gradient banner) --&gt;
+    &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 17px 23px -4px rgba(253,216,53,0.20);"&gt;
+      &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkRoREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--11f0f9131e4ab703e673629a7b83514d2198e105/Bonus_01_push_1024x512.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
+      
+      &lt;div style="padding:16px;background:linear-gradient(180deg,#3A3F52 0%,#262A34 100%);"&gt;
+        &lt;h1 style="margin:0;font-size:20px;font-weight:600;line-height:24px;color:#FFFFFF;"&gt;
+          Hi {{state.core_username|Bro}},
         &lt;/h1&gt;
-
-        &lt;p style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;
-          Make a deposit and get an extra bonus on top. The more you deposit, the more you get.
-        &lt;/p&gt;
-
-        &lt;p style="margin:0 0 16px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;
-          Choose the offer that suits you best:
-        &lt;/p&gt;
-
-        &lt;ul style="margin:0 0 16px;padding:0 0 0 20px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:20px;letter-spacing:0.1px;color:#B6BDCC;"&gt;
-          &lt;li style="margin:0 0 16px;"&gt;
-            &lt;p style="margin:0 0 2px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
-              30% bonus on &lt;b&gt;150 EUR&lt;/b&gt; deposit
-            &lt;/p&gt;
-            &lt;p style="margin:0;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:20px;letter-spacing:0.1px;color:#B6BDCC;"&gt;
-              Claim it with your next deposit.
-            &lt;/p&gt;
-          &lt;/li&gt;
-
-          &lt;li style="margin:0 0 16px;"&gt;
-            &lt;p style="margin:0 0 2px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
-              25% bonus on &lt;b&gt;50 EUR&lt;/b&gt; deposit
-            &lt;/p&gt;
-            &lt;p style="margin:0;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:20px;letter-spacing:0.1px;color:#B6BDCC;"&gt;
-              Claim it with your next deposit.
-            &lt;/p&gt;
-          &lt;/li&gt;
-
-          &lt;li style="margin:0;"&gt;
-            &lt;p style="margin:0 0 2px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:18px;font-weight:600;line-height:22px;color:#FDD835;"&gt;
-              20% bonus on &lt;b&gt;25 EUR&lt;/b&gt; deposit
-            &lt;/p&gt;
-            &lt;p style="margin:0;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:20px;letter-spacing:0.1px;color:#B6BDCC;"&gt;
-              Claim it with your next deposit.
-            &lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-
-        &lt;p style="margin:0 0 16px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:20px;letter-spacing:0.1px;color:#B6BDCC;"&gt;
-          Don't miss your chance. Deposit now and start playing!
-        &lt;/p&gt;
       &lt;/div&gt;
     &lt;/div&gt;
+
+    &lt;!-- Body content --&gt;
+    &lt;div style="padding:24px 16px 0;"&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:
+      &lt;/p&gt;
+
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        x740 by Liya&lt;br&gt;
+        x538 by Maya&lt;br&gt;
+        x390 by Nick
+      &lt;/p&gt;
+
+      &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨
+      &lt;/p&gt;
+    &lt;/div&gt;
+
   &lt;/div&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                    </div>
+&lt;/html&gt;
 
+                    </code></pre>
+                </div>
+
+                <!-- ШАБЛОН 3 -->
+                <div class="template-preview-card">
+                    <div class="preview-header-row">
+                        <div class="template-badge">
+                            🏷️ Шаблон III
+                        </div>
+                        <button class="tmpl-copy-btn" data-target="code-3">📋 Копіювати код</button>
+                    </div>
                     <div class="preview-box">
-                        <div class="preview-header">📱 Live Render шаблону</div>
                         <div class="widget-mockup">
-                            <iframe id="frame-2" class="widget-iframe"></iframe>
+                            <iframe id="frame-3" class="widget-iframe"></iframe>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- ШАБЛОН 3 -->
-            <div class="template-card">
-                <div class="template-card-header">
-                    <div class="template-badge">
-                        <span>🏷️</span> Шаблон ID: 274306 (v2_template_for_RP_2button — SPACE Promo)
-                    </div>
-                </div>
-
-                <div class="builder-grid">
-                    <div class="code-box">
-                        <div class="code-bar">
-                            <span>HTML-код для поля Rich Body</span>
-                            <button class="tmpl-copy-btn" data-target="code-3">📋 Копіювати код</button>
-                        </div>
-                        <pre class="code-view"><code id="code-3">&lt;!DOCTYPE html&gt;
+                    <pre style="display:none;"><code id="code-3">
+&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
   &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
   &lt;title&gt;SPACE Promo&lt;/title&gt;
-  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"&gt;
   &lt;style&gt;
-    html, body {
+    body, .inbox-card {
+      margin: 0;
+      padding: 0;
       background-color: #262A34;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      color: #B6BDCC;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
   &lt;/style&gt;
 &lt;/head&gt;
-&lt;body style="width:100%;margin:0;padding:0;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;"&gt;
-  &lt;div role="article" style="width:100%;background-color:#262A34;"&gt;
-    &lt;div style="width:100%;margin:0 auto;background-color:#262A34;overflow:hidden;"&gt;
-      &lt;div style="margin:3px 12px 0;border:2px solid #262A34;border-radius:24px;overflow:hidden;box-shadow:0 4px 16px 0 rgba(253,216,53,0.20);"&gt;
-        &lt;div style="width:100%;line-height:0;font-size:0;"&gt;
-          &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkRoREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--11f0f9131e4ab703e673629a7b83514d2198e105/Bonus_01_push_1024x512.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;text-decoration:none;"&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div style="padding:24px 16px 0 16px;"&gt;
-        &lt;h1 style="margin:0 0 8px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:20px;font-weight:600;line-height:24px;letter-spacing:-0.05px;color:#FFFFFF;"&gt;BIGGEST EVER PROMO IS COMING TO SPACE!&lt;/h1&gt;
-        &lt;p style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;Hey {{username}},&lt;/p&gt;
-        &lt;p style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:&lt;/p&gt;
-        &lt;p style="margin:0 0 12px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;x740 by Liya&lt;br&gt;x538 by Maya&lt;br&gt;x390 by Nick&lt;/p&gt;
-        &lt;p style="margin:0 0 16px;font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:23px;letter-spacing:0.08px;color:#B6BDCC;"&gt;{{username}}, want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨&lt;/p&gt;
-      &lt;/div&gt;
+&lt;body style="margin:0;padding:0;background-color:#262A34;"&gt;
+  &lt;div class="inbox-card" style="width:100%;margin:0 auto;background-color:#262A34;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#B6BDCC;overflow:hidden;"&gt;
+    
+    &lt;!-- Header card (image only) --&gt;
+    &lt;div style="margin:10px 16px 0;border-radius:24px;overflow:hidden;box-shadow:0px 17px 23px -4px rgba(253,216,53,0.20);"&gt;
+      &lt;img src="https://cf-cms.s7s.ai/cms/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkRoREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--11f0f9131e4ab703e673629a7b83514d2198e105/Bonus_01_push_1024x512.png" width="308" alt="Biggest ever promo" style="display:block;width:100%;height:auto;margin:0;border:0;outline:none;"&gt;
     &lt;/div&gt;
+    
+    &lt;!-- Body content --&gt;
+    &lt;div style="padding:24px 16px 0;"&gt;
+      &lt;h1 style="margin:0 0 8px;font-size:20px;font-weight:600;line-height:24px;color:#FFFFFF;"&gt;
+        BIGGEST EVER PROMO IS COMING TO SPACE!
+      &lt;/h1&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Hey {{state.core_username|Bro}},
+      &lt;/p&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        Still doubting the benefits of playing with 100 Free Spins? Take a look at the biggest wins achieved with this bonus:
+      &lt;/p&gt;
+      &lt;p style="margin:0 0 12px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        x740 by Liya&lt;br&gt;
+        x538 by Maya&lt;br&gt;
+        x390 by Nick
+      &lt;/p&gt;
+      &lt;p style="margin:0 0 16px;font-size:16px;font-weight:400;line-height:23px;"&gt;
+        {{state.core_username|Bro}}, want to be on this list of winners as well? Then claim your 100 Free Spins by making a minimum deposit and start winning. Good luck! ✨
+      &lt;/p&gt;
+    &lt;/div&gt;
+    
   &lt;/div&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                    </div>
-
-                    <div class="preview-box">
-                        <div class="preview-header">📱 Live Render шаблону</div>
-                        <div class="widget-mockup">
-                            <iframe id="frame-3" class="widget-iframe"></iframe>
-                        </div>
-                    </div>
+&lt;/html&gt;
+                    </code></pre>
                 </div>
             </div>
 
@@ -815,7 +779,7 @@
         });
     }
 
-    // 4. Копіювання коду шаблонів (секція 4)
+    // Копіювання коду шаблонів (секція 4)
     document.querySelectorAll('.tmpl-copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-target');
@@ -833,7 +797,7 @@
         });
     });
 
-    // 5. Рендер Live Preview у iframe для секції 4
+    // Рендер Live Preview у iframe для секції 4
     [1, 2, 3].forEach(num => {
         const codeEl = document.getElementById('code-' + num);
         const frame = document.getElementById('frame-' + num);
@@ -849,4 +813,3 @@
 
 </body>
 </html>
-
